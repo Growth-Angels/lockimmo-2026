@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "lockimmo",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["/Users/dimitrimunzer/Documents/Dev/Lockimmo 2026/.claude/serve.py"],
+      "port": 4000,
+      "autoPort": true
+    }
+  ]
+}
