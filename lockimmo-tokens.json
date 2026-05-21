@@ -514,76 +514,76 @@
     "typography": {
       "display-hero": {
         "value": {
-          "fontFamily": "{global.fontFamilies.display}",
-          "fontWeight": "{global.fontWeights.medium}",
-          "fontSize": "{global.fontSize.6xl}",
-          "lineHeight": "{global.lineHeights.none}",
-          "letterSpacing": "{global.letterSpacing.tightest}"
+          "fontFamily": "{fontFamilies.display}",
+          "fontWeight": "{fontWeights.medium}",
+          "fontSize": "{fontSize.6xl}",
+          "lineHeight": "{lineHeights.none}",
+          "letterSpacing": "{letterSpacing.tightest}"
         },
         "type": "typography",
         "description": "Stats géantes marketing (84px)"
       },
       "display-h1": {
         "value": {
-          "fontFamily": "{global.fontFamilies.display}",
-          "fontWeight": "{global.fontWeights.medium}",
-          "fontSize": "{global.fontSize.4xl}",
-          "lineHeight": "{global.lineHeights.tight}",
-          "letterSpacing": "{global.letterSpacing.tightest}"
+          "fontFamily": "{fontFamilies.display}",
+          "fontWeight": "{fontWeights.medium}",
+          "fontSize": "{fontSize.4xl}",
+          "lineHeight": "{lineHeights.tight}",
+          "letterSpacing": "{letterSpacing.tightest}"
         },
         "type": "typography",
         "description": "Wordmark / H1 hero (48px)"
       },
       "display-h2": {
         "value": {
-          "fontFamily": "{global.fontFamilies.display}",
-          "fontWeight": "{global.fontWeights.medium}",
-          "fontSize": "{global.fontSize.3xl}",
-          "lineHeight": "{global.lineHeights.tight}",
-          "letterSpacing": "{global.letterSpacing.tight}"
+          "fontFamily": "{fontFamilies.display}",
+          "fontWeight": "{fontWeights.medium}",
+          "fontSize": "{fontSize.3xl}",
+          "lineHeight": "{lineHeights.tight}",
+          "letterSpacing": "{letterSpacing.tight}"
         },
         "type": "typography",
         "description": "Titres de section marketing (32px)"
       },
       "display-page-title": {
         "value": {
-          "fontFamily": "{global.fontFamilies.display}",
-          "fontWeight": "{global.fontWeights.medium}",
-          "fontSize": "{global.fontSize.2xl}",
-          "lineHeight": "{global.lineHeights.snug}",
-          "letterSpacing": "{global.letterSpacing.tight}"
+          "fontFamily": "{fontFamilies.display}",
+          "fontWeight": "{fontWeights.medium}",
+          "fontSize": "{fontSize.2xl}",
+          "lineHeight": "{lineHeights.snug}",
+          "letterSpacing": "{letterSpacing.tight}"
         },
         "type": "typography",
         "description": "Titre de page app (28px)"
       },
       "display-h3": {
         "value": {
-          "fontFamily": "{global.fontFamilies.display}",
-          "fontWeight": "{global.fontWeights.medium}",
-          "fontSize": "{global.fontSize.xl}",
-          "lineHeight": "{global.lineHeights.snug}",
-          "letterSpacing": "{global.letterSpacing.tight}"
+          "fontFamily": "{fontFamilies.display}",
+          "fontWeight": "{fontWeights.medium}",
+          "fontSize": "{fontSize.xl}",
+          "lineHeight": "{lineHeights.snug}",
+          "letterSpacing": "{letterSpacing.tight}"
         },
         "type": "typography",
         "description": "Card title / H3 (22px)"
       },
       "display-topbar": {
         "value": {
-          "fontFamily": "{global.fontFamilies.display}",
-          "fontWeight": "{global.fontWeights.medium}",
-          "fontSize": "{global.fontSize.lg}",
-          "lineHeight": "{global.lineHeights.tight}",
-          "letterSpacing": "{global.letterSpacing.tight}"
+          "fontFamily": "{fontFamilies.display}",
+          "fontWeight": "{fontWeights.medium}",
+          "fontSize": "{fontSize.lg}",
+          "lineHeight": "{lineHeights.tight}",
+          "letterSpacing": "{letterSpacing.tight}"
         },
         "type": "typography",
         "description": "Logo topbar (18px)"
       },
       "body-lead": {
         "value": {
-          "fontFamily": "{global.fontFamilies.sans}",
-          "fontWeight": "{global.fontWeights.regular}",
-          "fontSize": "{global.fontSize.md}",
-          "lineHeight": "{global.lineHeights.loose}",
+          "fontFamily": "{fontFamilies.sans}",
+          "fontWeight": "{fontWeights.regular}",
+          "fontSize": "{fontSize.md}",
+          "lineHeight": "{lineHeights.loose}",
           "letterSpacing": "0%"
         },
         "type": "typography",
@@ -591,10 +591,10 @@
       },
       "body-base": {
         "value": {
-          "fontFamily": "{global.fontFamilies.sans}",
-          "fontWeight": "{global.fontWeights.regular}",
-          "fontSize": "{global.fontSize.base}",
-          "lineHeight": "{global.lineHeights.relaxed}",
+          "fontFamily": "{fontFamilies.sans}",
+          "fontWeight": "{fontWeights.regular}",
+          "fontSize": "{fontSize.base}",
+          "lineHeight": "{lineHeights.relaxed}",
           "letterSpacing": "0%"
         },
         "type": "typography",
@@ -602,10 +602,10 @@
       },
       "body-sm": {
         "value": {
-          "fontFamily": "{global.fontFamilies.sans}",
-          "fontWeight": "{global.fontWeights.regular}",
-          "fontSize": "{global.fontSize.sm}",
-          "lineHeight": "{global.lineHeights.normal}",
+          "fontFamily": "{fontFamilies.sans}",
+          "fontWeight": "{fontWeights.regular}",
+          "fontSize": "{fontSize.sm}",
+          "lineHeight": "{lineHeights.normal}",
           "letterSpacing": "0%"
         },
         "type": "typography",
@@ -613,21 +613,21 @@
       },
       "label-uppercase": {
         "value": {
-          "fontFamily": "{global.fontFamilies.sans}",
-          "fontWeight": "{global.fontWeights.bold}",
-          "fontSize": "{global.fontSize.xs}",
-          "lineHeight": "{global.lineHeights.snug}",
-          "letterSpacing": "{global.letterSpacing.widest}"
+          "fontFamily": "{fontFamilies.sans}",
+          "fontWeight": "{fontWeights.bold}",
+          "fontSize": "{fontSize.xs}",
+          "lineHeight": "{lineHeights.snug}",
+          "letterSpacing": "{letterSpacing.widest}"
         },
         "type": "typography",
         "description": "Labels uppercase section/categories (10px)"
       },
       "label-semibold": {
         "value": {
-          "fontFamily": "{global.fontFamilies.sans}",
-          "fontWeight": "{global.fontWeights.semibold}",
-          "fontSize": "{global.fontSize.sm}",
-          "lineHeight": "{global.lineHeights.snug}",
+          "fontFamily": "{fontFamilies.sans}",
+          "fontWeight": "{fontWeights.semibold}",
+          "fontSize": "{fontSize.sm}",
+          "lineHeight": "{lineHeights.snug}",
           "letterSpacing": "0%"
         },
         "type": "typography",
@@ -635,10 +635,10 @@
       },
       "nav-item": {
         "value": {
-          "fontFamily": "{global.fontFamilies.sans}",
-          "fontWeight": "{global.fontWeights.regular}",
+          "fontFamily": "{fontFamilies.sans}",
+          "fontWeight": "{fontWeights.regular}",
           "fontSize": "13",
-          "lineHeight": "{global.lineHeights.snug}",
+          "lineHeight": "{lineHeights.snug}",
           "letterSpacing": "0%"
         },
         "type": "typography",
@@ -646,10 +646,10 @@
       },
       "nav-item-active": {
         "value": {
-          "fontFamily": "{global.fontFamilies.sans}",
-          "fontWeight": "{global.fontWeights.semibold}",
+          "fontFamily": "{fontFamilies.sans}",
+          "fontWeight": "{fontWeights.semibold}",
           "fontSize": "13",
-          "lineHeight": "{global.lineHeights.snug}",
+          "lineHeight": "{lineHeights.snug}",
           "letterSpacing": "0%"
         },
         "type": "typography",
@@ -657,10 +657,10 @@
       },
       "badge": {
         "value": {
-          "fontFamily": "{global.fontFamilies.sans}",
-          "fontWeight": "{global.fontWeights.semibold}",
+          "fontFamily": "{fontFamilies.sans}",
+          "fontWeight": "{fontWeights.semibold}",
           "fontSize": "11",
-          "lineHeight": "{global.lineHeights.snug}",
+          "lineHeight": "{lineHeights.snug}",
           "letterSpacing": "0%"
         },
         "type": "typography",
@@ -668,41 +668,41 @@
       },
       "amount": {
         "value": {
-          "fontFamily": "{global.fontFamilies.display}",
-          "fontWeight": "{global.fontWeights.medium}",
+          "fontFamily": "{fontFamilies.display}",
+          "fontWeight": "{fontWeights.medium}",
           "fontSize": "14",
-          "lineHeight": "{global.lineHeights.snug}",
-          "letterSpacing": "{global.letterSpacing.tight}"
+          "lineHeight": "{lineHeights.snug}",
+          "letterSpacing": "{letterSpacing.tight}"
         },
         "type": "typography",
         "description": "Montants €, Chillax (14px)"
       },
       "btn-lg": {
         "value": {
-          "fontFamily": "{global.fontFamilies.sans}",
-          "fontWeight": "{global.fontWeights.bold}",
+          "fontFamily": "{fontFamilies.sans}",
+          "fontWeight": "{fontWeights.bold}",
           "fontSize": "14",
-          "lineHeight": "{global.lineHeights.snug}",
+          "lineHeight": "{lineHeights.snug}",
           "letterSpacing": "0%"
         },
         "type": "typography"
       },
       "btn-md": {
         "value": {
-          "fontFamily": "{global.fontFamilies.sans}",
-          "fontWeight": "{global.fontWeights.bold}",
+          "fontFamily": "{fontFamilies.sans}",
+          "fontWeight": "{fontWeights.bold}",
           "fontSize": "13",
-          "lineHeight": "{global.lineHeights.snug}",
+          "lineHeight": "{lineHeights.snug}",
           "letterSpacing": "0%"
         },
         "type": "typography"
       },
       "btn-sm": {
         "value": {
-          "fontFamily": "{global.fontFamilies.sans}",
-          "fontWeight": "{global.fontWeights.bold}",
+          "fontFamily": "{fontFamilies.sans}",
+          "fontWeight": "{fontWeights.bold}",
           "fontSize": "11.5",
-          "lineHeight": "{global.lineHeights.snug}",
+          "lineHeight": "{lineHeights.snug}",
           "letterSpacing": "0%"
         },
         "type": "typography"
