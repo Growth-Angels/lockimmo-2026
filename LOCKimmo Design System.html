@@ -540,6 +540,76 @@
     .ds-table tfoot td { padding: 10px 16px; font-size: 12px; font-weight: 600; color: var(--ink-600); border-top: 1px solid var(--border-default); background: var(--surface-200); }
 
     /* ──────────────────────────────────
+       SKELETONS
+    ────────────────────────────────── */
+    @keyframes shimmer {
+      from { background-position: -600px 0; }
+      to   { background-position:  600px 0; }
+    }
+    .skel {
+      background: linear-gradient(90deg, var(--surface-300) 25%, var(--surface-100) 50%, var(--surface-300) 75%);
+      background-size: 1200px 100%;
+      animation: shimmer 1.6s ease-in-out infinite;
+    }
+    .skel-line   { height: 10px; border-radius: 5px; }
+    .skel-line.sm { height: 8px; }
+    .skel-line.lg { height: 14px; }
+    .skel-circle { border-radius: 50%; }
+    .skel-pill   { border-radius: 100px; }
+    .skel-rect   { border-radius: var(--radius-md); }
+    .skel-card   {
+      background: var(--surface-100);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      box-shadow: var(--shadow-card);
+    }
+    .skel-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .skel-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+
+    /* ──────────────────────────────────
+       SOCIAL ICONS
+    ────────────────────────────────── */
+    .social-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .social-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      background: var(--surface-100);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-pill);
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-800);
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.15s, border-color 0.15s;
+    }
+    .social-chip:hover { box-shadow: var(--shadow-hover); border-color: var(--border-brand); }
+    .social-icon-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 16px;
+      background: var(--surface-100);
+      border: 1px solid var(--border-default);
+      border-radius: var(--radius-lg);
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--ink-400);
+    }
+
+    /* ──────────────────────────────────
        SPACING
     ────────────────────────────────── */
     .spacing-row {
@@ -982,6 +1052,12 @@
       </a>
       <a class="nav-item" href="#cards">
         <div class="nav-dot" style="background:#FAFAF9;border:1px solid #ccc"></div> Cards
+      </a>
+      <a class="nav-item" href="#skeletons">
+        <div class="nav-dot" style="background:#EDE9E5;border:1px solid #ccc"></div> Skeletons
+      </a>
+      <a class="nav-item" href="#social-icons">
+        <div class="nav-dot" style="background:#3B7DF8"></div> Icônes sociales
       </a>
       <a class="nav-item" href="#nav-component">
         <div class="nav-dot" style="background:#353230"></div> Navigation
@@ -1913,6 +1989,236 @@
               </div>
               <span class="tile-label-demo">Locations<br>saisonnières</span>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ SKELETONS ══════════════════ -->
+    <section class="ds-section" id="skeletons">
+      <div class="ds-section-header">
+        <h2 class="ds-section-title">Skeletons</h2>
+        <span class="ds-section-sub">États de chargement · shimmer animation</span>
+      </div>
+
+      <!-- App card skeleton -->
+      <div class="ds-subsection">
+        <div class="ds-subsection-label">App cards — chargement</div>
+        <div class="skel-grid-2">
+          <!-- Skeleton calqué sur app-card -->
+          <div class="skel-card">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="skel skel-rect" style="width:40px;height:40px;flex-shrink:0"></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+                <div class="skel skel-line lg" style="width:70%"></div>
+                <div class="skel skel-line sm" style="width:45%"></div>
+              </div>
+              <div class="skel skel-pill" style="width:64px;height:20px;flex-shrink:0"></div>
+            </div>
+            <div class="skel" style="height:1px"></div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-end">
+              <div style="display:flex;flex-direction:column;gap:5px">
+                <div class="skel skel-line sm" style="width:40px"></div>
+                <div class="skel skel-line lg" style="width:60px"></div>
+              </div>
+              <div style="display:flex;flex-direction:column;gap:5px;align-items:flex-end">
+                <div class="skel skel-line sm" style="width:40px"></div>
+                <div class="skel skel-line" style="width:72px"></div>
+              </div>
+            </div>
+          </div>
+          <div class="skel-card">
+            <div style="display:flex;align-items:center;gap:10px">
+              <div class="skel skel-rect" style="width:40px;height:40px;flex-shrink:0"></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+                <div class="skel skel-line lg" style="width:60%"></div>
+                <div class="skel skel-line sm" style="width:50%"></div>
+              </div>
+              <div class="skel skel-pill" style="width:72px;height:20px;flex-shrink:0"></div>
+            </div>
+            <div class="skel" style="height:1px"></div>
+            <div style="display:flex;justify-content:space-between;align-items:flex-end">
+              <div style="display:flex;flex-direction:column;gap:5px">
+                <div class="skel skel-line sm" style="width:40px"></div>
+                <div class="skel skel-line lg" style="width:56px"></div>
+              </div>
+              <div class="skel skel-pill" style="width:72px;height:30px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Liste d'éléments skeleton -->
+      <div class="ds-subsection">
+        <div class="ds-subsection-label">Liste — chargement</div>
+        <div class="skel-card" style="gap:0">
+          <div style="display:flex;flex-direction:column;">
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border-subtle)">
+              <div class="skel skel-circle" style="width:36px;height:36px;flex-shrink:0"></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+                <div class="skel skel-line" style="width:55%"></div>
+                <div class="skel skel-line sm" style="width:35%"></div>
+              </div>
+              <div class="skel skel-line" style="width:48px"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 0;border-bottom:1px solid var(--border-subtle)">
+              <div class="skel skel-circle" style="width:36px;height:36px;flex-shrink:0"></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+                <div class="skel skel-line" style="width:65%"></div>
+                <div class="skel skel-line sm" style="width:40%"></div>
+              </div>
+              <div class="skel skel-line" style="width:56px"></div>
+            </div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 0">
+              <div class="skel skel-circle" style="width:36px;height:36px;flex-shrink:0"></div>
+              <div style="flex:1;display:flex;flex-direction:column;gap:6px">
+                <div class="skel skel-line" style="width:48%"></div>
+                <div class="skel skel-line sm" style="width:30%"></div>
+              </div>
+              <div class="skel skel-line" style="width:52px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stat / KPI cards skeleton -->
+      <div class="ds-subsection">
+        <div class="ds-subsection-label">Stat & KPI — chargement</div>
+        <div class="skel-grid-3">
+          <div class="skel-card" style="gap:10px">
+            <div class="skel skel-line sm" style="width:50%"></div>
+            <div class="skel skel-line" style="width:70%;height:28px;border-radius:6px"></div>
+            <div class="skel skel-line sm" style="width:40%"></div>
+          </div>
+          <div class="skel-card" style="gap:10px">
+            <div class="skel skel-line sm" style="width:55%"></div>
+            <div class="skel skel-line" style="width:60%;height:28px;border-radius:6px"></div>
+            <div class="skel skel-line sm" style="width:45%"></div>
+          </div>
+          <div class="skel-card" style="gap:10px">
+            <div class="skel skel-line sm" style="width:45%"></div>
+            <div class="skel skel-line" style="width:65%;height:28px;border-radius:6px"></div>
+            <div class="skel skel-line sm" style="width:35%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marketing card skeleton -->
+      <div class="ds-subsection">
+        <div class="ds-subsection-label">Card marketing — chargement</div>
+        <div class="skel-card" style="gap:16px;max-width:480px">
+          <div class="skel skel-rect" style="width:100%;height:180px"></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div class="skel skel-pill" style="width:80px;height:20px"></div>
+            <div class="skel skel-line lg" style="width:85%"></div>
+            <div class="skel skel-line lg" style="width:65%"></div>
+            <div class="skel skel-line sm" style="width:90%;margin-top:2px"></div>
+            <div class="skel skel-line sm" style="width:75%"></div>
+          </div>
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div class="skel skel-circle" style="width:28px;height:28px"></div>
+              <div class="skel skel-line sm" style="width:80px"></div>
+            </div>
+            <div class="skel skel-pill" style="width:96px;height:32px"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ SOCIAL ICONS ══════════════════ -->
+    <section class="ds-section" id="social-icons">
+      <div class="ds-section-header">
+        <h2 class="ds-section-title">Icônes sociales</h2>
+        <span class="ds-section-sub">Simple Icons · CDN simpleicons.org · couleurs brand + neutres</span>
+      </div>
+
+      <!-- Chips avec label -->
+      <div class="ds-subsection">
+        <div class="ds-subsection-label">Chips — couleurs brand (défaut)</div>
+        <div class="social-grid">
+          <span class="social-chip"><img src="https://cdn.simpleicons.org/linkedin" width="16" height="16" alt="">LinkedIn</span>
+          <span class="social-chip"><img src="https://cdn.simpleicons.org/instagram" width="16" height="16" alt="">Instagram</span>
+          <span class="social-chip"><img src="https://cdn.simpleicons.org/facebook" width="16" height="16" alt="">Facebook</span>
+          <span class="social-chip"><img src="https://cdn.simpleicons.org/x" width="16" height="16" alt="">X / Twitter</span>
+          <span class="social-chip"><img src="https://cdn.simpleicons.org/youtube" width="16" height="16" alt="">YouTube</span>
+          <span class="social-chip"><img src="https://cdn.simpleicons.org/tiktok" width="16" height="16" alt="">TikTok</span>
+          <span class="social-chip"><img src="https://cdn.simpleicons.org/whatsapp" width="16" height="16" alt="">WhatsApp</span>
+          <span class="social-chip"><img src="https://cdn.simpleicons.org/pinterest" width="16" height="16" alt="">Pinterest</span>
+          <span class="social-chip"><img src="https://cdn.simpleicons.org/google" width="16" height="16" alt="">Google</span>
+          <span class="social-chip"><img src="https://cdn.simpleicons.org/googlemybusiness" width="16" height="16" alt="">Google Business</span>
+        </div>
+      </div>
+
+      <!-- Icônes seules grille + tailles -->
+      <div class="ds-subsection">
+        <div class="ds-subsection-label">Icônes seules — 3 tailles</div>
+        <div class="ds-card" style="display:flex;flex-direction:column;gap:24px;">
+          <!-- 16px -->
+          <div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-400);margin-bottom:10px">16px</div>
+            <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap;">
+              <img src="https://cdn.simpleicons.org/linkedin"          width="16" height="16" alt="LinkedIn">
+              <img src="https://cdn.simpleicons.org/instagram"         width="16" height="16" alt="Instagram">
+              <img src="https://cdn.simpleicons.org/facebook"          width="16" height="16" alt="Facebook">
+              <img src="https://cdn.simpleicons.org/x"                 width="16" height="16" alt="X">
+              <img src="https://cdn.simpleicons.org/youtube"           width="16" height="16" alt="YouTube">
+              <img src="https://cdn.simpleicons.org/tiktok"            width="16" height="16" alt="TikTok">
+              <img src="https://cdn.simpleicons.org/whatsapp"          width="16" height="16" alt="WhatsApp">
+              <img src="https://cdn.simpleicons.org/pinterest"         width="16" height="16" alt="Pinterest">
+              <img src="https://cdn.simpleicons.org/google"            width="16" height="16" alt="Google">
+            </div>
+          </div>
+          <!-- 24px -->
+          <div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-400);margin-bottom:10px">24px</div>
+            <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
+              <img src="https://cdn.simpleicons.org/linkedin"          width="24" height="24" alt="LinkedIn">
+              <img src="https://cdn.simpleicons.org/instagram"         width="24" height="24" alt="Instagram">
+              <img src="https://cdn.simpleicons.org/facebook"          width="24" height="24" alt="Facebook">
+              <img src="https://cdn.simpleicons.org/x"                 width="24" height="24" alt="X">
+              <img src="https://cdn.simpleicons.org/youtube"           width="24" height="24" alt="YouTube">
+              <img src="https://cdn.simpleicons.org/tiktok"            width="24" height="24" alt="TikTok">
+              <img src="https://cdn.simpleicons.org/whatsapp"          width="24" height="24" alt="WhatsApp">
+              <img src="https://cdn.simpleicons.org/pinterest"         width="24" height="24" alt="Pinterest">
+              <img src="https://cdn.simpleicons.org/google"            width="24" height="24" alt="Google">
+            </div>
+          </div>
+          <!-- 32px -->
+          <div>
+            <div style="font-size:10px;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink-400);margin-bottom:10px">32px</div>
+            <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;">
+              <img src="https://cdn.simpleicons.org/linkedin"          width="32" height="32" alt="LinkedIn">
+              <img src="https://cdn.simpleicons.org/instagram"         width="32" height="32" alt="Instagram">
+              <img src="https://cdn.simpleicons.org/facebook"          width="32" height="32" alt="Facebook">
+              <img src="https://cdn.simpleicons.org/x"                 width="32" height="32" alt="X">
+              <img src="https://cdn.simpleicons.org/youtube"           width="32" height="32" alt="YouTube">
+              <img src="https://cdn.simpleicons.org/tiktok"            width="32" height="32" alt="TikTok">
+              <img src="https://cdn.simpleicons.org/whatsapp"          width="32" height="32" alt="WhatsApp">
+              <img src="https://cdn.simpleicons.org/pinterest"         width="32" height="32" alt="Pinterest">
+              <img src="https://cdn.simpleicons.org/google"            width="32" height="32" alt="Google">
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Variante neutre (filtre dark) -->
+      <div class="ds-subsection">
+        <div class="ds-subsection-label">Variante neutre — ink-800 (CSS filter)</div>
+        <div class="ds-card">
+          <div style="display:flex;gap:14px;align-items:center;flex-wrap:wrap;">
+            <img src="https://cdn.simpleicons.org/linkedin"        width="24" height="24" alt="LinkedIn"       style="filter:brightness(0) saturate(100%) opacity(0.55)">
+            <img src="https://cdn.simpleicons.org/instagram"       width="24" height="24" alt="Instagram"      style="filter:brightness(0) saturate(100%) opacity(0.55)">
+            <img src="https://cdn.simpleicons.org/facebook"        width="24" height="24" alt="Facebook"       style="filter:brightness(0) saturate(100%) opacity(0.55)">
+            <img src="https://cdn.simpleicons.org/x"               width="24" height="24" alt="X"              style="filter:brightness(0) saturate(100%) opacity(0.55)">
+            <img src="https://cdn.simpleicons.org/youtube"         width="24" height="24" alt="YouTube"        style="filter:brightness(0) saturate(100%) opacity(0.55)">
+            <img src="https://cdn.simpleicons.org/tiktok"          width="24" height="24" alt="TikTok"         style="filter:brightness(0) saturate(100%) opacity(0.55)">
+            <img src="https://cdn.simpleicons.org/whatsapp"        width="24" height="24" alt="WhatsApp"       style="filter:brightness(0) saturate(100%) opacity(0.55)">
+            <img src="https://cdn.simpleicons.org/pinterest"       width="24" height="24" alt="Pinterest"      style="filter:brightness(0) saturate(100%) opacity(0.55)">
+            <img src="https://cdn.simpleicons.org/google"          width="24" height="24" alt="Google"         style="filter:brightness(0) saturate(100%) opacity(0.55)">
+          </div>
+          <div style="font-size:11px;color:var(--ink-400);margin-top:4px">
+            CSS : <code style="font-family:var(--font-mono);background:var(--surface-300);padding:2px 6px;border-radius:4px;font-size:10px">filter: brightness(0) saturate(100%) opacity(0.55)</code>
           </div>
         </div>
       </div>
