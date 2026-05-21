@@ -457,26 +457,64 @@
     /* ──────────────────────────────────
        TYPOGRAPHY
     ────────────────────────────────── */
-    .type-row {
-      background: var(--surface-100);
-      border: 1px solid rgba(53,50,48,0.08);
-      border-radius: var(--radius-lg);
-      padding: 20px 24px;
-      display: flex;
-      align-items: baseline;
-      gap: 20px;
-    }
-    .type-meta {
-      flex-shrink: 0;
-      width: 120px;
+    .type-group {
       display: flex;
       flex-direction: column;
-      gap: 4px;
+      gap: 2px;
     }
-    .type-role { font-size: 10px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-400); }
-    .type-spec { font-family: var(--font-mono); font-size: 10px; color: var(--ink-400); line-height: 1.7; }
-    .type-sample { flex: 1; }
-    .type-divider { width: 1px; height: 40px; background: rgba(53,50,48,0.08); flex-shrink: 0; align-self: center; }
+    .type-group-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 0 6px;
+      margin-bottom: 2px;
+    }
+    .type-group-name {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--ink-800);
+      font-family: var(--font-mono);
+    }
+    .type-group-tag {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--ink-400);
+      padding: 2px 8px;
+      background: var(--surface-300);
+      border-radius: var(--radius-pill);
+    }
+    .type-row {
+      background: var(--surface-100);
+      border: 1px solid rgba(53,50,48,0.06);
+      border-radius: var(--radius-md);
+      padding: 14px 20px;
+      display: grid;
+      grid-template-columns: 200px 1px 140px 1px 1fr;
+      align-items: center;
+      gap: 16px;
+    }
+    .type-row:hover { border-color: var(--border-default); background: var(--surface-200); }
+    .type-token {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--brand-500);
+      line-height: 1.4;
+    }
+    .type-token span {
+      color: var(--ink-400);
+      font-weight: 400;
+    }
+    .type-spec {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-400);
+      line-height: 1.8;
+    }
+    .type-sample { flex: 1; overflow: hidden; }
+    .type-divider { width: 1px; height: 100%; min-height: 24px; background: var(--border-subtle); align-self: stretch; }
 
     .weight-row {
       display: flex;
@@ -1618,135 +1656,289 @@
     <section class="ds-section" id="typography">
       <div class="ds-section-header">
         <h2 class="ds-section-title">Typographie</h2>
-        <span class="ds-section-sub">Chillax (display) · Alan Sans (corps &amp; code)</span>
+        <span class="ds-section-sub">6 groupes · display / heading / body / article / ui / button</span>
       </div>
 
-      <!-- Chillax scale -->
+      <!-- display/ -->
       <div class="ds-subsection">
-        <div class="ds-subsection-label">Chillax — Display & Titres</div>
-        <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="type-group-header">
+          <span class="type-group-name">display/</span>
+          <span class="type-group-tag">Grands titres &amp; héros · Chillax</span>
+        </div>
+        <div class="type-group">
           <div class="type-row">
-            <div class="type-meta">
-              <span class="type-role">Hero / Stat</span>
-              <span class="type-spec">84px · 500<br>tracking -0.05em</span>
-            </div>
+            <div class="type-token">typography/display/hero<br><span>Chillax · medium</span></div>
             <div class="type-divider"></div>
-            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:84px;font-weight:500;letter-spacing:-0.05em;line-height:0.9;color:#FF8753">3×</div>
+            <div class="type-spec">84px · 500<br>ls −0.05em · lh 0.9</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:84px;font-weight:500;letter-spacing:-0.05em;line-height:0.9;color:var(--brand-500)">3×</div>
           </div>
           <div class="type-row">
-            <div class="type-meta">
-              <span class="type-role">Display / H1</span>
-              <span class="type-spec">48px · 500<br>tracking -0.05em</span>
-            </div>
+            <div class="type-token">typography/display/h1<br><span>Chillax · medium</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">48px · 500<br>ls −0.05em · lh 1.05</div>
             <div class="type-divider"></div>
             <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:48px;font-weight:500;letter-spacing:-0.05em;line-height:1.05">LOCKimmo</div>
           </div>
           <div class="type-row">
-            <div class="type-meta">
-              <span class="type-role">H2 / Section</span>
-              <span class="type-spec">32px · 500<br>tracking -0.04em</span>
-            </div>
+            <div class="type-token">typography/display/h2<br><span>Chillax · medium</span></div>
             <div class="type-divider"></div>
-            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:32px;font-weight:500;letter-spacing:-0.04em">Une suite pour les pros de l'immo</div>
+            <div class="type-spec">32px · 500<br>ls −0.04em · lh 1.1</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:32px;font-weight:500;letter-spacing:-0.04em;line-height:1.1">Une suite pour les pros de l'immo</div>
           </div>
           <div class="type-row">
-            <div class="type-meta">
-              <span class="type-role">H3 / Card title</span>
-              <span class="type-spec">22px · 500<br>tracking -0.04em</span>
-            </div>
+            <div class="type-token">typography/display/h3<br><span>Chillax · medium</span></div>
             <div class="type-divider"></div>
-            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.04em">Gestion locative</div>
+            <div class="type-spec">28px · 500<br>ls −0.04em · lh 1.15</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:28px;font-weight:500;letter-spacing:-0.04em;line-height:1.15">Encaissements du mois</div>
           </div>
           <div class="type-row">
-            <div class="type-meta">
-              <span class="type-role">Page title</span>
-              <span class="type-spec">28px · 500<br>tracking -0.04em</span>
-            </div>
+            <div class="type-token">typography/display/h4<br><span>Chillax · medium</span></div>
             <div class="type-divider"></div>
-            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:28px;font-weight:500;letter-spacing:-0.04em">Encaissements</div>
+            <div class="type-spec">22px · 500<br>ls −0.04em · lh 1.2</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.04em;line-height:1.2">Gestion locative</div>
           </div>
           <div class="type-row">
-            <div class="type-meta">
-              <span class="type-role">Topbar logo</span>
-              <span class="type-spec">17px · 500<br>tracking -0.04em</span>
-            </div>
+            <div class="type-token">typography/display/logo<br><span>Chillax · medium</span></div>
             <div class="type-divider"></div>
-            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:17px;font-weight:500;letter-spacing:-0.04em">LOCKimmo</div>
+            <div class="type-spec">18px · 500<br>ls −0.04em · lh 1.2</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:18px;font-weight:500;letter-spacing:-0.04em;line-height:1.2">LOCKimmo</div>
           </div>
         </div>
       </div>
 
-      <!-- PJS scale -->
+      <!-- heading/ -->
       <div class="ds-subsection">
-        <div class="ds-subsection-label">Alan Sans — Corps de texte</div>
-        <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="type-group-header">
+          <span class="type-group-name">heading/</span>
+          <span class="type-group-tag">Titres de pages &amp; sections · Chillax + Alan Sans</span>
+        </div>
+        <div class="type-group">
           <div class="type-row">
-            <div class="type-meta">
-              <span class="type-role">Large / Lead</span>
-              <span class="type-spec">16px · 400<br>lh 1.65</span>
-            </div>
+            <div class="type-token">typography/heading/h1<br><span>Chillax · medium</span></div>
             <div class="type-divider"></div>
-            <div class="type-sample" style="font-size:16px;font-weight:400;line-height:1.65;color:#6C6057">Automatisez vos quittances, relances et comptabilité. Gérez 500 lots comme un seul depuis une interface unifiée.</div>
+            <div class="type-spec">32px · 500<br>ls −0.04em · lh 1.1</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:32px;font-weight:500;letter-spacing:-0.04em;line-height:1.1">Tableau de bord</div>
           </div>
           <div class="type-row">
-            <div class="type-meta">
-              <span class="type-role">Base / Body</span>
-              <span class="type-spec">13.5px · 400<br>lh 1.6</span>
-            </div>
+            <div class="type-token">typography/heading/h2<br><span>Chillax · medium</span></div>
             <div class="type-divider"></div>
-            <div class="type-sample" style="font-size:13.5px;font-weight:400;line-height:1.6;color:#6C6057">Automatisez vos quittances, relances et comptabilité. Gérez 500 lots comme un seul depuis une interface unifiée.</div>
+            <div class="type-spec">28px · 500<br>ls −0.04em · lh 1.15</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:28px;font-weight:500;letter-spacing:-0.04em;line-height:1.15">Gestion locative</div>
           </div>
           <div class="type-row">
-            <div class="type-meta">
-              <span class="type-role">Small / Meta</span>
-              <span class="type-spec">12px · 400<br>lh 1.5</span>
-            </div>
+            <div class="type-token">typography/heading/h3<br><span>Chillax · medium</span></div>
             <div class="type-divider"></div>
-            <div class="type-sample" style="font-size:12px;font-weight:400;line-height:1.5;color:#AAA09A">Dernière mise à jour · 21 mai 2026 · Jean Dupont</div>
+            <div class="type-spec">22px · 500<br>ls −0.04em · lh 1.2</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:22px;font-weight:500;letter-spacing:-0.04em;line-height:1.2">Encaissements</div>
           </div>
           <div class="type-row">
-            <div class="type-meta">
-              <span class="type-role">XS / Label</span>
-              <span class="type-spec">10px · 700<br>ls 0.1em · uppercase</span>
-            </div>
+            <div class="type-token">typography/heading/h4<br><span>Alan Sans · semibold</span></div>
             <div class="type-divider"></div>
-            <div class="type-sample" style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#AAA09A">Section principale</div>
+            <div class="type-spec">18px · 600<br>lh 1.3</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:18px;font-weight:600;line-height:1.3">Paramètres du contrat</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/heading/h5<br><span>Alan Sans · semibold</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">15px · 600<br>lh 1.4</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:15px;font-weight:600;line-height:1.4">Documents joints</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/heading/h6<br><span>Alan Sans · bold</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">12px · 700<br>ls 0.04em · uppercase</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:12px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase">Note technique</div>
           </div>
         </div>
       </div>
 
-      <!-- Weights -->
+      <!-- body/ -->
       <div class="ds-subsection">
-        <div class="ds-subsection-label">Alan Sans — Graisses</div>
-        <div class="weight-row">
-          <div class="weight-item">
-            <div class="weight-label">Regular · 400</div>
-            <div style="font-size:18px;font-weight:400;color:#353230;line-height:1.3">Gestion locative<br><span style="font-size:13px;color:#AAA09A">Corps, descriptions</span></div>
+        <div class="type-group-header">
+          <span class="type-group-name">body/</span>
+          <span class="type-group-tag">Corps de texte · Alan Sans</span>
+        </div>
+        <div class="type-group">
+          <div class="type-row">
+            <div class="type-token">typography/body/lead<br><span>Alan Sans · regular</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">15px · 400<br>lh 1.65</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:15px;font-weight:400;line-height:1.65;color:var(--ink-600)">Automatisez vos quittances, relances et comptabilité. Gérez 500 lots comme un seul depuis une interface unifiée.</div>
           </div>
-          <div class="weight-item">
-            <div class="weight-label">Medium · 500</div>
-            <div style="font-size:18px;font-weight:500;color:#353230;line-height:1.3">Gestion locative<br><span style="font-size:13px;font-weight:400;color:#AAA09A">Nav items, meta</span></div>
+          <div class="type-row">
+            <div class="type-token">typography/body/base<br><span>Alan Sans · regular</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">13.5px · 400<br>lh 1.6</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:13.5px;font-weight:400;line-height:1.6;color:var(--ink-600)">Automatisez vos quittances, relances et comptabilité. Gérez 500 lots comme un seul depuis une interface unifiée.</div>
           </div>
-          <div class="weight-item">
-            <div class="weight-label">SemiBold · 600</div>
-            <div style="font-size:18px;font-weight:600;color:#353230;line-height:1.3">Gestion locative<br><span style="font-size:13px;font-weight:400;color:#AAA09A">Sous-titres, labels</span></div>
+          <div class="type-row">
+            <div class="type-token">typography/body/sm<br><span>Alan Sans · regular</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">12px · 400<br>lh 1.5</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:12px;font-weight:400;line-height:1.5;color:var(--ink-400)">Dernière mise à jour · 21 mai 2026 · Jean Dupont</div>
           </div>
-          <div class="weight-item">
-            <div class="weight-label">Bold · 700</div>
-            <div style="font-size:18px;font-weight:700;color:#353230;line-height:1.3">Gestion locative<br><span style="font-size:13px;font-weight:400;color:#AAA09A">CTA, tags, montants</span></div>
+          <div class="type-row">
+            <div class="type-token">typography/body/xs<br><span>Alan Sans · regular</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">10px · 400<br>lh 1.5</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:10px;font-weight:400;line-height:1.5;color:var(--ink-400)">v2.4.1 · Mis à jour le 21/05/2026</div>
           </div>
         </div>
       </div>
 
-      <!-- Mono -->
+      <!-- article/ -->
       <div class="ds-subsection">
-        <div class="ds-subsection-label">Alan Sans — Tokens & valeurs techniques</div>
-        <div class="ds-card">
-          <div style="font-family:'Alan Sans',sans-serif;font-size:13px;line-height:2;color:#6C6057">
-            <span style="color:#AAA09A">/* Variables CSS */</span><br>
-            <span style="color:#FF8753">--brand-500</span>: <span style="color:#28A566">#FF8753</span>;<br>
-            <span style="color:#FF8753">--font-display</span>: <span style="color:#28A566">'Chillax'</span>, sans-serif;<br>
-            <span style="color:#FF8753">--radius-lg</span>: <span style="color:#3B7DF8">14px</span>;
+        <div class="type-group-header">
+          <span class="type-group-name">article/</span>
+          <span class="type-group-tag">Contenus éditoriaux · Alan Sans</span>
+        </div>
+        <div class="type-group">
+          <div class="type-row">
+            <div class="type-token">typography/article/quote<br><span>Alan Sans · medium italic</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">15px · 500<br>italic · lh 1.6</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:15px;font-weight:500;font-style:italic;line-height:1.6;color:var(--ink-700)">"Depuis que j'utilise LOCKimmo, je passe de 3h à 20 minutes par semaine."</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/article/caption<br><span>Alan Sans · regular</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">12px · 400<br>lh 1.5</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:12px;font-weight:400;line-height:1.5;color:var(--ink-400)">Photo : Vue aérienne du quartier Confluence, Lyon</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/article/code<br><span>Alan Sans · regular · mono</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">12px · 400<br>mono · lh 1.6</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-family:var(--font-mono);font-size:12px;font-weight:400;line-height:1.6;color:var(--brand-500)">--brand-500: #FF8753;</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/article/link<br><span>Alan Sans · semibold</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">13.5px · 600<br>underline</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:13.5px;font-weight:600;text-decoration:underline;color:var(--brand-500)">Voir la documentation →</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/article/list<br><span>Alan Sans · regular</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">13.5px · 400<br>lh 1.6</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:13.5px;font-weight:400;line-height:1.6;color:var(--ink-700)">• Génération automatique des quittances<br>• Envoi des relances à J+5, J+15 et J+30<br>• Rapprochement bancaire</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ui/ -->
+      <div class="ds-subsection">
+        <div class="type-group-header">
+          <span class="type-group-name">ui/</span>
+          <span class="type-group-tag">Interface &amp; composants · Alan Sans + Chillax</span>
+        </div>
+        <div class="type-group">
+          <div class="type-row">
+            <div class="type-token">typography/ui/label-uppercase<br><span>Alan Sans · bold</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">10px · 700<br>ls 0.1em · uppercase</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:10px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-500)">Section principale</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/ui/label-semibold<br><span>Alan Sans · semibold</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">12px · 600<br>lh 1.4</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:12px;font-weight:600;line-height:1.4;color:var(--ink-800)">Locataire principal</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/ui/nav-item<br><span>Alan Sans · regular</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">13.5px · 400<br>lh 1</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:13.5px;font-weight:400;color:var(--ink-600)">Encaissements</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/ui/nav-item-active<br><span>Alan Sans · semibold</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">13.5px · 600<br>lh 1</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:13.5px;font-weight:600;color:var(--ink-900)">Encaissements</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/ui/badge<br><span>Alan Sans · semibold</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">10px · 600<br>ls 0.02em</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:10px;font-weight:600;letter-spacing:0.02em;color:var(--success-500)">En cours</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/ui/amount<br><span>Chillax · medium</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">15px · 500<br>ls −0.02em</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:15px;font-weight:500;letter-spacing:-0.02em;color:var(--ink-900)">1 250 €</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/ui/amount-lg<br><span>Chillax · medium</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">28px · 500<br>ls −0.04em</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-family:'Chillax',sans-serif;font-size:28px;font-weight:500;letter-spacing:-0.04em;color:var(--ink-900)">12 580 €</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/ui/tooltip<br><span>Alan Sans · regular</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">10px · 400<br>lh 1.4</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:10px;font-weight:400;line-height:1.4;color:var(--ink-400)">Paiement reçu le 03/05/2026</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- button/ -->
+      <div class="ds-subsection">
+        <div class="type-group-header">
+          <span class="type-group-name">button/</span>
+          <span class="type-group-tag">Boutons &amp; actions · Alan Sans</span>
+        </div>
+        <div class="type-group">
+          <div class="type-row">
+            <div class="type-token">typography/button/lg<br><span>Alan Sans · bold</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">15px · 700<br>lh 1</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:15px;font-weight:700;line-height:1;color:var(--ink-900)">Créer un mandat</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/button/md<br><span>Alan Sans · bold</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">13.5px · 700<br>lh 1</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:13.5px;font-weight:700;line-height:1;color:var(--ink-900)">Créer un mandat</div>
+          </div>
+          <div class="type-row">
+            <div class="type-token">typography/button/sm<br><span>Alan Sans · semibold</span></div>
+            <div class="type-divider"></div>
+            <div class="type-spec">12px · 600<br>lh 1</div>
+            <div class="type-divider"></div>
+            <div class="type-sample" style="font-size:12px;font-weight:600;line-height:1;color:var(--ink-900)">Créer un mandat</div>
           </div>
         </div>
       </div>
