@@ -512,201 +512,377 @@
       }
     },
     "typography": {
-      "display-hero": {
-        "value": {
-          "fontFamily": "{fontFamilies.display}",
-          "fontWeight": "{fontWeights.medium}",
-          "fontSize": "{fontSize.6xl}",
-          "lineHeight": "{lineHeights.none}",
-          "letterSpacing": "{letterSpacing.tightest}"
+
+      "display": {
+        "hero": {
+          "value": {
+            "fontFamily": "{fontFamilies.display}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.6xl}",
+            "lineHeight": "{lineHeights.none}",
+            "letterSpacing": "{letterSpacing.tightest}"
+          },
+          "type": "typography",
+          "description": "Stat héro marketing — 84px Chillax"
         },
-        "type": "typography",
-        "description": "Stats géantes marketing (84px)"
+        "h1": {
+          "value": {
+            "fontFamily": "{fontFamilies.display}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.4xl}",
+            "lineHeight": "{lineHeights.tight}",
+            "letterSpacing": "{letterSpacing.tightest}"
+          },
+          "type": "typography",
+          "description": "Hero principal marketing — 48px Chillax"
+        },
+        "h2": {
+          "value": {
+            "fontFamily": "{fontFamilies.display}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.3xl}",
+            "lineHeight": "{lineHeights.tight}",
+            "letterSpacing": "{letterSpacing.tight}"
+          },
+          "type": "typography",
+          "description": "Section marketing — 32px Chillax"
+        },
+        "h3": {
+          "value": {
+            "fontFamily": "{fontFamilies.display}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.2xl}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.tight}"
+          },
+          "type": "typography",
+          "description": "Titre de page app — 28px Chillax"
+        },
+        "h4": {
+          "value": {
+            "fontFamily": "{fontFamilies.display}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.xl}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.tight}"
+          },
+          "type": "typography",
+          "description": "Card title / sous-section — 22px Chillax"
+        },
+        "logo": {
+          "value": {
+            "fontFamily": "{fontFamilies.display}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.lg}",
+            "lineHeight": "{lineHeights.tight}",
+            "letterSpacing": "{letterSpacing.tight}"
+          },
+          "type": "typography",
+          "description": "Wordmark topbar — 18px Chillax"
+        }
       },
-      "display-h1": {
-        "value": {
-          "fontFamily": "{fontFamilies.display}",
-          "fontWeight": "{fontWeights.medium}",
-          "fontSize": "{fontSize.4xl}",
-          "lineHeight": "{lineHeights.tight}",
-          "letterSpacing": "{letterSpacing.tightest}"
+
+      "heading": {
+        "h1": {
+          "value": {
+            "fontFamily": "{fontFamilies.display}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.3xl}",
+            "lineHeight": "{lineHeights.tight}",
+            "letterSpacing": "{letterSpacing.tightest}"
+          },
+          "type": "typography",
+          "description": "H1 article / page — 32px Chillax"
         },
-        "type": "typography",
-        "description": "Wordmark / H1 hero (48px)"
+        "h2": {
+          "value": {
+            "fontFamily": "{fontFamilies.display}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.2xl}",
+            "lineHeight": "{lineHeights.tight}",
+            "letterSpacing": "{letterSpacing.tight}"
+          },
+          "type": "typography",
+          "description": "H2 article — 28px Chillax"
+        },
+        "h3": {
+          "value": {
+            "fontFamily": "{fontFamilies.display}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.xl}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.tight}"
+          },
+          "type": "typography",
+          "description": "H3 article — 22px Chillax"
+        },
+        "h4": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fontSize": "{fontSize.lg}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "H4 article — 18px Alan Sans 600"
+        },
+        "h5": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fontSize": "{fontSize.md}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "H5 article — 15px Alan Sans 600"
+        },
+        "h6": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.bold}",
+            "fontSize": "{fontSize.sm}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.widest}"
+          },
+          "type": "typography",
+          "description": "H6 article — 12px Alan Sans 700 uppercase"
+        }
       },
-      "display-h2": {
-        "value": {
-          "fontFamily": "{fontFamilies.display}",
-          "fontWeight": "{fontWeights.medium}",
-          "fontSize": "{fontSize.3xl}",
-          "lineHeight": "{lineHeights.tight}",
-          "letterSpacing": "{letterSpacing.tight}"
+
+      "body": {
+        "lead": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.regular}",
+            "fontSize": "{fontSize.md}",
+            "lineHeight": "{lineHeights.loose}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Corps introductif / chapô — 15px"
         },
-        "type": "typography",
-        "description": "Titres de section marketing (32px)"
+        "base": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.regular}",
+            "fontSize": "{fontSize.base}",
+            "lineHeight": "{lineHeights.relaxed}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Corps standard — 13.5px"
+        },
+        "sm": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.regular}",
+            "fontSize": "{fontSize.sm}",
+            "lineHeight": "{lineHeights.normal}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Texte secondaire, meta, breadcrumb — 12px"
+        },
+        "xs": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.regular}",
+            "fontSize": "{fontSize.xs}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Micro-texte, tooltips — 10px"
+        }
       },
-      "display-page-title": {
-        "value": {
-          "fontFamily": "{fontFamilies.display}",
-          "fontWeight": "{fontWeights.medium}",
-          "fontSize": "{fontSize.2xl}",
-          "lineHeight": "{lineHeights.snug}",
-          "letterSpacing": "{letterSpacing.tight}"
+
+      "article": {
+        "quote": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.md}",
+            "lineHeight": "{lineHeights.relaxed}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Citation / blockquote — 15px Alan Sans 500"
         },
-        "type": "typography",
-        "description": "Titre de page app (28px)"
+        "caption": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.regular}",
+            "fontSize": "{fontSize.sm}",
+            "lineHeight": "{lineHeights.normal}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Légende image, note de bas — 12px"
+        },
+        "code": {
+          "value": {
+            "fontFamily": "{fontFamilies.mono}",
+            "fontWeight": "{fontWeights.regular}",
+            "fontSize": "{fontSize.sm}",
+            "lineHeight": "{lineHeights.relaxed}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Code inline / bloc — 12px Alan Sans mono"
+        },
+        "link": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fontSize": "{fontSize.base}",
+            "lineHeight": "{lineHeights.relaxed}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Lien hypertexte dans le corps — 13.5px 600"
+        },
+        "list": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.regular}",
+            "fontSize": "{fontSize.base}",
+            "lineHeight": "{lineHeights.relaxed}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Élément de liste ul/ol — 13.5px"
+        }
       },
-      "display-h3": {
-        "value": {
-          "fontFamily": "{fontFamilies.display}",
-          "fontWeight": "{fontWeights.medium}",
-          "fontSize": "{fontSize.xl}",
-          "lineHeight": "{lineHeights.snug}",
-          "letterSpacing": "{letterSpacing.tight}"
+
+      "ui": {
+        "label-uppercase": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.bold}",
+            "fontSize": "{fontSize.xs}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.widest}"
+          },
+          "type": "typography",
+          "description": "Labels uppercase sections — 10px 700 tracking wide"
         },
-        "type": "typography",
-        "description": "Card title / H3 (22px)"
+        "label-semibold": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fontSize": "{fontSize.sm}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Labels inputs, champs — 12px 600"
+        },
+        "nav-item": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.regular}",
+            "fontSize": "{fontSize.base}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Nav item sidebar — 13.5px 400"
+        },
+        "nav-item-active": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fontSize": "{fontSize.base}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Nav item actif — 13.5px 600"
+        },
+        "badge": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fontSize": "{fontSize.xs}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Badges statuts — 10px 600"
+        },
+        "amount": {
+          "value": {
+            "fontFamily": "{fontFamilies.display}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.md}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.tight}"
+          },
+          "type": "typography",
+          "description": "Montants €, prix — 15px Chillax"
+        },
+        "amount-lg": {
+          "value": {
+            "fontFamily": "{fontFamilies.display}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.2xl}",
+            "lineHeight": "{lineHeights.tight}",
+            "letterSpacing": "{letterSpacing.tight}"
+          },
+          "type": "typography",
+          "description": "Montant hero KPI — 28px Chillax"
+        },
+        "tooltip": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.regular}",
+            "fontSize": "{fontSize.xs}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Tooltip, aide contextuelle — 10px"
+        }
       },
-      "display-topbar": {
-        "value": {
-          "fontFamily": "{fontFamilies.display}",
-          "fontWeight": "{fontWeights.medium}",
-          "fontSize": "{fontSize.lg}",
-          "lineHeight": "{lineHeights.tight}",
-          "letterSpacing": "{letterSpacing.tight}"
+
+      "button": {
+        "lg": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.bold}",
+            "fontSize": "{fontSize.md}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Bouton large — 15px 700"
         },
-        "type": "typography",
-        "description": "Logo topbar (18px)"
-      },
-      "body-lead": {
-        "value": {
-          "fontFamily": "{fontFamilies.sans}",
-          "fontWeight": "{fontWeights.regular}",
-          "fontSize": "{fontSize.md}",
-          "lineHeight": "{lineHeights.loose}",
-          "letterSpacing": "0%"
+        "md": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.bold}",
+            "fontSize": "{fontSize.base}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Bouton standard — 13.5px 700"
         },
-        "type": "typography",
-        "description": "Corps large, texte introductif (15px)"
-      },
-      "body-base": {
-        "value": {
-          "fontFamily": "{fontFamilies.sans}",
-          "fontWeight": "{fontWeights.regular}",
-          "fontSize": "{fontSize.base}",
-          "lineHeight": "{lineHeights.relaxed}",
-          "letterSpacing": "0%"
-        },
-        "type": "typography",
-        "description": "Corps standard (13.5px)"
-      },
-      "body-sm": {
-        "value": {
-          "fontFamily": "{fontFamilies.sans}",
-          "fontWeight": "{fontWeights.regular}",
-          "fontSize": "{fontSize.sm}",
-          "lineHeight": "{lineHeights.normal}",
-          "letterSpacing": "0%"
-        },
-        "type": "typography",
-        "description": "Texte petit, meta, breadcrumb (12px)"
-      },
-      "label-uppercase": {
-        "value": {
-          "fontFamily": "{fontFamilies.sans}",
-          "fontWeight": "{fontWeights.bold}",
-          "fontSize": "{fontSize.xs}",
-          "lineHeight": "{lineHeights.snug}",
-          "letterSpacing": "{letterSpacing.widest}"
-        },
-        "type": "typography",
-        "description": "Labels uppercase section/categories (10px)"
-      },
-      "label-semibold": {
-        "value": {
-          "fontFamily": "{fontFamilies.sans}",
-          "fontWeight": "{fontWeights.semibold}",
-          "fontSize": "{fontSize.sm}",
-          "lineHeight": "{lineHeights.snug}",
-          "letterSpacing": "0%"
-        },
-        "type": "typography",
-        "description": "Labels inputs, champs (12px 600)"
-      },
-      "nav-item": {
-        "value": {
-          "fontFamily": "{fontFamilies.sans}",
-          "fontWeight": "{fontWeights.regular}",
-          "fontSize": "13",
-          "lineHeight": "{lineHeights.snug}",
-          "letterSpacing": "0%"
-        },
-        "type": "typography",
-        "description": "Nav items sidebar (13px)"
-      },
-      "nav-item-active": {
-        "value": {
-          "fontFamily": "{fontFamilies.sans}",
-          "fontWeight": "{fontWeights.semibold}",
-          "fontSize": "13",
-          "lineHeight": "{lineHeights.snug}",
-          "letterSpacing": "0%"
-        },
-        "type": "typography",
-        "description": "Nav item actif (13px 600)"
-      },
-      "badge": {
-        "value": {
-          "fontFamily": "{fontFamilies.sans}",
-          "fontWeight": "{fontWeights.semibold}",
-          "fontSize": "11",
-          "lineHeight": "{lineHeights.snug}",
-          "letterSpacing": "0%"
-        },
-        "type": "typography",
-        "description": "Badges statuts (11px 600)"
-      },
-      "amount": {
-        "value": {
-          "fontFamily": "{fontFamilies.display}",
-          "fontWeight": "{fontWeights.medium}",
-          "fontSize": "14",
-          "lineHeight": "{lineHeights.snug}",
-          "letterSpacing": "{letterSpacing.tight}"
-        },
-        "type": "typography",
-        "description": "Montants €, Chillax (14px)"
-      },
-      "btn-lg": {
-        "value": {
-          "fontFamily": "{fontFamilies.sans}",
-          "fontWeight": "{fontWeights.bold}",
-          "fontSize": "14",
-          "lineHeight": "{lineHeights.snug}",
-          "letterSpacing": "0%"
-        },
-        "type": "typography"
-      },
-      "btn-md": {
-        "value": {
-          "fontFamily": "{fontFamilies.sans}",
-          "fontWeight": "{fontWeights.bold}",
-          "fontSize": "13",
-          "lineHeight": "{lineHeights.snug}",
-          "letterSpacing": "0%"
-        },
-        "type": "typography"
-      },
-      "btn-sm": {
-        "value": {
-          "fontFamily": "{fontFamilies.sans}",
-          "fontWeight": "{fontWeights.bold}",
-          "fontSize": "11.5",
-          "lineHeight": "{lineHeights.snug}",
-          "letterSpacing": "0%"
-        },
-        "type": "typography"
+        "sm": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.semibold}",
+            "fontSize": "{fontSize.sm}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Bouton petit — 12px 600"
+        }
       }
+
     }
   }
 }
