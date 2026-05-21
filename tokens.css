@@ -40,6 +40,10 @@
   --purple-500: #8B5CF6;
   --purple-50: #F4EEFF;
 
+  /* Background */
+  --background-page: #F3F0ED;
+  --background-app: #EDE9E5;
+
   /* Borders */
   --border-default: rgba(53,50,48,0.08);
   --border-strong: rgba(53,50,48,0.15);

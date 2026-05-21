@@ -91,8 +91,8 @@ def css_vars_to_token_updates(vars):
     for name, raw in vars.items():
         parts = name.split("-")
 
-        # Colors: --brand-500, --ink-800, --surface-100, etc.
-        if parts[0] in ("brand","ink","surface","success","error","info","purple","border","tile") and len(parts) >= 2:
+        # Colors: --brand-500, --ink-800, --surface-100, --background-page, etc.
+        if parts[0] in ("brand","ink","surface","success","error","info","purple","border","tile","background") and len(parts) >= 2:
             group = parts[0]
             key   = "-".join(parts[1:])
             updates.append((("global", group, key, "value"), raw))

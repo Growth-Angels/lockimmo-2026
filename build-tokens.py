@@ -47,6 +47,11 @@ def build_root_block(g, indent="  "):
         for k, v in g[group].items():
             lines.append(f"{indent}--{group}-{k}: {v['value']};")
 
+    if "background" in g:
+        lines.append(f"\n{indent}/* Background */")
+        for k, v in g["background"].items():
+            lines.append(f"{indent}--background-{k}: {v['value']};")
+
     if "border" in g:
         lines.append(f"\n{indent}/* Borders */")
         for k, v in g["border"].items():

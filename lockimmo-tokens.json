@@ -161,6 +161,18 @@
         "type": "color"
       }
     },
+    "background": {
+      "page": {
+        "value": "#F3F0ED",
+        "type": "color",
+        "description": "Fond de page — arrière-plan principal de l'application"
+      },
+      "app": {
+        "value": "#EDE9E5",
+        "type": "color",
+        "description": "Fond app secondaire — zones encadrées, sidebar"
+      }
+    },
     "border": {
       "default": {
         "value": "rgba(53,50,48,0.08)",
