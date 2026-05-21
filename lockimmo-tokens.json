@@ -1,149 +1,500 @@
 {
   "global": {
     "brand": {
-      "500": { "value": "#FF8753", "type": "color", "description": "Orange principal — CTA, accents, highlights" },
-      "200": { "value": "#FFE0CC", "type": "color", "description": "Orange medium tint" },
-      "100": { "value": "#FFF0E8", "type": "color", "description": "Orange light tint" },
-      "50":  { "value": "#FFF4EE", "type": "color", "description": "Orange très clair — fond active state" }
+      "500": {
+        "value": "#FF8753",
+        "type": "color",
+        "description": "Orange principal — CTA, accents, highlights"
+      },
+      "200": {
+        "value": "#FFE0CC",
+        "type": "color",
+        "description": "Orange medium tint"
+      },
+      "100": {
+        "value": "#FFF0E8",
+        "type": "color",
+        "description": "Orange light tint"
+      },
+      "50": {
+        "value": "#FFF4EE",
+        "type": "color",
+        "description": "Orange très clair — fond active state"
+      }
     },
     "ink": {
-      "900": { "value": "#0E0C0B", "type": "color", "description": "Noir chaud — fond marketing sombre" },
-      "800": { "value": "#353230", "type": "color", "description": "Brun foncé — texte principal, topbar, surfaces sombres" },
-      "600": { "value": "#6C6057", "type": "color", "description": "Brun moyen — texte secondaire, nav items" },
-      "400": { "value": "#AAA09A", "type": "color", "description": "Brun clair — texte muted, placeholders, labels" }
+      "900": {
+        "value": "#0E0C0B",
+        "type": "color",
+        "description": "Noir chaud — fond marketing sombre"
+      },
+      "800": {
+        "value": "#353230",
+        "type": "color",
+        "description": "Brun foncé — texte principal, topbar, surfaces sombres"
+      },
+      "600": {
+        "value": "#6C6057",
+        "type": "color",
+        "description": "Brun moyen — texte secondaire, nav items"
+      },
+      "400": {
+        "value": "#AAA09A",
+        "type": "color",
+        "description": "Brun clair — texte muted, placeholders, labels"
+      }
     },
     "surface": {
-      "100": { "value": "#FFFFFF", "type": "color", "description": "Blanc pur — cartes, fond primaire" },
-      "200": { "value": "#FAFAF9", "type": "color", "description": "Blanc cassé — fond card secondaire" },
-      "300": { "value": "#F3F0ED", "type": "color", "description": "Crème — fond light, logo bg" },
-      "400": { "value": "#EDE9E5", "type": "color", "description": "Beige — fond app principal" },
-      "500": { "value": "#F8F5F2", "type": "color", "description": "Hover background — éléments interactifs" }
+      "100": {
+        "value": "#FFFFFF",
+        "type": "color",
+        "description": "Blanc pur — cartes, fond primaire"
+      },
+      "200": {
+        "value": "#FAFAF9",
+        "type": "color",
+        "description": "Blanc cassé — fond card secondaire"
+      },
+      "300": {
+        "value": "#F3F0ED",
+        "type": "color",
+        "description": "Crème — fond light, logo bg"
+      },
+      "400": {
+        "value": "#EDE9E5",
+        "type": "color",
+        "description": "Beige — fond app principal"
+      },
+      "500": {
+        "value": "#F8F5F2",
+        "type": "color",
+        "description": "Hover background — éléments interactifs"
+      }
     },
     "success": {
-      "500": { "value": "#28A566", "type": "color", "description": "Vert succès — montants positifs, statuts encaissés" },
-      "50":  { "value": "#EDFBF4", "type": "color", "description": "Fond vert clair — badge succès" }
+      "500": {
+        "value": "#28A566",
+        "type": "color",
+        "description": "Vert succès — montants positifs, statuts encaissés"
+      },
+      "50": {
+        "value": "#EDFBF4",
+        "type": "color",
+        "description": "Fond vert clair — badge succès"
+      }
     },
     "error": {
-      "500": { "value": "#E05252", "type": "color", "description": "Rouge erreur — retards, montants négatifs, alertes" },
-      "50":  { "value": "#FFF0F0", "type": "color", "description": "Fond rouge clair — badge erreur" }
+      "500": {
+        "value": "#E05252",
+        "type": "color",
+        "description": "Rouge erreur — retards, montants négatifs, alertes"
+      },
+      "50": {
+        "value": "#FFF0F0",
+        "type": "color",
+        "description": "Fond rouge clair — badge erreur"
+      }
     },
     "info": {
-      "500": { "value": "#3B7DF8", "type": "color", "description": "Bleu info — états en cours, transactions" },
-      "50":  { "value": "#EEF4FF", "type": "color", "description": "Fond bleu clair — badge info" }
+      "500": {
+        "value": "#3B7DF8",
+        "type": "color",
+        "description": "Bleu info — états en cours, transactions"
+      },
+      "50": {
+        "value": "#EEF4FF",
+        "type": "color",
+        "description": "Fond bleu clair — badge info"
+      }
     },
     "purple": {
-      "500": { "value": "#8B5CF6", "type": "color", "description": "Violet — signatures, états spéciaux" },
-      "50":  { "value": "#F4EEFF", "type": "color", "description": "Fond violet clair — badge violet" }
+      "500": {
+        "value": "#8B5CF6",
+        "type": "color",
+        "description": "Violet — signatures, états spéciaux"
+      },
+      "50": {
+        "value": "#F4EEFF",
+        "type": "color",
+        "description": "Fond violet clair — badge violet"
+      }
     },
     "tile": {
-      "orange-start": { "value": "#FFF0E8", "type": "color" },
-      "orange-end":   { "value": "#FFE0CC", "type": "color" },
-      "blue-start":   { "value": "#EEF4FF", "type": "color" },
-      "blue-end":     { "value": "#DCEEFF", "type": "color" },
-      "green-start":  { "value": "#EDFBF4", "type": "color" },
-      "green-end":    { "value": "#D4F4E4", "type": "color" },
-      "purple-start": { "value": "#F4EEFF", "type": "color" },
-      "purple-end":   { "value": "#E8DEFF", "type": "color" },
-      "red-start":    { "value": "#FFF0F0", "type": "color" },
-      "red-end":      { "value": "#FFE0E0", "type": "color" }
+      "orange-start": {
+        "value": "#FFF0E8",
+        "type": "color"
+      },
+      "orange-end": {
+        "value": "#FFE0CC",
+        "type": "color"
+      },
+      "blue-start": {
+        "value": "#EEF4FF",
+        "type": "color"
+      },
+      "blue-end": {
+        "value": "#DCEEFF",
+        "type": "color"
+      },
+      "green-start": {
+        "value": "#EDFBF4",
+        "type": "color"
+      },
+      "green-end": {
+        "value": "#D4F4E4",
+        "type": "color"
+      },
+      "purple-start": {
+        "value": "#F4EEFF",
+        "type": "color"
+      },
+      "purple-end": {
+        "value": "#E8DEFF",
+        "type": "color"
+      },
+      "red-start": {
+        "value": "#FFF0F0",
+        "type": "color"
+      },
+      "red-end": {
+        "value": "#FFE0E0",
+        "type": "color"
+      }
     },
     "border": {
-      "default":  { "value": "rgba(53,50,48,0.08)", "type": "color", "description": "Bordure standard sur fond clair" },
-      "strong":   { "value": "rgba(53,50,48,0.15)", "type": "color", "description": "Bordure inputs, éléments forts" },
-      "subtle":   { "value": "rgba(53,50,48,0.06)", "type": "color", "description": "Séparateurs, dividers" },
-      "dark":     { "value": "rgba(255,255,255,0.08)", "type": "color", "description": "Bordure sur fond sombre" },
-      "dark-subtle": { "value": "rgba(255,255,255,0.05)", "type": "color" },
-      "brand":    { "value": "rgba(255,135,83,0.28)", "type": "color", "description": "Bordure orange — hover, active" }
+      "default": {
+        "value": "rgba(53,50,48,0.08)",
+        "type": "color",
+        "description": "Bordure standard sur fond clair"
+      },
+      "strong": {
+        "value": "rgba(53,50,48,0.15)",
+        "type": "color",
+        "description": "Bordure inputs, éléments forts"
+      },
+      "subtle": {
+        "value": "rgba(53,50,48,0.06)",
+        "type": "color",
+        "description": "Séparateurs, dividers"
+      },
+      "dark": {
+        "value": "rgba(255,255,255,0.08)",
+        "type": "color",
+        "description": "Bordure sur fond sombre"
+      },
+      "dark-subtle": {
+        "value": "rgba(255,255,255,0.05)",
+        "type": "color"
+      },
+      "brand": {
+        "value": "rgba(255,135,83,0.28)",
+        "type": "color",
+        "description": "Bordure orange — hover, active"
+      }
     },
     "fontFamilies": {
-      "display": { "value": "Chillax",           "type": "fontFamilies", "description": "Titres, stats, wordmark — tracking négatif" },
-      "sans":    { "value": "Alan Sans",  "type": "fontFamilies", "description": "Corps de texte — toute l'interface" },
-      "mono":    { "value": "JetBrains Mono",     "type": "fontFamilies", "description": "Tokens, valeurs techniques, code" }
+      "display": {
+        "value": "Chillax",
+        "type": "fontFamilies",
+        "description": "Titres, stats, wordmark — tracking négatif"
+      },
+      "sans": {
+        "value": "Alan Sans",
+        "type": "fontFamilies",
+        "description": "Corps de texte — toute l'interface"
+      },
+      "mono": {
+        "value": "JetBrains Mono",
+        "type": "fontFamilies",
+        "description": "Tokens, valeurs techniques, code"
+      }
     },
     "fontWeights": {
-      "regular":   { "value": "400", "type": "fontWeights" },
-      "medium":    { "value": "500", "type": "fontWeights" },
-      "semibold":  { "value": "600", "type": "fontWeights" },
-      "bold":      { "value": "700", "type": "fontWeights" }
+      "regular": {
+        "value": "400",
+        "type": "fontWeights"
+      },
+      "medium": {
+        "value": "500",
+        "type": "fontWeights"
+      },
+      "semibold": {
+        "value": "600",
+        "type": "fontWeights"
+      },
+      "bold": {
+        "value": "700",
+        "type": "fontWeights"
+      }
     },
     "fontSize": {
-      "xs":   { "value": "10", "type": "fontSizes", "description": "Labels uppercase, tags" },
-      "sm":   { "value": "12", "type": "fontSizes", "description": "Meta, hints, breadcrumb" },
-      "base": { "value": "13.5", "type": "fontSizes", "description": "Corps standard" },
-      "md":   { "value": "15", "type": "fontSizes", "description": "Corps large, lead" },
-      "lg":   { "value": "18", "type": "fontSizes", "description": "Topbar logo" },
-      "xl":   { "value": "22", "type": "fontSizes", "description": "H3 / card title" },
-      "2xl":  { "value": "28", "type": "fontSizes", "description": "Page title app" },
-      "3xl":  { "value": "32", "type": "fontSizes", "description": "H2 / section heading" },
-      "4xl":  { "value": "48", "type": "fontSizes", "description": "Display / H1 hero" },
-      "5xl":  { "value": "64", "type": "fontSizes", "description": "Stat marketing" },
-      "6xl":  { "value": "84", "type": "fontSizes", "description": "Stat hero maximum" }
+      "xs": {
+        "value": "10",
+        "type": "fontSizes",
+        "description": "Labels uppercase, tags"
+      },
+      "sm": {
+        "value": "12",
+        "type": "fontSizes",
+        "description": "Meta, hints, breadcrumb"
+      },
+      "base": {
+        "value": "13.5",
+        "type": "fontSizes",
+        "description": "Corps standard"
+      },
+      "md": {
+        "value": "15",
+        "type": "fontSizes",
+        "description": "Corps large, lead"
+      },
+      "lg": {
+        "value": "18",
+        "type": "fontSizes",
+        "description": "Topbar logo"
+      },
+      "xl": {
+        "value": "22",
+        "type": "fontSizes",
+        "description": "H3 / card title"
+      },
+      "2xl": {
+        "value": "28",
+        "type": "fontSizes",
+        "description": "Page title app"
+      },
+      "3xl": {
+        "value": "32",
+        "type": "fontSizes",
+        "description": "H2 / section heading"
+      },
+      "4xl": {
+        "value": "48",
+        "type": "fontSizes",
+        "description": "Display / H1 hero"
+      },
+      "5xl": {
+        "value": "64",
+        "type": "fontSizes",
+        "description": "Stat marketing"
+      },
+      "6xl": {
+        "value": "84",
+        "type": "fontSizes",
+        "description": "Stat hero maximum"
+      }
     },
     "lineHeights": {
-      "none":    { "value": "90%",  "type": "lineHeights" },
-      "tight":   { "value": "105%", "type": "lineHeights" },
-      "snug":    { "value": "130%", "type": "lineHeights" },
-      "normal":  { "value": "150%", "type": "lineHeights" },
-      "relaxed": { "value": "160%", "type": "lineHeights" },
-      "loose":   { "value": "165%", "type": "lineHeights" }
+      "none": {
+        "value": "90%",
+        "type": "lineHeights"
+      },
+      "tight": {
+        "value": "105%",
+        "type": "lineHeights"
+      },
+      "snug": {
+        "value": "130%",
+        "type": "lineHeights"
+      },
+      "normal": {
+        "value": "150%",
+        "type": "lineHeights"
+      },
+      "relaxed": {
+        "value": "160%",
+        "type": "lineHeights"
+      },
+      "loose": {
+        "value": "165%",
+        "type": "lineHeights"
+      }
     },
     "letterSpacing": {
-      "tightest": { "value": "-5%",  "type": "letterSpacing", "description": "-0.05em — Chillax hero" },
-      "tight":    { "value": "-4%",  "type": "letterSpacing", "description": "-0.04em — Chillax standard" },
-      "normal":   { "value": "0%",   "type": "letterSpacing" },
-      "wide":     { "value": "4%",   "type": "letterSpacing", "description": "0.04em" },
-      "wider":    { "value": "6%",   "type": "letterSpacing", "description": "0.06em — labels minuscules" },
-      "widest":   { "value": "10%",  "type": "letterSpacing", "description": "0.10em — labels uppercase" },
-      "label":    { "value": "12%",  "type": "letterSpacing", "description": "0.12em — eyebrow uppercase" }
+      "tightest": {
+        "value": "-5%",
+        "type": "letterSpacing",
+        "description": "-0.05em — Chillax hero"
+      },
+      "tight": {
+        "value": "-4%",
+        "type": "letterSpacing",
+        "description": "-0.04em — Chillax standard"
+      },
+      "normal": {
+        "value": "0%",
+        "type": "letterSpacing"
+      },
+      "wide": {
+        "value": "4%",
+        "type": "letterSpacing",
+        "description": "0.04em"
+      },
+      "wider": {
+        "value": "6%",
+        "type": "letterSpacing",
+        "description": "0.06em — labels minuscules"
+      },
+      "widest": {
+        "value": "10%",
+        "type": "letterSpacing",
+        "description": "0.10em — labels uppercase"
+      },
+      "label": {
+        "value": "12%",
+        "type": "letterSpacing",
+        "description": "0.12em — eyebrow uppercase"
+      }
     },
     "spacing": {
-      "1":  { "value": "4",  "type": "spacing" },
-      "2":  { "value": "8",  "type": "spacing" },
-      "3":  { "value": "12", "type": "spacing" },
-      "4":  { "value": "16", "type": "spacing" },
-      "5":  { "value": "20", "type": "spacing" },
-      "6":  { "value": "24", "type": "spacing" },
-      "7":  { "value": "28", "type": "spacing" },
-      "8":  { "value": "32", "type": "spacing" },
-      "10": { "value": "40", "type": "spacing" },
-      "12": { "value": "48", "type": "spacing" },
-      "14": { "value": "56", "type": "spacing" },
-      "16": { "value": "64", "type": "spacing" },
-      "20": { "value": "80", "type": "spacing" }
+      "1": {
+        "value": "4",
+        "type": "spacing"
+      },
+      "2": {
+        "value": "8",
+        "type": "spacing"
+      },
+      "3": {
+        "value": "12",
+        "type": "spacing"
+      },
+      "4": {
+        "value": "16",
+        "type": "spacing"
+      },
+      "5": {
+        "value": "20",
+        "type": "spacing"
+      },
+      "6": {
+        "value": "24",
+        "type": "spacing"
+      },
+      "7": {
+        "value": "28",
+        "type": "spacing"
+      },
+      "8": {
+        "value": "32",
+        "type": "spacing"
+      },
+      "10": {
+        "value": "40",
+        "type": "spacing"
+      },
+      "12": {
+        "value": "48",
+        "type": "spacing"
+      },
+      "14": {
+        "value": "56",
+        "type": "spacing"
+      },
+      "16": {
+        "value": "64",
+        "type": "spacing"
+      },
+      "20": {
+        "value": "80",
+        "type": "spacing"
+      }
     },
     "borderRadius": {
-      "sm":   { "value": "6",   "type": "borderRadius", "description": "Petits éléments, tags, refresh btn" },
-      "md":   { "value": "10",  "type": "borderRadius", "description": "Inputs, petites cartes, boutons standard" },
-      "lg":   { "value": "14",  "type": "borderRadius", "description": "Cartes app, tiles, topbar logo section" },
-      "xl":   { "value": "24",  "type": "borderRadius", "description": "Cartes marketing, modals" },
-      "pill": { "value": "100", "type": "borderRadius", "description": "Boutons pill, badges, avatars" }
+      "sm": {
+        "value": "6",
+        "type": "borderRadius",
+        "description": "Petits éléments, tags, refresh btn"
+      },
+      "md": {
+        "value": "10",
+        "type": "borderRadius",
+        "description": "Inputs, petites cartes, boutons standard"
+      },
+      "lg": {
+        "value": "14",
+        "type": "borderRadius",
+        "description": "Cartes app, tiles, topbar logo section"
+      },
+      "xl": {
+        "value": "24",
+        "type": "borderRadius",
+        "description": "Cartes marketing, modals"
+      },
+      "pill": {
+        "value": "100",
+        "type": "borderRadius",
+        "description": "Boutons pill, badges, avatars"
+      }
     },
     "boxShadow": {
       "card": {
         "value": [
-          { "x": "0", "y": "1", "blur": "3",  "spread": "0", "color": "rgba(53,50,48,0.06)", "type": "dropShadow" },
-          { "x": "0", "y": "1", "blur": "2",  "spread": "0", "color": "rgba(53,50,48,0.04)", "type": "dropShadow" }
+          {
+            "x": "0",
+            "y": "1",
+            "blur": "3",
+            "spread": "0",
+            "color": "rgba(53,50,48,0.06)",
+            "type": "dropShadow"
+          },
+          {
+            "x": "0",
+            "y": "1",
+            "blur": "2",
+            "spread": "0",
+            "color": "rgba(53,50,48,0.04)",
+            "type": "dropShadow"
+          }
         ],
         "type": "boxShadow",
         "description": "Cartes, surfaces légères"
       },
       "hover": {
-        "value": { "x": "0", "y": "4", "blur": "16", "spread": "0", "color": "rgba(255,135,83,0.14)", "type": "dropShadow" },
+        "value": {
+          "x": "0",
+          "y": "4",
+          "blur": "16",
+          "spread": "0",
+          "color": "rgba(255,135,83,0.14)",
+          "type": "dropShadow"
+        },
         "type": "boxShadow",
         "description": "Glow orange au survol"
       },
       "float": {
-        "value": { "x": "0", "y": "8", "blur": "32", "spread": "0", "color": "rgba(53,50,48,0.12)", "type": "dropShadow" },
+        "value": {
+          "x": "0",
+          "y": "8",
+          "blur": "32",
+          "spread": "0",
+          "color": "rgba(53,50,48,0.12)",
+          "type": "dropShadow"
+        },
         "type": "boxShadow",
         "description": "Modals, dropdowns, popovers"
       },
       "deep": {
-        "value": { "x": "0", "y": "20", "blur": "60", "spread": "0", "color": "rgba(0,0,0,0.18)", "type": "dropShadow" },
+        "value": {
+          "x": "0",
+          "y": "20",
+          "blur": "60",
+          "spread": "0",
+          "color": "rgba(0,0,0,0.18)",
+          "type": "dropShadow"
+        },
         "type": "boxShadow",
         "description": "Cartes hero marketing sombres"
       },
       "focus-brand": {
-        "value": { "x": "0", "y": "0", "blur": "0", "spread": "3", "color": "rgba(255,135,83,0.12)", "type": "dropShadow" },
+        "value": {
+          "x": "0",
+          "y": "0",
+          "blur": "0",
+          "spread": "3",
+          "color": "rgba(255,135,83,0.12)",
+          "type": "dropShadow"
+        },
         "type": "boxShadow",
         "description": "Focus ring orange — inputs"
       }
