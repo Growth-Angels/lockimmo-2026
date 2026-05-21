@@ -57,7 +57,7 @@
     },
     "fontFamilies": {
       "display": { "value": "Chillax",           "type": "fontFamilies", "description": "Titres, stats, wordmark — tracking négatif" },
-      "sans":    { "value": "Plus Jakarta Sans",  "type": "fontFamilies", "description": "Corps de texte — toute l'interface" },
+      "sans":    { "value": "Alan Sans",  "type": "fontFamilies", "description": "Corps de texte — toute l'interface" },
       "mono":    { "value": "JetBrains Mono",     "type": "fontFamilies", "description": "Tokens, valeurs techniques, code" }
     },
     "fontWeights": {

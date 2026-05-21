@@ -7,18 +7,19 @@
   <link rel="preconnect" href="https://api.fontshare.com">
   <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600&display=swap">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Alan+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500&display=swap">
   <style>
     /* ── Reset ── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     /* ── CSS Variables ── */
     :root {
+
       /* Brand */
       --brand-500: #FF8753;
       --brand-200: #FFE0CC;
       --brand-100: #FFF0E8;
-      --brand-50:  #FFF4EE;
+      --brand-50: #FFF4EE;
 
       /* Ink */
       --ink-900: #0E0C0B;
@@ -33,34 +34,113 @@
       --surface-400: #EDE9E5;
       --surface-500: #F8F5F2;
 
-      /* Semantic */
+      /* Success */
       --success-500: #28A566;
-      --success-50:  #EDFBF4;
-      --error-500:   #E05252;
-      --error-50:    #FFF0F0;
-      --info-500:    #3B7DF8;
-      --info-50:     #EEF4FF;
-      --purple-500:  #8B5CF6;
-      --purple-50:   #F4EEFF;
+      --success-50: #EDFBF4;
 
-      /* Typography */
+      /* Error */
+      --error-500: #E05252;
+      --error-50: #FFF0F0;
+
+      /* Info */
+      --info-500: #3B7DF8;
+      --info-50: #EEF4FF;
+
+      /* Purple */
+      --purple-500: #8B5CF6;
+      --purple-50: #F4EEFF;
+
+      /* Borders */
+      --border-default: rgba(53,50,48,0.08);
+      --border-strong: rgba(53,50,48,0.15);
+      --border-subtle: rgba(53,50,48,0.06);
+      --border-dark: rgba(255,255,255,0.08);
+      --border-dark-subtle: rgba(255,255,255,0.05);
+      --border-brand: rgba(255,135,83,0.28);
+
+      /* Tiles */
+      --tile-orange-start: #FFF0E8;
+      --tile-orange-end: #FFE0CC;
+      --tile-blue-start: #EEF4FF;
+      --tile-blue-end: #DCEEFF;
+      --tile-green-start: #EDFBF4;
+      --tile-green-end: #D4F4E4;
+      --tile-purple-start: #F4EEFF;
+      --tile-purple-end: #E8DEFF;
+      --tile-red-start: #FFF0F0;
+      --tile-red-end: #FFE0E0;
+
+      /* Font Families */
       --font-display: 'Chillax', sans-serif;
-      --font-sans: 'Plus Jakarta Sans', sans-serif;
+      --font-sans: 'Alan Sans', sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
 
-      /* Radius */
-      --radius-sm:   6px;
-      --radius-md:   10px;
-      --radius-lg:   14px;
-      --radius-xl:   24px;
+      /* Font Weights */
+      --font-weight-regular: 400;
+      --font-weight-medium: 500;
+      --font-weight-semibold: 600;
+      --font-weight-bold: 700;
+
+      /* Font Sizes */
+      --font-size-xs: 10px;
+      --font-size-sm: 12px;
+      --font-size-base: 13.5px;
+      --font-size-md: 15px;
+      --font-size-lg: 18px;
+      --font-size-xl: 22px;
+      --font-size-2xl: 28px;
+      --font-size-3xl: 32px;
+      --font-size-4xl: 48px;
+      --font-size-5xl: 64px;
+      --font-size-6xl: 84px;
+
+      /* Line Heights */
+      --line-height-none: 90%;
+      --line-height-tight: 105%;
+      --line-height-snug: 130%;
+      --line-height-normal: 150%;
+      --line-height-relaxed: 160%;
+      --line-height-loose: 165%;
+
+      /* Letter Spacing */
+      --letter-spacing-tightest: -5%;
+      --letter-spacing-tight: -4%;
+      --letter-spacing-normal: 0%;
+      --letter-spacing-wide: 4%;
+      --letter-spacing-wider: 6%;
+      --letter-spacing-widest: 10%;
+      --letter-spacing-label: 12%;
+
+      /* Spacing */
+      --spacing-1: 4px;
+      --spacing-2: 8px;
+      --spacing-3: 12px;
+      --spacing-4: 16px;
+      --spacing-5: 20px;
+      --spacing-6: 24px;
+      --spacing-7: 28px;
+      --spacing-8: 32px;
+      --spacing-10: 40px;
+      --spacing-12: 48px;
+      --spacing-14: 56px;
+      --spacing-16: 64px;
+      --spacing-20: 80px;
+
+      /* Border Radius */
+      --radius-sm: 6px;
+      --radius-md: 10px;
+      --radius-lg: 14px;
+      --radius-xl: 24px;
       --radius-pill: 100px;
 
       /* Shadows */
-      --shadow-card:    0 1px 3px rgba(53,50,48,0.06), 0 1px 2px rgba(53,50,48,0.04);
-      --shadow-hover:   0 4px 16px rgba(255,135,83,0.14);
-      --shadow-float:   0 8px 32px rgba(53,50,48,0.12);
-      --shadow-deep:    0 20px 60px rgba(0,0,0,0.18);
-    }
+      --shadow-card: 0px 1px 3px 0px rgba(53,50,48,0.06), 0px 1px 2px 0px rgba(53,50,48,0.04);
+      --shadow-hover: 0px 4px 16px 0px rgba(255,135,83,0.14);
+      --shadow-float: 0px 8px 32px 0px rgba(53,50,48,0.12);
+      --shadow-deep: 0px 20px 60px 0px rgba(0,0,0,0.18);
+      --shadow-focus-brand: 0px 0px 0px 3px rgba(255,135,83,0.12);
+
+}
 
     /* ── Base ── */
     html, body { height: 100%; }
@@ -1126,7 +1206,7 @@
     <section class="ds-section" id="typography">
       <div class="ds-section-header">
         <h2 class="ds-section-title">Typographie</h2>
-        <span class="ds-section-sub">Chillax (display) · Plus Jakarta Sans (corps) · JetBrains Mono (code/tokens)</span>
+        <span class="ds-section-sub">Chillax (display) · Alan Sans (corps) · JetBrains Mono (code/tokens)</span>
       </div>
 
       <!-- Chillax scale -->
@@ -1186,7 +1266,7 @@
 
       <!-- PJS scale -->
       <div class="ds-subsection">
-        <div class="ds-subsection-label">Plus Jakarta Sans — Corps de texte</div>
+        <div class="ds-subsection-label">Alan Sans — Corps de texte</div>
         <div style="display:flex;flex-direction:column;gap:8px;">
           <div class="type-row">
             <div class="type-meta">
@@ -1225,7 +1305,7 @@
 
       <!-- Weights -->
       <div class="ds-subsection">
-        <div class="ds-subsection-label">Plus Jakarta Sans — Graisses</div>
+        <div class="ds-subsection-label">Alan Sans — Graisses</div>
         <div class="weight-row">
           <div class="weight-item">
             <div class="weight-label">Regular · 400</div>
