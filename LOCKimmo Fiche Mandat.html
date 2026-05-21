@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>LOCKimmo — Fiche Mandat</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* ── App shell background ── */
+    body {
+      background: #EDE9E5;
+      display: flex;
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    /* Top bar */
+    .topbar {
+      height: 60px;
+      background: #353230;
+      display: flex;
+      align-items: center;
+      padding: 0 24px;
+      gap: 20px;
+      flex-shrink: 0;
+    }
+    .topbar-logo {
+      display: flex; align-items: center; gap: 8px;
+      font-family: 'Chillax', sans-serif; font-weight: 500; font-size: 18px;
+      color: #fff; letter-spacing: -0.04em;
+    }
+    .topbar-logo svg { flex-shrink: 0; }
+    .topbar-search {
+      flex: 1; max-width: 360px; margin: 0 auto;
+      background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.1);
+      border-radius: 10px; padding: 7px 14px;
+      color: rgba(255,255,255,0.4); font-size: 13px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+    .topbar-actions { margin-left: auto; display: flex; align-items: center; gap: 8px; }
+    .topbar-avatar {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: #FF8753; display: flex; align-items: center; justify-content: center;
+      font-size: 12px; font-weight: 700; color: #fff;
+    }
+    .topbar-user { font-size: 12px; color: rgba(255,255,255,0.6); }
+
+    /* App layout */
+    .app-body { display: flex; flex: 1; overflow: hidden; }
+
+    /* Sidebar */
+    .sidebar {
+      width: 220px; flex-shrink: 0;
+      background: #fff;
+      border-right: 1px solid rgba(53,50,48,0.08);
+      padding: 20px 0;
+      display: flex; flex-direction: column; gap: 2px;
+      overflow-y: auto;
+    }
+    .sidebar-item {
+      display: flex; align-items: center; gap: 10px;
+      padding: 9px 20px;
+      font-size: 13px; color: #6C6057; cursor: pointer;
+      border-radius: 0; transition: background 0.12s;
+    }
+    .sidebar-item:hover { background: #F3F0ED; }
+    .sidebar-item.active { background: #FFF4EE; color: #FF8753; font-weight: 600; }
+    .sidebar-item svg { opacity: 0.5; flex-shrink: 0; }
+    .sidebar-item.active svg { opacity: 1; }
+    .sidebar-divider { height: 1px; background: rgba(53,50,48,0.06); margin: 8px 16px; }
+
+    /* Content area */
+    .content-area {
+      flex: 1; position: relative; overflow: hidden;
+      filter: blur(2px) brightness(0.97);
+      background: #EDE9E5;
+      padding: 24px;
+    }
+    .content-placeholder {
+      background: #fff; border-radius: 12px;
+      padding: 20px; opacity: 0.6;
+      height: 100%;
+    }
+
+    /* ── Modal overlay ── */
+    .modal-overlay {
+      position: fixed; inset: 0;
+      background: rgba(35,30,26,0.55);
+      backdrop-filter: blur(4px);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 100;
+      padding: 24px;
+    }
+
+    /* Modal */
+    .modal {
+      background: #F3F0ED;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 620px;
+      max-height: calc(100vh - 48px);
+      overflow-y: auto;
+      box-shadow: 0 32px 80px rgba(0,0,0,0.28), 0 0 0 1px rgba(255,255,255,0.5) inset;
+      position: relative;
+    }
+    .modal::-webkit-scrollbar { display: none; }
+
+    /* Modal header */
+    .modal-header {
+      padding: 28px 32px 20px;
+      display: flex; align-items: flex-start; justify-content: space-between;
+      border-bottom: 1px solid rgba(53,50,48,0.08);
+      position: sticky; top: 0;
+      background: #F3F0ED;
+      border-radius: 20px 20px 0 0;
+      z-index: 10;
+    }
+    .modal-title {
+      font-family: 'Chillax', sans-serif; font-weight: 500;
+      font-size: 22px; color: #353230; letter-spacing: -0.04em;
+    }
+    .modal-close {
+      width: 32px; height: 32px; border-radius: 50%;
+      background: rgba(53,50,48,0.07); border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: #6C6057; font-size: 16px; transition: background 0.12s;
+      flex-shrink: 0;
+    }
+    .modal-close:hover { background: rgba(53,50,48,0.13); }
+
+    /* Modal body */
+    .modal-body { padding: 24px 32px 32px; display: flex; flex-direction: column; gap: 20px; }
+
+    /* Card */
+    .card {
+      background: #fff;
+      border-radius: 14px;
+      border: 1px solid rgba(53,50,48,0.08);
+      padding: 18px 20px;
+    }
+    .card-label {
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: #AAA09A;
+      margin-bottom: 12px;
+    }
+
+    /* Two col */
+    .two-col { display: flex; gap: 14px; }
+    .two-col .card { flex: 1; }
+
+    /* Input */
+    .input-wrap { position: relative; }
+    .input {
+      width: 100%; padding: 10px 14px;
+      background: #F3F0ED; border: 1px solid rgba(53,50,48,0.10);
+      border-radius: 10px; font-size: 13.5px; color: #353230;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      outline: none; transition: border-color 0.14s;
+    }
+    .input:focus { border-color: #FF8753; }
+    .input.with-icon { padding-right: 38px; }
+    .input-icon {
+      position: absolute; right: 11px; top: 50%; transform: translateY(-50%);
+      color: #FF8753; display: flex; align-items: center;
+    }
+
+    /* Propriétaire row */
+    .prop-row { display: flex; align-items: center; gap: 10px; }
+    .prop-avatar {
+      width: 36px; height: 36px; border-radius: 50%;
+      background: #EDE9E5; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; font-size: 16px;
+    }
+    .prop-name { flex: 1; font-size: 13.5px; color: #353230; font-weight: 500; }
+
+    /* Tabs */
+    .tabs { display: flex; gap: 4px; background: rgba(53,50,48,0.05); border-radius: 10px; padding: 3px; }
+    .tab {
+      padding: 7px 15px; border-radius: 8px; font-size: 12.5px;
+      font-weight: 600; cursor: pointer; transition: all 0.14s;
+      color: #6C6057; white-space: nowrap;
+    }
+    .tab.active { background: #FF8753; color: #fff; box-shadow: 0 2px 8px rgba(255,135,83,0.3); }
+    .tab:hover:not(.active) { background: rgba(53,50,48,0.06); color: #353230; }
+
+    /* Date fields */
+    .date-row { display: flex; flex-direction: column; gap: 8px; }
+    .date-field { display: flex; align-items: center; gap: 12px; }
+    .date-label { font-size: 12.5px; color: #6C6057; width: 90px; flex-shrink: 0; }
+    .date-input { flex: 1; }
+
+    /* Toggle section */
+    .toggle-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .toggle-row { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: #F3F0ED; border-radius: 10px; }
+    .toggle-label { font-size: 12.5px; color: #353230; font-weight: 500; }
+    .toggle-sub { font-size: 11px; color: #AAA09A; }
+
+    /* Toggle switch */
+    .toggle {
+      width: 36px; height: 20px; border-radius: 100px;
+      background: #DDD8D4; position: relative; cursor: pointer;
+      transition: background 0.18s; flex-shrink: 0;
+    }
+    .toggle.on { background: #FF8753; }
+    .toggle::after {
+      content: ''; position: absolute;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #fff; top: 2px; left: 2px;
+      transition: left 0.18s;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+    }
+    .toggle.on::after { left: 18px; }
+
+    /* Select */
+    .select-wrap { position: relative; }
+    .select-wrap::after {
+      content: ''; position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      border: 4px solid transparent; border-top: 5px solid #AAA09A; border-bottom: none;
+      pointer-events: none;
+    }
+    select.input { appearance: none; padding-right: 32px; cursor: pointer; }
+
+    /* Gestionnaire row */
+    .gestionnaire-row { display: flex; align-items: center; gap: 10px; }
+    .gestionnaire-label { font-size: 12.5px; color: #353230; font-weight: 500; width: 90px; flex-shrink: 0; }
+    .gestionnaire-select { flex: 1; }
+    .gestionnaire-actions { display: flex; gap: 6px; flex-shrink: 0; }
+    .action-btn {
+      width: 32px; height: 32px; border-radius: 8px; border: none; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; font-size: 14px;
+      transition: background 0.12s;
+    }
+    .action-btn.orange { background: #FFF0E8; color: #FF8753; }
+    .action-btn.orange:hover { background: #FFE4D4; }
+    .action-btn.red { background: #FFF0F0; color: #E05252; }
+    .action-btn.red:hover { background: #FFE0E0; }
+
+    /* Simple toggle row (full width) */
+    .toggle-full-row {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(53,50,48,0.06);
+    }
+    .toggle-full-row:last-child { border-bottom: none; }
+
+    /* Footer */
+    .modal-footer {
+      padding: 16px 32px 24px;
+      display: flex; align-items: center; justify-content: flex-end; gap: 10px;
+      border-top: 1px solid rgba(53,50,48,0.07);
+      position: sticky; bottom: 0; background: #F3F0ED;
+      border-radius: 0 0 20px 20px;
+    }
+    .btn {
+      display: inline-flex; align-items: center; gap: 7px;
+      padding: 10px 20px; border-radius: 10px; border: none;
+      font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 700; font-size: 13.5px;
+      cursor: pointer; transition: all 0.14s;
+    }
+    .btn-ghost {
+      background: rgba(53,50,48,0.07); color: #6C6057;
+    }
+    .btn-ghost:hover { background: rgba(53,50,48,0.12); }
+    .btn-primary {
+      background: #FF8753; color: #fff;
+      box-shadow: 0 4px 14px rgba(255,135,83,0.35);
+    }
+    .btn-primary:hover { background: #F07540; }
+
+    /* Section divider label */
+    .section-label {
+      font-size: 10.5px; font-weight: 700; letter-spacing: 0.07em;
+      text-transform: uppercase; color: #AAA09A;
+    }
+
+    /* Projet de mandat mini card inside 2col */
+    .mini-field { display: flex; flex-direction: column; gap: 6px; }
+    .mini-field-label { font-size: 11.5px; color: #AAA09A; font-weight: 500; }
+    .projet-n { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+    .projet-n-label { font-size: 12.5px; color: #AAA09A; }
+  </style>
+</head>
+<body>
+
+<!-- App shell (blurred bg) -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <img src="assets/logo-dark.png" alt="LOCKimmo" style="height:45px;width:auto;">
+  </div>
+  <div class="topbar-search">Recherche…</div>
+  <div class="topbar-actions">
+    <div class="topbar-user">Agence Welcome · Léona</div>
+    <div class="topbar-avatar">L</div>
+  </div>
+</div>
+
+<div class="app-body">
+  <nav class="sidebar">
+    <div class="sidebar-item">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="currentColor"><rect x="1" y="1" width="5" height="5" rx="1"/><rect x="9" y="1" width="5" height="5" rx="1"/><rect x="1" y="9" width="5" height="5" rx="1"/><rect x="9" y="9" width="5" height="5" rx="1"/></svg>
+      Tableau de bord
+    </div>
+    <div class="sidebar-item">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7.5" cy="5" r="3"/><path d="M1.5 13.5c0-3.3 2.7-6 6-6s6 2.7 6 6"/></svg>
+      Vos données
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-item active">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2" y="1.5" width="11" height="12" rx="1.5"/><path d="M5 5.5h5M5 8.5h5M5 11.5h3"/></svg>
+      Gestion
+    </div>
+    <div class="sidebar-item">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 13V6l5.5-4L13 6v7"/><rect x="5.5" y="9" width="4" height="4" rx="0.5"/></svg>
+      Mise en location
+    </div>
+    <div class="sidebar-item">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="1.5" y="3" width="12" height="10" rx="1.5"/><path d="M5 3V1.5M10 3V1.5M1.5 7h12"/></svg>
+      Loc. courte durée
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-item">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M2 11.5V4a1 1 0 011-1h9a1 1 0 011 1v7.5M1 11.5h13"/></svg>
+      Éditions
+    </div>
+    <div class="sidebar-item">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M1.5 4.5h12M1.5 7.5h8M1.5 10.5h5"/></svg>
+      Communication
+    </div>
+    <div class="sidebar-divider"></div>
+    <div class="sidebar-item">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="7.5" cy="7.5" r="5.5"/><path d="M7.5 5v3l2 1.5"/></svg>
+      Assistance
+    </div>
+    <div class="sidebar-item" style="margin-top:auto;">
+      <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M5.5 7.5h8M10.5 5l3 2.5-3 2.5"/><path d="M7.5 1.5H2a.5.5 0 00-.5.5v11a.5.5 0 00.5.5h5.5"/></svg>
+      Déconnexion
+    </div>
+  </nav>
+
+  <div class="content-area">
+    <div class="content-placeholder"></div>
+  </div>
+</div>
+
+<!-- ── Modal ── -->
+<div class="modal-overlay">
+  <div class="modal">
+
+    <!-- Header -->
+    <div class="modal-header">
+      <div>
+        <div class="modal-title">Fiche mandat</div>
+      </div>
+      <button class="modal-close">✕</button>
+    </div>
+
+    <!-- Body -->
+    <div class="modal-body">
+
+      <!-- Propriétaire + Projet de mandat -->
+      <div class="two-col">
+        <div class="card">
+          <div class="card-label">Propriétaire</div>
+          <div class="prop-row">
+            <div class="prop-avatar">🧑</div>
+            <div class="prop-name">Indivision</div>
+            <div class="input-icon" style="position:relative;transform:none;">
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#FF8753" stroke-width="1.8">
+                <circle cx="7" cy="7" r="4.5"/><path d="M10.5 10.5L14 14"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Projet de mandat</div>
+          <div class="toggle-full-row" style="border:none;padding:0 0 10px;">
+            <span class="toggle-label" style="font-size:12.5px;">Activer</span>
+            <div class="toggle"></div>
+          </div>
+          <div class="mini-field">
+            <div class="mini-field-label">Numéro</div>
+            <input class="input" type="text" placeholder="N° —" style="font-size:12.5px;padding:8px 12px;">
+          </div>
+        </div>
+      </div>
+
+      <!-- Tabs -->
+      <div class="tabs">
+        <div class="tab active">Essentiel</div>
+        <div class="tab">Honoraires / GLI</div>
+        <div class="tab">Biens / Locations</div>
+        <div class="tab">Autres infos</div>
+      </div>
+
+      <!-- Dates + Archive -->
+      <div class="two-col">
+        <div class="card" style="flex:1.4;">
+          <div class="card-label">Dates du mandat</div>
+          <div class="date-row">
+            <div class="date-field">
+              <span class="date-label">Date de début</span>
+              <div class="input-wrap date-input">
+                <input class="input with-icon" type="text" value="27/08/2025">
+                <span class="input-icon">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#FF8753" stroke-width="1.6"><rect x="1" y="2.5" width="12" height="10" rx="1.5"/><path d="M4.5 1v3M9.5 1v3M1 6.5h12"/></svg>
+                </span>
+              </div>
+            </div>
+            <div class="date-field">
+              <span class="date-label">Date de fin</span>
+              <div class="input-wrap date-input">
+                <input class="input with-icon" type="text" value="27/08/2026">
+                <span class="input-icon">
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="#FF8753" stroke-width="1.6"><rect x="1" y="2.5" width="12" height="10" rx="1.5"/><path d="M4.5 1v3M9.5 1v3M1 6.5h12"/></svg>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Archive</div>
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <span style="font-size:12.5px;color:#AAA09A;">Archiver le mandat</span>
+            <div class="toggle"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Dépôt de garantie + Provisions pour charges -->
+      <div class="two-col">
+        <div class="card">
+          <div class="card-label">Dépôt de garantie</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="toggle-row">
+              <span class="toggle-label">Reversé au propriétaire</span>
+              <div class="toggle on"></div>
+            </div>
+            <div class="toggle-row">
+              <span class="toggle-label">Conservé par l'agence</span>
+              <div class="toggle"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="card-label">Provisions pour charges</div>
+          <div style="display:flex;flex-direction:column;gap:8px;">
+            <div class="toggle-row">
+              <span class="toggle-label">Reversé au propriétaire</span>
+              <div class="toggle"></div>
+            </div>
+            <div class="toggle-row">
+              <span class="toggle-label">Conservé par l'agence</span>
+              <div class="toggle on"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gestionnaire -->
+      <div class="card">
+        <div class="gestionnaire-row">
+          <span class="gestionnaire-label">Gestionnaire</span>
+          <div class="select-wrap gestionnaire-select">
+            <select class="input" style="font-size:13px;">
+              <option value="">Non défini</option>
+              <option>Léona Martin</option>
+              <option>Paul Dupont</option>
+            </select>
+          </div>
+          <div class="gestionnaire-actions">
+            <button class="action-btn orange">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="7" cy="7" r="4"/><path d="M7 5v4M5 7h4"/></svg>
+            </button>
+            <button class="action-btn red">
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2.5 4.5h9M5.5 4.5V3h3v1.5"/><rect x="3" y="4.5" width="8" height="7" rx="1"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Gestion locative + Recherche locataire -->
+      <div class="card">
+        <div class="toggle-full-row">
+          <div>
+            <div class="toggle-label">Gestion locative</div>
+          </div>
+          <div class="toggle"></div>
+        </div>
+        <div class="toggle-full-row">
+          <div>
+            <div class="toggle-label">Recherche de locataire</div>
+          </div>
+          <div class="toggle"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Footer -->
+    <div class="modal-footer">
+      <button class="btn btn-ghost">
+        <svg width="15" height="15" viewBox="0 0 15 15" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="2.5" y="1.5" width="10" height="12" rx="1.5"/><path d="M5 4.5h5M5 7.5h3"/><path d="M2.5 10.5h2v2.5a.5.5 0 001 0V10.5h2"/></svg>
+        Imprimer
+      </button>
+      <button class="btn btn-primary">
+        Enregistrer
+      </button>
+    </div>
+
+  </div>
+</div>
+
+<script>
+// Toggle interactivity
+document.querySelectorAll('.toggle').forEach(t => {
+  t.addEventListener('click', () => t.classList.toggle('on'));
+});
+// Tab interactivity
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>

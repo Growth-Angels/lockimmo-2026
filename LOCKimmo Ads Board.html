@@ -1,0 +1,680 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>LOCKimmo — Planche Ads PerfMax</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=chillax@500&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+
+  <template id="__bundler_thumbnail" data-bg-color="#0E0C0B">
+    <svg viewBox="0 0 120 80" xmlns="http://www.w3.org/2000/svg">
+      <rect width="120" height="80" fill="#0E0C0B"/>
+      <!-- Lock icon -->
+      <rect x="50" y="36" width="20" height="15" rx="3" fill="#FF8753"/>
+      <path d="M54 36v-4a6 6 0 0112 0v4" stroke="#FF8753" stroke-width="2.5" stroke-linecap="round" fill="none"/>
+      <!-- Wordmark -->
+      <text x="60" y="62" font-family="sans-serif" font-size="7" font-weight="700" fill="white" text-anchor="middle" letter-spacing="-0.3">LOCKimmo</text>
+      <text x="60" y="70" font-family="sans-serif" font-size="4.5" fill="rgba(255,255,255,0.4)" text-anchor="middle">Ads PerfMax</text>
+    </svg>
+  </template>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      background: #0E0C0B;
+      padding: 56px 64px 100px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      color: rgba(255,255,255,0.35);
+    }
+
+    .page-title {
+      font-family: 'Chillax', sans-serif;
+      font-size: 20px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      letter-spacing: -0.04em;
+      margin-bottom: 6px;
+    }
+    .page-meta { font-size: 12px; margin-bottom: 64px; }
+
+    .section { margin-bottom: 72px; }
+    .section-label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.22);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .section-label::after { content:''; flex:1; height:1px; background:rgba(255,255,255,0.06); }
+
+    .row { display: flex; align-items: flex-start; gap: 20px; flex-wrap: wrap; }
+    .row.bottom { align-items: flex-end; }
+
+    .ad-wrap { display: flex; flex-direction: column; gap: 8px; }
+    .fmt-label {
+      font-size: 10px;
+      color: rgba(255,255,255,0.2);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Ad shell ── */
+    .ad {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    /* sizes */
+    .sq  { width: 320px; height: 360px; }
+    .ls  { width: 520px; height: 272px; display: flex; flex-direction: row; }
+    .pt  { width: 256px; height: 320px; }
+    .st  { width: 180px; height: 320px; }
+
+    /* themes */
+    .dark  { background: #353230; color: #fff; }
+    .light { background: #F3F0ED; color: #353230; }
+
+    /* ── Inner panel ── */
+    .panel {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      padding: 28px;
+      position: relative;
+      z-index: 1;
+    }
+    .ls .panel { width: 52%; flex-shrink: 0; }
+
+    /* right photo half (landscape only) */
+    .photo-half {
+      flex: 1;
+      position: relative;
+      overflow: hidden;
+    }
+    .photo-half img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .ls.dark  .photo-half::after { content:''; position:absolute; inset:0; background:linear-gradient(to right,#35323066,transparent 60%); }
+    .ls.light .photo-half::after { content:''; position:absolute; inset:0; background:linear-gradient(to right,#F3F0ED66,transparent 60%); }
+
+    /* screenshot half (landscape) */
+    .screen-half {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .screen-half img { width: 100%; height: auto; border-radius: 8px; }
+
+    /* blob */
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      background: radial-gradient(circle, rgba(255,135,83,0.48) 0%, rgba(255,135,83,0.1) 55%, transparent 75%);
+      filter: blur(2px);
+      z-index: 0;
+    }
+
+    /* logo */
+    .logo { display: flex; align-items: center; gap: 7px; flex-shrink: 0; }
+    .logo svg { flex-shrink: 0; }
+    .logo-text {
+      font-family: 'Chillax', sans-serif;
+      font-weight: 500;
+      font-size: 17px;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .st .logo-text { font-size: 13px; }
+    .ls .logo-text { font-size: 15px; }
+    .pt .logo-text { font-size: 15px; }
+
+    /* category */
+    .cat {
+      font-size: 9.5px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-top: 3px;
+    }
+    .dark  .cat { color: rgba(255,255,255,0.35); }
+    .light .cat { color: #AAA09A; }
+    .st .cat, .ls .cat, .pt .cat { font-size: 8.5px; }
+
+    /* spacer */
+    .spacer { flex: 1; display: flex; align-items: center; }
+
+    /* stat */
+    .stat-num {
+      font-family: 'Chillax', sans-serif;
+      font-weight: 500;
+      color: #FF8753;
+      line-height: 0.9;
+      letter-spacing: -0.04em;
+      font-size: 84px;
+    }
+    .stat-label {
+      font-size: 12.5px;
+      line-height: 1.35;
+      margin-top: 5px;
+    }
+    .dark  .stat-label { color: rgba(255,255,255,0.5); }
+    .light .stat-label { color: #6C6057; }
+    .ls .stat-num { font-size: 60px; }
+    .ls .stat-label { font-size: 11px; }
+    .pt .stat-num { font-size: 68px; }
+    .pt .stat-label { font-size: 11.5px; }
+    .st .stat-num { font-size: 52px; }
+    .st .stat-label { font-size: 10px; }
+
+    /* quote */
+    .quote-mark {
+      font-family: 'Chillax', sans-serif;
+      font-weight: 500;
+      color: #FF8753;
+      line-height: 0.8;
+      font-size: 68px;
+    }
+    .ls .quote-mark { font-size: 52px; }
+    .pt .quote-mark { font-size: 56px; }
+    .st .quote-mark { font-size: 42px; }
+
+    /* features list */
+    .feat-list { display: flex; flex-direction: column; gap: 6px; }
+    .feat-item { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+    .feat-dot { width: 6px; height: 6px; border-radius: 50%; background: #FF8753; flex-shrink: 0; }
+    .dark  .feat-item { color: rgba(255,255,255,0.48); }
+    .light .feat-item { color: #AAA09A; }
+    .st .feat-item, .pt .feat-item { font-size: 10.5px; }
+    .ls .feat-item { font-size: 11px; }
+
+    /* bottom text */
+    .bottom { display: flex; flex-direction: column; gap: 10px; }
+
+    .headline {
+      font-family: 'Chillax', sans-serif;
+      font-weight: 500;
+      font-size: 30px;
+      line-height: 1.08;
+      letter-spacing: -0.05em;
+    }
+    .ls .headline { font-size: 24px; }
+    .pt .headline { font-size: 26px; }
+    .st .headline { font-size: 18px; }
+
+    .sub { font-size: 12.5px; line-height: 1.5; }
+    .dark  .sub { color: rgba(255,255,255,0.55); }
+    .light .sub { color: #6C6057; }
+    .ls .sub, .pt .sub, .st .sub { font-size: 11px; }
+
+    .cta {
+      display: inline-flex;
+      align-items: center;
+      border-radius: 10px;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: -0.01em;
+      padding: 9px 17px;
+      align-self: flex-start;
+      margin-top: 2px;
+    }
+    .dark  .cta { background: #fff; color: #353230; }
+    .light .cta { background: #FF8753; color: #fff; }
+    .ls .cta, .pt .cta, .st .cta { font-size: 11px; padding: 7px 14px; }
+  </style>
+</head>
+<body>
+
+<div class="page-title">LOCKimmo — Planche Ads PerfMax</div>
+<div class="page-meta">5 angles · 4 formats · Dark & Light · Logiciel de gestion locative</div>
+
+<!-- svg logo helper (inline, reusable via template) -->
+<template id="lock-dark">
+  <svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg>
+</template>
+<template id="lock-light">
+  <svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="#353230"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="#353230" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg>
+</template>
+
+<!-- ══════════════════════════════════════════
+     01 — GAIN DE TEMPS
+═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">01 — Gain de temps · "4h de gagnées. Chaque jour."</div>
+  <div class="row">
+
+    <!-- 1:1 Dark -->
+    <div class="ad-wrap">
+      <div class="ad sq dark">
+        <div class="blob" style="width:260px;height:260px;left:-60px;top:-60px;"></div>
+        <div class="panel">
+          <div class="logo">
+            <svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg>
+            <span class="logo-text">LOCKimmo</span>
+          </div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer">
+            <div><div class="stat-num">4h</div><div class="stat-label">économisées<br>par jour</div></div>
+          </div>
+          <div class="bottom">
+            <div class="headline">4h de gagnées.<br>Chaque jour.</div>
+            <div class="sub">LOCKimmo automatise relances, rapprochement bancaire et quittances.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">1:1 · 1200×1200 · Dark</div>
+    </div>
+
+    <!-- 1:1 Light -->
+    <div class="ad-wrap">
+      <div class="ad sq light">
+        <div class="blob" style="width:260px;height:260px;right:-60px;top:-40px;opacity:0.9;"></div>
+        <div class="panel">
+          <div class="logo">
+            <svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="#353230"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="#353230" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg>
+            <span class="logo-text">LOCKimmo</span>
+          </div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer">
+            <div><div class="stat-num">4h</div><div class="stat-label">économisées<br>par jour</div></div>
+          </div>
+          <div class="bottom">
+            <div class="headline">4h de gagnées.<br>Chaque jour.</div>
+            <div class="sub">LOCKimmo automatise relances, rapprochement bancaire et quittances.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">1:1 · 1200×1200 · Light</div>
+    </div>
+
+    <!-- Landscape Dark -->
+    <div class="ad-wrap">
+      <div class="ad ls dark">
+        <div class="blob" style="width:220px;height:220px;left:-40px;top:-40px;"></div>
+        <div class="panel">
+          <div class="logo">
+            <svg width="14" height="18" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg>
+            <span class="logo-text">LOCKimmo</span>
+          </div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer">
+            <div><div class="stat-num">4h</div><div class="stat-label">économisées par jour</div></div>
+          </div>
+          <div class="bottom">
+            <div class="headline">4h de gagnées.<br>Chaque jour.</div>
+            <div class="sub">LOCKimmo automatise pendant que vous développez.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+        <div class="photo-half"><img src="assets/photo-lifestyle.jpg" alt=""></div>
+      </div>
+      <div class="fmt-label">1.91:1 · 1200×628 · Dark</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     02 — SIMPLICITÉ
+═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">02 — Simplicité · "Le rapprochement bancaire en 3 clics."</div>
+  <div class="row">
+
+    <div class="ad-wrap">
+      <div class="ad sq dark">
+        <div class="blob" style="width:250px;height:250px;right:-50px;bottom:-50px;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer"><div><div class="stat-num">3</div><div class="stat-label">clics suffisent</div></div></div>
+          <div class="bottom">
+            <div class="headline">Le rapprochement bancaire en 3 clics.</div>
+            <div class="sub">Fini les tableurs Excel. LOCKimmo pointe vos encaissements automatiquement.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">1:1 · 1200×1200 · Dark</div>
+    </div>
+
+    <div class="ad-wrap">
+      <div class="ad sq light">
+        <div class="blob" style="width:250px;height:250px;left:-50px;bottom:-30px;opacity:0.85;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="#353230"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="#353230" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer"><div><div class="stat-num">3</div><div class="stat-label">clics suffisent</div></div></div>
+          <div class="bottom">
+            <div class="headline">Le rapprochement bancaire en 3 clics.</div>
+            <div class="sub">Fini les tableurs Excel. LOCKimmo pointe vos encaissements automatiquement.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">1:1 · 1200×1200 · Light</div>
+    </div>
+
+    <div class="ad-wrap">
+      <div class="ad ls light">
+        <div class="blob" style="width:200px;height:200px;left:-30px;bottom:-30px;opacity:0.85;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="14" height="18" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="#353230"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="#353230" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer"><div><div class="stat-num">3</div><div class="stat-label">clics suffisent</div></div></div>
+          <div class="bottom">
+            <div class="headline">Le rapprochement bancaire en 3 clics.</div>
+            <div class="sub">Zéro tableur. Zéro double saisie.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+        <div class="screen-half" style="background:#EAE5E0;"><img src="assets/chart-revenue.png" alt=""></div>
+      </div>
+      <div class="fmt-label">1.91:1 · 1200×628 · Light</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     03 — PERFORMANCE
+═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">03 — Performance · "5× plus rapide que les autres."</div>
+  <div class="row">
+
+    <div class="ad-wrap">
+      <div class="ad sq dark">
+        <div class="blob" style="width:280px;height:280px;left:-60px;top:-60px;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer"><div><div class="stat-num">5×</div><div class="stat-label">plus rapide que les autres</div></div></div>
+          <div class="bottom">
+            <div class="headline">5× plus rapide que les autres.</div>
+            <div class="sub">Pendant que vos concurrents s'épuisent, vous développez votre portefeuille.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">1:1 · 1200×1200 · Dark</div>
+    </div>
+
+    <div class="ad-wrap">
+      <div class="ad sq light">
+        <div class="blob" style="width:280px;height:280px;right:-60px;bottom:-60px;opacity:0.85;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="#353230"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="#353230" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer"><div><div class="stat-num">5×</div><div class="stat-label">plus rapide que les autres</div></div></div>
+          <div class="bottom">
+            <div class="headline">5× plus rapide que les autres.</div>
+            <div class="sub">Pendant que vos concurrents s'épuisent, vous développez votre portefeuille.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">1:1 · 1200×1200 · Light</div>
+    </div>
+
+    <div class="ad-wrap">
+      <div class="ad ls dark">
+        <div class="blob" style="width:200px;height:200px;left:-30px;top:-30px;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="14" height="18" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer"><div><div class="stat-num">5×</div><div class="stat-label">plus rapide</div></div></div>
+          <div class="bottom">
+            <div class="headline">5× plus rapide que les autres.</div>
+            <div class="sub">Vos concurrents s'épuisent. Vous, vous avancez.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+        <div class="photo-half"><img src="assets/photo-interior.png" alt=""></div>
+      </div>
+      <div class="fmt-label">1.91:1 · 1200×628 · Dark</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     04 — SOCIAL PROOF
+═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">04 — Social proof · "Enfin du beau et de l'efficace !"</div>
+  <div class="row">
+
+    <div class="ad-wrap">
+      <div class="ad sq dark">
+        <div class="blob" style="width:300px;height:300px;right:-70px;top:-70px;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer"><div class="quote-mark">❝</div></div>
+          <div class="bottom">
+            <div class="headline">"Enfin du beau et de l'efficace !"</div>
+            <div class="sub">LOCKimmo, la plateforme qui secoue l'immobilier. Vu dans la presse.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">1:1 · 1200×1200 · Dark</div>
+    </div>
+
+    <div class="ad-wrap">
+      <div class="ad sq light">
+        <div class="blob" style="width:300px;height:300px;left:-60px;bottom:-60px;opacity:0.85;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="#353230"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="#353230" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer"><div class="quote-mark">❝</div></div>
+          <div class="bottom">
+            <div class="headline">"Enfin du beau et de l'efficace !"</div>
+            <div class="sub">LOCKimmo, la plateforme qui secoue l'immobilier. Vu dans la presse.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">1:1 · 1200×1200 · Light</div>
+    </div>
+
+    <div class="ad-wrap">
+      <div class="ad ls light">
+        <div class="blob" style="width:200px;height:200px;right:-20px;top:-20px;opacity:0.85;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="14" height="18" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="#353230"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="#353230" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer"><div class="quote-mark">❝</div></div>
+          <div class="bottom">
+            <div class="headline">"Enfin du beau et de l'efficace !"</div>
+            <div class="sub">Vu dans la presse.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+        <div class="photo-half"><img src="assets/photo-lifestyle.jpg" alt=""></div>
+      </div>
+      <div class="fmt-label">1.91:1 · 1200×628 · Light</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     05 — TOUT-EN-UN
+═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">05 — Tout-en-un · "Agenda. Relances. Encaissements."</div>
+  <div class="row">
+
+    <div class="ad-wrap">
+      <div class="ad sq dark">
+        <div class="blob" style="width:240px;height:240px;left:-40px;top:40px;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer">
+            <div class="feat-list">
+              <div class="feat-item"><span class="feat-dot"></span>Agenda intelligent</div>
+              <div class="feat-item"><span class="feat-dot"></span>Suivi financier temps réel</div>
+              <div class="feat-item"><span class="feat-dot"></span>Relances automatisées</div>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="headline">Tout. En un seul outil.</div>
+            <div class="sub">Tout ce dont un gestionnaire a besoin, réuni en un seul endroit.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">1:1 · 1200×1200 · Dark</div>
+    </div>
+
+    <div class="ad-wrap">
+      <div class="ad sq light">
+        <div class="blob" style="width:240px;height:240px;right:-40px;top:30px;opacity:0.85;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="16" height="20" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="#353230"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="#353230" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer">
+            <div class="feat-list">
+              <div class="feat-item"><span class="feat-dot"></span>Agenda intelligent</div>
+              <div class="feat-item"><span class="feat-dot"></span>Suivi financier temps réel</div>
+              <div class="feat-item"><span class="feat-dot"></span>Relances automatisées</div>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="headline">Tout. En un seul outil.</div>
+            <div class="sub">Tout ce dont un gestionnaire a besoin, réuni en un seul endroit.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">1:1 · 1200×1200 · Light</div>
+    </div>
+
+    <!-- Portrait 4:5 -->
+    <div class="ad-wrap">
+      <div class="ad pt dark">
+        <div class="blob" style="width:190px;height:190px;left:-30px;top:60px;"></div>
+        <div class="panel" style="padding:22px;">
+          <div class="logo"><svg width="14" height="18" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer">
+            <div class="feat-list">
+              <div class="feat-item"><span class="feat-dot"></span>Agenda intelligent</div>
+              <div class="feat-item"><span class="feat-dot"></span>Suivi financier</div>
+              <div class="feat-item"><span class="feat-dot"></span>Relances auto</div>
+            </div>
+          </div>
+          <div class="bottom">
+            <div class="headline">Tout. En un seul outil.</div>
+            <div class="sub">Agenda, finances, relances — réunis.</div>
+            <div class="cta">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">4:5 · 960×1200 · Dark</div>
+    </div>
+
+    <!-- Story 9:16 -->
+    <div class="ad-wrap">
+      <div class="ad st light">
+        <div class="blob" style="width:160px;height:160px;right:-20px;top:40px;opacity:0.85;"></div>
+        <div class="panel" style="padding:18px;">
+          <div class="logo"><svg width="12" height="15" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="#353230"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="#353230" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text" style="font-size:12px;">LOCKimmo</span></div>
+          <div class="cat" style="font-size:8px;">Gestion locative</div>
+          <div class="spacer"><div><div class="stat-num">4h</div><div class="stat-label">économisées par jour</div></div></div>
+          <div class="bottom">
+            <div class="headline" style="font-size:17px;">4h de gagnées.<br>Chaque jour.</div>
+            <div class="sub" style="font-size:10.5px;">LOCKimmo automatise ce qui vous prenait des heures.</div>
+            <div class="cta" style="font-size:10px;padding:6px 12px;">Essayer gratuitement</div>
+          </div>
+        </div>
+      </div>
+      <div class="fmt-label">9:16 · 1080×1920 · Light</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════
+     DÉCLINAISON FORMATS — Angle 01 · Dark
+═══════════════════════════════════════════ -->
+<div class="section">
+  <div class="section-label">Déclinaison formats · Angle 01 "Gain de temps" · Dark</div>
+  <div class="row bottom">
+
+    <div class="ad-wrap">
+      <div class="ad ls dark" style="width:520px;height:272px;">
+        <div class="blob" style="width:200px;height:200px;left:-30px;top:-30px;"></div>
+        <div class="panel">
+          <div class="logo"><svg width="14" height="18" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text">LOCKimmo</span></div>
+          <div class="cat">Logiciel de gestion locative</div>
+          <div class="spacer"><div><div class="stat-num">4h</div><div class="stat-label">économisées par jour</div></div></div>
+          <div class="bottom"><div class="headline">4h de gagnées.<br>Chaque jour.</div><div class="sub">LOCKimmo automatise.</div><div class="cta">Essayer gratuitement</div></div>
+        </div>
+        <div class="photo-half"><img src="assets/photo-lifestyle.jpg" alt=""></div>
+      </div>
+      <div class="fmt-label">1.91:1 · 1200×628</div>
+    </div>
+
+    <div class="ad-wrap">
+      <div class="ad sq dark" style="width:272px;height:308px;">
+        <div class="blob" style="width:180px;height:180px;left:-30px;top:-30px;"></div>
+        <div class="panel" style="padding:22px;">
+          <div class="logo"><svg width="13" height="17" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text" style="font-size:14px;">LOCKimmo</span></div>
+          <div class="cat" style="font-size:8.5px;">Logiciel de gestion locative</div>
+          <div class="spacer"><div><div class="stat-num" style="font-size:68px;">4h</div><div class="stat-label" style="font-size:11px;">économisées par jour</div></div></div>
+          <div class="bottom"><div class="headline" style="font-size:23px;">4h de gagnées.<br>Chaque jour.</div><div class="sub" style="font-size:10.5px;">LOCKimmo automatise.</div><div class="cta" style="font-size:10.5px;padding:7px 13px;">Essayer gratuitement</div></div>
+        </div>
+      </div>
+      <div class="fmt-label">1:1 · 1200×1200</div>
+    </div>
+
+    <div class="ad-wrap">
+      <div class="ad pt dark" style="width:218px;height:272px;">
+        <div class="blob" style="width:170px;height:170px;left:-25px;top:30px;"></div>
+        <div class="panel" style="padding:20px;">
+          <div class="logo"><svg width="12" height="15" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text" style="font-size:13px;">LOCKimmo</span></div>
+          <div class="cat" style="font-size:8px;">Gestion locative</div>
+          <div class="spacer"><div><div class="stat-num" style="font-size:60px;">4h</div><div class="stat-label" style="font-size:10.5px;">économisées par jour</div></div></div>
+          <div class="bottom"><div class="headline" style="font-size:20px;">4h de gagnées.<br>Chaque jour.</div><div class="sub" style="font-size:10px;">LOCKimmo automatise pendant que vous développez.</div><div class="cta" style="font-size:10px;padding:6px 12px;">Essayer gratuitement</div></div>
+        </div>
+      </div>
+      <div class="fmt-label">4:5 · 960×1200</div>
+    </div>
+
+    <div class="ad-wrap">
+      <div class="ad st dark" style="width:153px;height:272px;">
+        <div class="blob" style="width:140px;height:140px;left:-15px;top:40px;"></div>
+        <div class="panel" style="padding:16px;">
+          <div class="logo"><svg width="11" height="14" viewBox="0 0 16 20" fill="none"><rect x="1" y="8.5" width="14" height="10.5" rx="3" fill="white"/><path d="M4 8.5V6a4 4 0 018 0v2.5" stroke="white" stroke-width="2" stroke-linecap="round" fill="none"/><circle cx="8" cy="14" r="1.8" fill="#FF8753"/></svg><span class="logo-text" style="font-size:11px;">LOCKimmo</span></div>
+          <div class="cat" style="font-size:7.5px;">Gestion locative</div>
+          <div class="spacer"><div><div class="stat-num" style="font-size:46px;">4h</div><div class="stat-label" style="font-size:9.5px;">économisées<br>par jour</div></div></div>
+          <div class="bottom"><div class="headline" style="font-size:15px;">4h de gagnées. Chaque jour.</div><div class="sub" style="font-size:9px;">LOCKimmo automatise.</div><div class="cta" style="font-size:9px;padding:6px 10px;">Essayer gratuitement</div></div>
+        </div>
+      </div>
+      <div class="fmt-label">9:16 · 1080×1920</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOCKimmo — PerfMax Ad Assets</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600&display=swap">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700&display=swap">
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
+    #root { height: 100%; display: flex; flex-direction: column; }
+    body {
+      background: #141210;
+      color: #fff;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── Top nav ── */
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      padding: 0 20px;
+      background: #1c1a18;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      height: 56px;
+      flex-shrink: 0;
+    }
+    .nav-brand {
+      font-family: 'Chillax', sans-serif;
+      font-weight: 500;
+      font-size: 15px;
+      color: #fff;
+      margin-right: 28px;
+      letter-spacing: -0.03em;
+      white-space: nowrap;
+    }
+    .nav-brand span { color: #FF8753; }
+
+    .nav-group {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 0 16px;
+      border-right: 1px solid rgba(255,255,255,0.08);
+    }
+    .nav-group:last-child { border-right: none; }
+    .nav-label {
+      font-size: 10px;
+      font-weight: 600;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-right: 6px;
+      white-space: nowrap;
+    }
+    .pill {
+      padding: 5px 13px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      border: 1px solid transparent;
+      transition: all 0.14s;
+      white-space: nowrap;
+      color: rgba(255,255,255,0.55);
+    }
+    .pill:hover { color: #fff; background: rgba(255,255,255,0.07); }
+    .pill.active { background: #FF8753; color: #fff; border-color: #FF8753; }
+
+    /* style toggle */
+    .style-toggle {
+      display: flex;
+      background: rgba(255,255,255,0.06);
+      border-radius: 100px;
+      padding: 3px;
+      gap: 2px;
+    }
+    .style-btn {
+      padding: 4px 14px;
+      border-radius: 100px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.14s;
+      color: rgba(255,255,255,0.45);
+      border: none;
+      background: none;
+    }
+    .style-btn.active { background: #fff; color: #353230; }
+    .style-btn:hover:not(.active) { color: #fff; }
+
+    /* counter */
+    .ad-counter {
+      margin-left: auto;
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      white-space: nowrap;
+    }
+    .ad-counter strong { color: rgba(255,255,255,0.7); }
+
+    /* ── Preview pane ── */
+    .preview-wrap {
+      flex: 1;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      padding: 16px 24px 44px;
+      position: relative;
+    }
+
+    .preview-stage {
+      position: relative;
+      transform-origin: center center;
+    }
+
+    /* format label */
+    .format-label {
+      position: absolute;
+      bottom: -28px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: rgba(255,255,255,0.3);
+      letter-spacing: 0.05em;
+      white-space: nowrap;
+    }
+
+    /* ── Thumbnail strip ── */
+    .thumb-strip {
+      height: 100px;
+      background: #1c1a18;
+      border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 0 20px;
+      overflow-x: auto;
+      flex-shrink: 0;
+    }
+    .thumb-strip::-webkit-scrollbar { display: none; }
+
+    .thumb {
+      position: relative;
+      cursor: pointer;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 2px solid transparent;
+      transition: border-color 0.14s, transform 0.14s;
+      flex-shrink: 0;
+    }
+    .thumb:hover { transform: scale(1.04); }
+    .thumb.active { border-color: #FF8753; }
+    .thumb-inner { transform-origin: top left; }
+    .thumb-badge {
+      position: absolute;
+      bottom: 4px;
+      left: 4px;
+      background: rgba(0,0,0,0.65);
+      backdrop-filter: blur(4px);
+      border-radius: 4px;
+      padding: 2px 5px;
+      font-size: 9px;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.04em;
+    }
+    .thumb-badge.light-badge { background: rgba(255,255,255,0.75); color: #353230; }
+
+    /* nav arrows */
+    .arrow-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      font-size: 18px;
+      transition: background 0.14s;
+      z-index: 10;
+    }
+    .arrow-btn:hover { background: rgba(255,255,255,0.15); }
+    .arrow-btn.left  { left: 12px; }
+    .arrow-btn.right { right: 12px; }
+  </style>
+</head>
+<body>
+<div id="root"></div>
+<script type="text/babel" src="creative.jsx"></script>
+<script type="text/babel">
+const { useState, useEffect, useRef, useCallback } = React;
+
+// All 40 combos for keyboard/arrow navigation
+function buildAllAds() {
+  const ads = [];
+  ANGLES.forEach(a => {
+    FORMATS.forEach(f => {
+      ['dark','light'].forEach(s => {
+        ads.push({ angleId: a.id, formatId: f.id, styleId: s });
+      });
+    });
+  });
+  return ads;
+}
+const ALL_ADS = buildAllAds();
+
+// Thumbnail dimensions (native → thumb scale)
+const THUMB_H = 72;
+function thumbDims(fmt) {
+  const scale = THUMB_H / fmt.h;
+  return { w: Math.round(fmt.w * scale), h: THUMB_H, scale };
+}
+
+function Thumbnail({ angleId, formatId, styleId, active, onClick }) {
+  const fmt = FORMATS.find(f => f.id === formatId);
+  const { w, h, scale } = thumbDims(fmt);
+  const isLight = styleId === 'light';
+  return (
+    <div className={`thumb${active ? ' active' : ''}`} style={{ width: w, height: h }} onClick={onClick} title={`${ANGLES.find(a=>a.id===angleId).label} · ${fmt.label} · ${styleId}`}>
+      <div className="thumb-inner" style={{ width: fmt.w, height: fmt.h, transform: `scale(${scale})` }}>
+        <Creative angleId={angleId} formatId={formatId} styleId={styleId} />
+      </div>
+      <div className={`thumb-badge${isLight ? ' light-badge' : ''}`}>{fmt.label} {styleId === 'light' ? '☀' : '◆'}</div>
+    </div>
+  );
+}
+
+function App() {
+  const [angleId,  setAngleId]  = useState('temps');
+  const [formatId, setFormatId] = useState('square');
+  const [styleId,  setStyleId]  = useState('dark');
+  const previewRef = useRef(null);
+  const [previewScale, setPreviewScale] = useState(1);
+
+  const fmt = FORMATS.find(f => f.id === formatId);
+
+  // Compute scale to fit preview area
+  useEffect(() => {
+    function resize() {
+      if (!previewRef.current) return;
+      const el = previewRef.current;
+      const pw = el.clientWidth  - 48;
+      const ph = el.clientHeight - 76;
+      const sx = pw / fmt.w;
+      const sy = ph / fmt.h;
+      setPreviewScale(Math.min(sx, sy, 1) * 0.78);
+    }
+    resize();
+    const ro = new ResizeObserver(resize);
+    if (previewRef.current) ro.observe(previewRef.current);
+    return () => ro.disconnect();
+  }, [fmt]);
+
+  // Keyboard arrows → cycle formats
+  useEffect(() => {
+    function onKey(e) {
+      const fmtIdx = FORMATS.findIndex(f => f.id === formatId);
+      const angIdx = ANGLES.findIndex(a => a.id === angleId);
+      if (e.key === 'ArrowRight') setFormatId(FORMATS[(fmtIdx + 1) % FORMATS.length].id);
+      if (e.key === 'ArrowLeft')  setFormatId(FORMATS[(fmtIdx - 1 + FORMATS.length) % FORMATS.length].id);
+      if (e.key === 'ArrowUp')    setAngleId(ANGLES[(angIdx - 1 + ANGLES.length) % ANGLES.length].id);
+      if (e.key === 'ArrowDown')  setAngleId(ANGLES[(angIdx + 1) % ANGLES.length].id);
+    }
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [formatId, angleId]);
+
+  // Thumb strip: all formats × both styles for current angle
+  const thumbItems = FORMATS.flatMap(f => ['dark','light'].map(s => ({ formatId: f.id, styleId: s })));
+
+  // Ad count for counter
+  const adIdx = ALL_ADS.findIndex(a => a.angleId === angleId && a.formatId === formatId && a.styleId === styleId);
+
+  const fmtIdx = FORMATS.findIndex(f => f.id === formatId);
+
+  return (
+    <React.Fragment>
+      {/* ── Navigation bar ── */}
+      <nav className="nav">
+        <div className="nav-brand">LOCK<span>immo</span> · PerfMax</div>
+
+        <div className="nav-group">
+          <span className="nav-label">Angle</span>
+          {ANGLES.map(a => (
+            <div key={a.id} className={`pill${angleId === a.id ? ' active' : ''}`} onClick={() => setAngleId(a.id)}>
+              {a.icon} {a.label}
+            </div>
+          ))}
+        </div>
+
+        <div className="nav-group">
+          <span className="nav-label">Format</span>
+          {FORMATS.map(f => (
+            <div key={f.id} className={`pill${formatId === f.id ? ' active' : ''}`} onClick={() => setFormatId(f.id)} title={f.desc}>
+              {f.label}
+            </div>
+          ))}
+        </div>
+
+        <div className="nav-group">
+          <span className="nav-label">Style</span>
+          <div className="style-toggle">
+            <button className={`style-btn${styleId === 'dark' ? ' active' : ''}`} onClick={() => setStyleId('dark')}>◆ Dark</button>
+            <button className={`style-btn${styleId === 'light' ? ' active' : ''}`} onClick={() => setStyleId('light')}>☀ Light</button>
+          </div>
+        </div>
+
+        <div className="ad-counter">
+          Visuel <strong>{adIdx + 1}</strong> / {ALL_ADS.length} &nbsp;·&nbsp; {fmt.desc}
+          &nbsp;·&nbsp; ← → ↑ ↓
+        </div>
+      </nav>
+
+      {/* ── Preview ── */}
+      <div className="preview-wrap" ref={previewRef}>
+        {/* Arrow nav for formats */}
+        <div className="arrow-btn left" onClick={() => setFormatId(FORMATS[(fmtIdx - 1 + FORMATS.length) % FORMATS.length].id)}>‹</div>
+        <div className="arrow-btn right" onClick={() => setFormatId(FORMATS[(fmtIdx + 1) % FORMATS.length].id)}>›</div>
+
+        <div className="preview-stage" style={{
+          width:  fmt.w * previewScale,
+          height: fmt.h * previewScale,
+          borderRadius: 12,
+          overflow: 'hidden',
+          boxShadow: '0 24px 80px rgba(0,0,0,0.7)',
+        }}>
+          <div style={{ transform: `scale(${previewScale})`, transformOrigin: 'top left', width: fmt.w, height: fmt.h }}>
+            <Creative angleId={angleId} formatId={formatId} styleId={styleId} />
+          </div>
+        </div>
+        <div className="format-label">{fmt.w} × {fmt.h} px · {fmt.label} · {styleId}</div>
+      </div>
+
+      {/* ── Thumbnail strip ── */}
+      <div className="thumb-strip">
+        {thumbItems.map(({ formatId: fId, styleId: sId }) => (
+          <Thumbnail
+            key={`${fId}-${sId}`}
+            angleId={angleId}
+            formatId={fId}
+            styleId={sId}
+            active={fId === formatId && sId === styleId}
+            onClick={() => { setFormatId(fId); setStyleId(sId); }}
+          />
+        ))}
+      </div>
+    </React.Fragment>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+</script>
+</body>
+</html>
