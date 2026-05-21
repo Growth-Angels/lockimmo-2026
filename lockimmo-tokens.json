@@ -204,7 +204,7 @@
         "description": "Corps de texte — toute l'interface"
       },
       "mono": {
-        "value": "JetBrains Mono",
+        "value": "Alan Sans",
         "type": "fontFamilies",
         "description": "Tokens, valeurs techniques, code"
       }
