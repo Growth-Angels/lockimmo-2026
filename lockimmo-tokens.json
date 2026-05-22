@@ -708,23 +708,23 @@
           "value": {
             "fontFamily": "{fontFamilies.sans}",
             "fontWeight": "{fontWeights.regular}",
-            "fontSize": "{fontSize.article}",
+            "fontSize": "{fontSize.base}",
             "lineHeight": "{lineHeights.relaxed}",
             "letterSpacing": "{letterSpacing.normal}"
           },
           "type": "typography",
-          "description": "Corps de texte article — 18px"
+          "description": "Corps de texte article — 16px"
         },
         "quote": {
           "value": {
             "fontFamily": "{fontFamilies.sans}",
             "fontWeight": "{fontWeights.medium}",
-            "fontSize": "{fontSize.article}",
+            "fontSize": "{fontSize.base}",
             "lineHeight": "{lineHeights.relaxed}",
             "letterSpacing": "{letterSpacing.normal}"
           },
           "type": "typography",
-          "description": "Citation / blockquote — 18px Alan Sans 500"
+          "description": "Citation / blockquote — 16px Alan Sans 500"
         },
         "caption": {
           "value": {
