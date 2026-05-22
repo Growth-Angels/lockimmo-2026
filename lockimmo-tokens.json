@@ -752,23 +752,23 @@
           "value": {
             "fontFamily": "{fontFamilies.sans}",
             "fontWeight": "{fontWeights.semibold}",
-            "fontSize": "{fontSize.article}",
+            "fontSize": "{fontSize.base}",
             "lineHeight": "{lineHeights.relaxed}",
             "letterSpacing": "{letterSpacing.normal}"
           },
           "type": "typography",
-          "description": "Lien hypertexte dans le corps — 18px 600"
+          "description": "Lien hypertexte dans le corps — 16px 600"
         },
         "list": {
           "value": {
             "fontFamily": "{fontFamilies.sans}",
             "fontWeight": "{fontWeights.regular}",
-            "fontSize": "{fontSize.article}",
+            "fontSize": "{fontSize.base}",
             "lineHeight": "{lineHeights.relaxed}",
             "letterSpacing": "{letterSpacing.normal}"
           },
           "type": "typography",
-          "description": "Élément de liste ul/ol — 18px"
+          "description": "Élément de liste ul/ol — 16px"
         }
       },
 
