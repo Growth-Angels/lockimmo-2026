@@ -995,9 +995,9 @@
       white-space: nowrap;
       text-decoration: none;
     }
-    .btn-lg { font-size: 14px; padding: 13px 24px; border-radius: var(--radius-md); }
-    .btn-md { font-size: 13px; padding: 9px 18px; border-radius: var(--radius-md); }
-    .btn-sm { font-size: 11.5px; padding: 6px 13px; border-radius: 8px; }
+    .btn-lg { font-size: var(--font-size-base); padding: 13px 24px; border-radius: var(--radius-md); }
+    .btn-md { font-size: var(--font-size-md); padding: 9px 18px; border-radius: var(--radius-md); }
+    .btn-sm { font-size: var(--font-size-sm); padding: 6px 13px; border-radius: 8px; }
 
     .btn-primary { background: var(--brand-500); color: #fff; }
     .btn-primary:hover { background: #ff9b70; box-shadow: 0 4px 16px rgba(255,135,83,0.32); }
@@ -1930,16 +1930,16 @@
           <div class="type-row">
             <div class="type-token">typography/button/lg<br><span>Alan Sans · bold</span></div>
             <div class="type-divider"></div>
-            <div class="type-spec">var(--font-size-md) · 700<br>lh 1</div>
+            <div class="type-spec">var(--font-size-base) · 700<br>lh 1</div>
             <div class="type-divider"></div>
-            <div class="type-sample" style="font-size:var(--font-size-md);font-weight:700;line-height:1;color:var(--ink-900)">Créer un mandat</div>
+            <div class="type-sample" style="font-size:var(--font-size-base);font-weight:700;line-height:1;color:var(--ink-900)">Créer un mandat</div>
           </div>
           <div class="type-row">
             <div class="type-token">typography/button/md<br><span>Alan Sans · bold</span></div>
             <div class="type-divider"></div>
-            <div class="type-spec">var(--font-size-base) · 700<br>lh 1</div>
+            <div class="type-spec">var(--font-size-md) · 700<br>lh 1</div>
             <div class="type-divider"></div>
-            <div class="type-sample" style="font-size:var(--font-size-base);font-weight:700;line-height:1;color:var(--ink-900)">Créer un mandat</div>
+            <div class="type-sample" style="font-size:var(--font-size-md);font-weight:700;line-height:1;color:var(--ink-900)">Créer un mandat</div>
           </div>
           <div class="type-row">
             <div class="type-token">typography/button/sm<br><span>Alan Sans · semibold</span></div>
@@ -2265,9 +2265,9 @@
         <div class="ds-subsection-label">Tailles</div>
         <div class="ds-card">
           <div class="comp-row" style="align-items:center">
-            <button class="btn btn-primary btn-lg">Large · 14px</button>
-            <button class="btn btn-primary btn-md">Medium · 13px</button>
-            <button class="btn btn-primary btn-sm">Small · 11.5px</button>
+            <button class="btn btn-primary btn-lg">Large · 16px</button>
+            <button class="btn btn-primary btn-md">Medium · 15px</button>
+            <button class="btn btn-primary btn-sm">Small · 12px</button>
           </div>
         </div>
       </div>

@@ -868,23 +868,23 @@
           "value": {
             "fontFamily": "{fontFamilies.sans}",
             "fontWeight": "{fontWeights.bold}",
-            "fontSize": "{fontSize.md}",
-            "lineHeight": "{lineHeights.snug}",
-            "letterSpacing": "{letterSpacing.normal}"
-          },
-          "type": "typography",
-          "description": "Bouton large — 15px 700"
-        },
-        "md": {
-          "value": {
-            "fontFamily": "{fontFamilies.sans}",
-            "fontWeight": "{fontWeights.bold}",
             "fontSize": "{fontSize.base}",
             "lineHeight": "{lineHeights.snug}",
             "letterSpacing": "{letterSpacing.normal}"
           },
           "type": "typography",
-          "description": "Bouton standard — 13.5px 700"
+          "description": "Bouton large — 16px 700"
+        },
+        "md": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.bold}",
+            "fontSize": "{fontSize.md}",
+            "lineHeight": "{lineHeights.snug}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Bouton standard — 15px 700"
         },
         "sm": {
           "value": {
