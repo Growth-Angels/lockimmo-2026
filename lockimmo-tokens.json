@@ -251,14 +251,19 @@
         "description": "Meta, hints, breadcrumb"
       },
       "base": {
-        "value": "13.5",
+        "value": "16",
         "type": "fontSizes",
         "description": "Corps standard"
       },
       "md": {
         "value": "15",
         "type": "fontSizes",
-        "description": "Corps large, lead"
+        "description": "Taille intermédiaire UI"
+      },
+      "article": {
+        "value": "18",
+        "type": "fontSizes",
+        "description": "Corps article — paragraphes, liens, listes"
       },
       "lg": {
         "value": "18",
@@ -631,12 +636,12 @@
           "value": {
             "fontFamily": "{fontFamilies.sans}",
             "fontWeight": "{fontWeights.semibold}",
-            "fontSize": "{fontSize.md}",
+            "fontSize": "{fontSize.base}",
             "lineHeight": "{lineHeights.snug}",
             "letterSpacing": "{letterSpacing.normal}"
           },
           "type": "typography",
-          "description": "H5 article — 15px Alan Sans 600"
+          "description": "H5 article — 16px Alan Sans 600"
         },
         "h6": {
           "value": {
@@ -656,12 +661,12 @@
           "value": {
             "fontFamily": "{fontFamilies.sans}",
             "fontWeight": "{fontWeights.regular}",
-            "fontSize": "{fontSize.md}",
+            "fontSize": "{fontSize.article}",
             "lineHeight": "{lineHeights.loose}",
             "letterSpacing": "{letterSpacing.normal}"
           },
           "type": "typography",
-          "description": "Corps introductif / chapô — 15px"
+          "description": "Corps introductif / chapô — 18px"
         },
         "base": {
           "value": {
@@ -672,7 +677,7 @@
             "letterSpacing": "{letterSpacing.normal}"
           },
           "type": "typography",
-          "description": "Corps standard — 13.5px"
+          "description": "Corps standard — 16px"
         },
         "sm": {
           "value": {
@@ -699,16 +704,27 @@
       },
 
       "article": {
-        "quote": {
+        "body": {
           "value": {
             "fontFamily": "{fontFamilies.sans}",
-            "fontWeight": "{fontWeights.medium}",
-            "fontSize": "{fontSize.md}",
+            "fontWeight": "{fontWeights.regular}",
+            "fontSize": "{fontSize.article}",
             "lineHeight": "{lineHeights.relaxed}",
             "letterSpacing": "{letterSpacing.normal}"
           },
           "type": "typography",
-          "description": "Citation / blockquote — 15px Alan Sans 500"
+          "description": "Corps de texte article — 18px"
+        },
+        "quote": {
+          "value": {
+            "fontFamily": "{fontFamilies.sans}",
+            "fontWeight": "{fontWeights.medium}",
+            "fontSize": "{fontSize.article}",
+            "lineHeight": "{lineHeights.relaxed}",
+            "letterSpacing": "{letterSpacing.normal}"
+          },
+          "type": "typography",
+          "description": "Citation / blockquote — 18px Alan Sans 500"
         },
         "caption": {
           "value": {
@@ -736,23 +752,23 @@
           "value": {
             "fontFamily": "{fontFamilies.sans}",
             "fontWeight": "{fontWeights.semibold}",
-            "fontSize": "{fontSize.base}",
+            "fontSize": "{fontSize.article}",
             "lineHeight": "{lineHeights.relaxed}",
             "letterSpacing": "{letterSpacing.normal}"
           },
           "type": "typography",
-          "description": "Lien hypertexte dans le corps — 13.5px 600"
+          "description": "Lien hypertexte dans le corps — 18px 600"
         },
         "list": {
           "value": {
             "fontFamily": "{fontFamilies.sans}",
             "fontWeight": "{fontWeights.regular}",
-            "fontSize": "{fontSize.base}",
+            "fontSize": "{fontSize.article}",
             "lineHeight": "{lineHeights.relaxed}",
             "letterSpacing": "{letterSpacing.normal}"
           },
           "type": "typography",
-          "description": "Élément de liste ul/ol — 13.5px"
+          "description": "Élément de liste ul/ol — 18px"
         }
       },
 

@@ -78,8 +78,9 @@
   /* Font Sizes */
   --font-size-xs: 10px;
   --font-size-sm: 12px;
-  --font-size-base: 13.5px;
+  --font-size-base: 16px;
   --font-size-md: 15px;
+  --font-size-article: 18px;
   --font-size-lg: 18px;
   --font-size-xl: 22px;
   --font-size-2xl: 28px;
