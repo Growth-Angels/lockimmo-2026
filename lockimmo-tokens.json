@@ -751,13 +751,14 @@
         "link": {
           "value": {
             "fontFamily": "{fontFamilies.sans}",
-            "fontWeight": "{fontWeights.semibold}",
+            "fontWeight": "{fontWeights.bold}",
             "fontSize": "{fontSize.base}",
             "lineHeight": "{lineHeights.relaxed}",
-            "letterSpacing": "{letterSpacing.normal}"
+            "letterSpacing": "{letterSpacing.normal}",
+            "textDecoration": "underline"
           },
           "type": "typography",
-          "description": "Lien hypertexte dans le corps — 16px 600"
+          "description": "Lien hypertexte dans le corps — 16px 700 underline"
         },
         "list": {
           "value": {
