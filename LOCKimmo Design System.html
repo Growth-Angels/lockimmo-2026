@@ -1059,6 +1059,47 @@
     .amount-neg { color: var(--error-500); background: var(--error-50); }
 
     /* ──────────────────────────────────
+       COMPONENTS — Reviews / Avis clients
+    ────────────────────────────────── */
+    /* Note globale */
+    .ts-score-block { display: flex; align-items: center; gap: 32px; }
+    .ts-score-num { font-family: var(--font-heading); font-size: 56px; font-weight: 700; color: var(--ink-900); line-height: 1; }
+    .ts-stars { color: #FFDC0F; font-size: 22px; letter-spacing: 2px; margin: 6px 0 4px; }
+    .ts-base  { font-size: 13px; color: var(--ink-500); margin-top: 2px; }
+    .ts-tag-excellent { display: inline-block; background: #E8F5EE; color: #00843D; font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: var(--radius-pill); margin-top: 8px; }
+    /* Badge TS officiel */
+    .ts-badge {
+      background: #00843D; color: #fff; border-radius: 14px;
+      padding: 18px 24px; display: flex; flex-direction: column; align-items: center; gap: 6px;
+      width: 200px; flex-shrink: 0;
+    }
+    .ts-badge-label { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; text-transform: lowercase; opacity: 0.85; }
+    .ts-badge-stars { color: #FFDC0F; font-size: 20px; letter-spacing: 1px; }
+    .ts-badge-score { font-family: var(--font-heading); font-size: 26px; font-weight: 700; }
+    .ts-badge-verified { font-size: 11px; opacity: 0.75; display: flex; align-items: center; gap: 4px; }
+    .ts-badge-dot { width: 7px; height: 7px; background: #FFDC0F; border-radius: 50%; }
+    /* Cards témoignages */
+    .review-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
+    .review-card {
+      background: var(--surface-50); border: 1px solid var(--surface-200);
+      border-radius: var(--radius-lg); padding: 20px; display: flex; flex-direction: column; gap: 10px;
+    }
+    .review-card-stars { color: #FFDC0F; font-size: 15px; letter-spacing: 1px; }
+    .review-card-title { font-size: 14px; font-weight: 700; color: var(--ink-900); }
+    .review-card-body { font-size: 13px; color: var(--ink-600); line-height: 1.55; flex: 1; }
+    .review-card-sep { border: none; border-top: 1px solid var(--surface-200); margin: 4px 0; }
+    .review-card-footer { display: flex; justify-content: space-between; align-items: center; }
+    .review-card-name { font-size: 13px; font-weight: 600; color: var(--ink-800); }
+    .review-card-date { font-size: 11px; color: var(--ink-400); }
+    .review-card-pill { display: inline-flex; align-items: center; gap: 5px; background: #E8F5EE; color: #00843D; font-size: 11px; font-weight: 600; padding: 3px 9px; border-radius: var(--radius-pill); margin-top: 2px; }
+    .review-card-pill-dot { width: 6px; height: 6px; background: #00843D; border-radius: 50%; }
+    /* Badges inline */
+    .ts-inline-filled { display: inline-flex; align-items: center; gap: 7px; background: #00843D; color: #fff; padding: 7px 14px; border-radius: var(--radius-pill); font-size: 13px; font-weight: 600; }
+    .ts-inline-filled .ts-i-stars { color: #FFDC0F; font-size: 13px; }
+    .ts-inline-outlined { display: inline-flex; align-items: center; gap: 7px; background: #fff; color: #00843D; padding: 7px 14px; border-radius: var(--radius-pill); border: 1.5px solid #00843D; font-size: 13px; font-weight: 600; }
+    .ts-inline-outlined .ts-i-stars { color: #FFDC0F; font-size: 13px; }
+
+    /* ──────────────────────────────────
        COMPONENTS — Inputs
     ────────────────────────────────── */
     .input-group { display: flex; flex-direction: column; gap: 6px; }
@@ -1373,6 +1414,9 @@
       </a>
       <a class="nav-item" href="#darkmode">
         <div class="nav-dot" style="background:#0E0C0B;border:1px solid #888"></div> Mode sombre
+      </a>
+      <a class="nav-item" href="#reviews">
+        <div class="nav-dot" style="background:#00843D"></div> Avis clients
       </a>
     </div>
   </nav>
@@ -3243,6 +3287,99 @@
               <div class="dark-body" style="margin-bottom:20px">Quittances automatiques, relances intelligentes et comptabilité centralisée.</div>
               <button class="btn btn-md btn-pill" style="background:rgba(255,135,83,0.1);color:#FF8753;border:1px solid rgba(255,135,83,0.22);font-weight:600">Découvrir →</button>
             </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ══════════════════ AVIS CLIENTS ══════════════════ -->
+    <section class="ds-section" id="reviews">
+      <div class="ds-section-header">
+        <h2 class="ds-section-title">Avis clients</h2>
+        <span class="ds-section-sub">Trusted Shops · Note globale · témoignages</span>
+      </div>
+
+      <!-- Note globale -->
+      <div class="ds-subsection">
+        <div class="ds-subsection-label">Note globale</div>
+        <div class="ds-card">
+          <div class="ts-score-block">
+            <div>
+              <div class="ts-score-num">4,8</div>
+              <div class="ts-stars">★★★★★</div>
+              <div class="ts-base">Basé sur 127 avis vérifiés</div>
+              <span class="ts-tag-excellent">Excellent</span>
+            </div>
+            <div class="ts-badge">
+              <div class="ts-badge-label">trusted shops</div>
+              <div class="ts-badge-stars">★★★★★</div>
+              <div class="ts-badge-score">4,8 / 5</div>
+              <div class="ts-badge-verified"><span class="ts-badge-dot"></span> Avis vérifiés</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Témoignages -->
+      <div class="ds-subsection">
+        <div class="ds-subsection-label">Témoignages</div>
+        <div class="review-grid">
+          <div class="review-card">
+            <div class="review-card-stars">★★★★★</div>
+            <div class="review-card-title">Agence très réactive et professionnelle</div>
+            <div class="review-card-body">Je recommande vivement ! Le suivi de mon bien est impeccable et l'équipe répond toujours rapidement à mes questions.</div>
+            <hr class="review-card-sep">
+            <div class="review-card-footer">
+              <div>
+                <div class="review-card-name">Sophie M.</div>
+                <span class="review-card-pill"><span class="review-card-pill-dot"></span>Avis vérifié</span>
+              </div>
+              <div class="review-card-date">12 mai 2026</div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-card-stars">★★★★★</div>
+            <div class="review-card-title">Excellent accompagnement locatif</div>
+            <div class="review-card-body">Toutes les démarches ont été gérées de A à Z. Mes loyers arrivent à date fixe, aucun stress de mon côté. Merci !</div>
+            <hr class="review-card-sep">
+            <div class="review-card-footer">
+              <div>
+                <div class="review-card-name">Thomas R.</div>
+                <span class="review-card-pill"><span class="review-card-pill-dot"></span>Avis vérifié</span>
+              </div>
+              <div class="review-card-date">3 mai 2026</div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-card-stars">★★★★☆</div>
+            <div class="review-card-title">Très bonne gestion globale</div>
+            <div class="review-card-body">Service sérieux et fiable. Une légère amélioration possible sur les délais de retour par email, mais globalement très satisfait.</div>
+            <hr class="review-card-sep">
+            <div class="review-card-footer">
+              <div>
+                <div class="review-card-name">Laurent B.</div>
+                <span class="review-card-pill"><span class="review-card-pill-dot"></span>Avis vérifié</span>
+              </div>
+              <div class="review-card-date">28 avr. 2026</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Badge inline -->
+      <div class="ds-subsection">
+        <div class="ds-subsection-label">Badge inline (footer / nav)</div>
+        <div class="ds-card">
+          <div class="comp-row">
+            <span class="ts-inline-filled">
+              <span class="ts-i-stars">★★★★★</span>
+              <span>4,8</span>
+              <span style="opacity:0.75;font-weight:400">trusted shops</span>
+            </span>
+            <span class="ts-inline-outlined">
+              <span class="ts-i-stars">★★★★★</span>
+              <span>4,8 · Trusted Shops</span>
+            </span>
           </div>
         </div>
       </div>
