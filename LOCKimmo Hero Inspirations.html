@@ -1,0 +1,1093 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LOCKimmo — Hero Inspirations</title>
+  <link rel="preconnect" href="https://api.fontshare.com">
+  <link rel="stylesheet" href="https://api.fontshare.com/v2/css?f[]=chillax@400,500,600&display=swap">
+  <style>
+    @font-face { font-family:'Alan Sans';src:url('fonts/AlanSans-Light.ttf') format('truetype');font-weight:300;font-display:swap }
+    @font-face { font-family:'Alan Sans';src:url('fonts/AlanSans-Regular.ttf') format('truetype');font-weight:400;font-display:swap }
+    @font-face { font-family:'Alan Sans';src:url('fonts/AlanSans-Medium.ttf') format('truetype');font-weight:500;font-display:swap }
+    @font-face { font-family:'Alan Sans';src:url('fonts/AlanSans-SemiBold.ttf') format('truetype');font-weight:600;font-display:swap }
+    @font-face { font-family:'Alan Sans';src:url('fonts/AlanSans-Bold.ttf') format('truetype');font-weight:700;font-display:swap }
+    @font-face { font-family:'Alan Sans';src:url('fonts/AlanSans-ExtraBold.ttf') format('truetype');font-weight:800;font-display:swap }
+  </style>
+  <style>
+    /* ─── Tokens (alignés avec le design system) ─── */
+    :root {
+      --brand-500:#FF8753; --brand-200:#FFE0CC; --brand-100:#FFF0E8; --brand-50:#FFF4EE;
+      --ink-900:#0E0C0B; --ink-800:#353230; --ink-600:#6C6057; --ink-400:#AAA09A; --ink-300:#C4BDB8;
+      --surface-100:#FFFFFF; --surface-200:#FAFAF9; --surface-300:#F3F0ED; --surface-400:#EDE9E5; --surface-500:#F8F5F2;
+      --success-500:#28A566; --success-50:#EDFBF4;
+      --error-500:#E05252; --error-50:#FFF0F0;
+      --info-500:#3B7DF8; --info-50:#EEF4FF;
+      --purple-500:#8B5CF6; --purple-50:#F4EEFF;
+      --background-page:#F3F0ED;
+      --border-default:rgba(53,50,48,0.08); --border-strong:rgba(53,50,48,0.15);
+      --font-display:'Chillax',sans-serif; --font-sans:'Alan Sans',sans-serif;
+      --radius-sm:6px; --radius-md:10px; --radius-lg:14px; --radius-xl:24px; --radius-pill:100px;
+      --shadow-card:0px 1px 3px rgba(53,50,48,0.06),0px 1px 2px rgba(53,50,48,0.04);
+      --shadow-float:0px 8px 32px rgba(53,50,48,0.12);
+      --shadow-deep:0px 20px 60px rgba(0,0,0,0.18);
+    }
+
+    /* ─── Reset & Base ─── */
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html,body{height:100%}
+    body{font-family:var(--font-sans);background:var(--background-page);color:var(--ink-800);display:flex;flex-direction:column;min-height:100vh}
+    a{text-decoration:none;color:inherit}
+
+    /* ─── Topbar ─── */
+    .topbar{height:56px;background:var(--ink-800);display:flex;align-items:center;padding:0 24px;gap:16px;flex-shrink:0;position:sticky;top:0;z-index:100;border-bottom:1px solid rgba(255,255,255,0.05)}
+    .topbar-logo{display:flex;align-items:center;gap:8px;font-family:var(--font-display);font-size:17px;font-weight:500;letter-spacing:-0.04em;color:#fff}
+    .topbar-divider{width:1px;height:18px;background:rgba(255,255,255,0.12)}
+    .topbar-title{font-size:12px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:rgba(255,255,255,0.35)}
+    .topbar-badge{margin-left:auto;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;color:var(--brand-500);background:rgba(255,135,83,0.12);border:1px solid rgba(255,135,83,0.2);padding:3px 10px;border-radius:var(--radius-pill)}
+
+    /* ─── Shell ─── */
+    .shell{display:flex;flex:1;min-height:0}
+
+    /* ─── Sidebar ─── */
+    .sidebar{width:208px;flex-shrink:0;background:var(--surface-100);border-right:1px solid rgba(53,50,48,0.08);position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto;padding:20px 0}
+    .sidebar::-webkit-scrollbar{display:none}
+    .nav-group{margin-bottom:8px}
+    .nav-label{font-size:9.5px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:var(--ink-400);padding:6px 18px 4px}
+    .nav-item{display:flex;align-items:center;gap:8px;padding:7px 18px;font-size:12.5px;color:var(--ink-600);cursor:pointer;text-decoration:none;transition:background 0.12s,color 0.12s;position:relative}
+    .nav-item:hover{background:var(--surface-400);color:var(--ink-800)}
+    .nav-item.active{background:var(--brand-50);color:var(--brand-500);font-weight:600}
+    .nav-item.active::before{content:'';position:absolute;left:0;top:4px;bottom:4px;width:3px;background:var(--brand-500);border-radius:0 3px 3px 0}
+    .nav-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+    .nav-num{font-size:9px;font-weight:700;color:var(--ink-300);margin-left:auto;font-variant-numeric:tabular-nums}
+
+    /* ─── Main ─── */
+    .main{flex:1;overflow-y:auto;padding:40px 48px 100px;display:flex;flex-direction:column;gap:80px}
+    .main::-webkit-scrollbar{width:4px}
+    .main::-webkit-scrollbar-thumb{background:rgba(53,50,48,0.15);border-radius:4px}
+
+    /* ─── Page type header ─── */
+    .page-type-header{display:flex;align-items:baseline;gap:16px;padding-bottom:16px;border-bottom:2px solid rgba(53,50,48,0.1)}
+    .page-type-title{font-family:var(--font-display);font-size:28px;font-weight:500;letter-spacing:-0.04em;color:var(--ink-900)}
+    .page-type-sub{font-size:13px;color:var(--ink-400)}
+    .page-type-count{margin-left:auto;font-size:11px;font-weight:600;color:var(--ink-300);background:var(--surface-400);padding:3px 10px;border-radius:var(--radius-pill)}
+
+    /* ─── Variant block ─── */
+    .page-group{display:flex;flex-direction:column;gap:40px}
+    .variant-block{display:flex;flex-direction:column;gap:12px}
+    .variant-meta{display:flex;align-items:center;gap:10px}
+    .variant-num{font-size:10px;font-weight:700;color:var(--ink-300);font-variant-numeric:tabular-nums;width:20px}
+    .variant-name{font-size:13px;font-weight:700;color:var(--ink-800)}
+    .variant-desc{font-size:12px;color:var(--ink-400)}
+    .variant-tag{display:inline-flex;align-items:center;font-size:10px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:2px 8px;border-radius:var(--radius-pill)}
+    .variant-tag-light{background:var(--surface-300);color:var(--ink-600)}
+    .variant-tag-dark{background:rgba(14,12,11,0.1);color:var(--ink-800)}
+    .variant-tag-brand{background:var(--brand-50);color:var(--brand-500)}
+
+    /* ─── Hero frame (browser preview) ─── */
+    .hero-frame{border-radius:var(--radius-xl);overflow:hidden;border:1px solid rgba(53,50,48,0.1);box-shadow:var(--shadow-float)}
+
+    /* ─── Simulated nav (inside hero) ─── */
+    .sim-nav{display:flex;align-items:center;gap:32px;padding:0 40px;height:60px;background:rgba(255,255,255,0.95);backdrop-filter:blur(8px);border-bottom:1px solid rgba(53,50,48,0.06)}
+    .sim-nav-dark{background:rgba(14,12,11,0.95);border-bottom:1px solid rgba(255,255,255,0.06)}
+    .sim-nav-logo{font-family:var(--font-display);font-size:19px;font-weight:500;letter-spacing:-0.04em;color:var(--ink-900);flex-shrink:0}
+    .sim-nav-dark .sim-nav-logo{color:#fff}
+    .sim-nav-links{display:flex;gap:24px;font-size:13px;color:var(--ink-600)}
+    .sim-nav-dark .sim-nav-links{color:rgba(255,255,255,0.55)}
+    .sim-nav-actions{margin-left:auto;display:flex;align-items:center;gap:10px}
+    .sim-btn-ghost{font-size:13px;font-weight:500;color:var(--ink-600);padding:8px 16px;cursor:pointer}
+    .sim-nav-dark .sim-btn-ghost{color:rgba(255,255,255,0.55)}
+    .sim-btn-primary{font-family:var(--font-sans);font-size:13px;font-weight:700;color:#fff;background:var(--brand-500);padding:9px 20px;border-radius:var(--radius-pill);cursor:pointer}
+
+    /* ─── Dashboard mockup ─── */
+    .dash-mock{display:flex;border-radius:var(--radius-lg);overflow:hidden;background:#fff;box-shadow:var(--shadow-deep);border:1px solid rgba(53,50,48,0.06)}
+    .dash-mock-dark{background:#1A1815}
+    .dm-sidebar{width:52px;background:#F8F5F2;border-right:1px solid rgba(53,50,48,0.07);display:flex;flex-direction:column;align-items:center;padding:16px 0;gap:10px;flex-shrink:0}
+    .dash-mock-dark .dm-sidebar{background:#141210;border-right-color:rgba(255,255,255,0.05)}
+    .dm-logo-mark{width:28px;height:28px;background:var(--brand-500);border-radius:8px;margin-bottom:8px}
+    .dm-nav-item{width:28px;height:28px;border-radius:7px;background:rgba(53,50,48,0.08)}
+    .dm-nav-item.dm-active{background:var(--brand-500)}
+    .dash-mock-dark .dm-nav-item{background:rgba(255,255,255,0.08)}
+    .dash-mock-dark .dm-nav-item.dm-active{background:var(--brand-500)}
+    .dm-main{flex:1;display:flex;flex-direction:column;gap:0;overflow:hidden}
+    .dm-topbar{padding:12px 20px;border-bottom:1px solid rgba(53,50,48,0.06);display:flex;align-items:center;gap:10px}
+    .dash-mock-dark .dm-topbar{border-bottom-color:rgba(255,255,255,0.05)}
+    .dm-title-bar{width:120px;height:10px;background:rgba(53,50,48,0.12);border-radius:5px}
+    .dash-mock-dark .dm-title-bar{background:rgba(255,255,255,0.12)}
+    .dm-btn-bar{margin-left:auto;width:80px;height:26px;background:var(--brand-500);border-radius:var(--radius-pill);opacity:0.9}
+    .dm-body{padding:16px 20px;display:flex;flex-direction:column;gap:14px}
+    .dm-kpis{display:flex;gap:10px}
+    .dm-kpi{flex:1;background:var(--surface-300);border-radius:var(--radius-md);padding:12px;display:flex;flex-direction:column;gap:4px}
+    .dash-mock-dark .dm-kpi{background:rgba(255,255,255,0.05)}
+    .dm-kpi-num{font-family:var(--font-display);font-size:18px;font-weight:500;letter-spacing:-0.03em;color:var(--ink-900)}
+    .dash-mock-dark .dm-kpi-num{color:#fff}
+    .dm-kpi-label{font-size:9px;font-weight:600;color:var(--ink-400);text-transform:uppercase;letter-spacing:0.06em}
+    .dm-kpi-trend{font-size:9px;font-weight:700;color:var(--success-500)}
+    .dm-chart-area{display:flex;flex-direction:column;gap:8px}
+    .dm-chart-label{font-size:9px;font-weight:700;color:var(--ink-400);text-transform:uppercase;letter-spacing:0.06em}
+    .dm-bars{display:flex;align-items:flex-end;gap:6px;height:70px}
+    .dm-bar{flex:1;background:var(--surface-400);border-radius:4px 4px 0 0}
+    .dash-mock-dark .dm-bar{background:rgba(255,255,255,0.08)}
+    .dm-bar.active{background:var(--brand-500)}
+    .dm-rows{display:flex;flex-direction:column;gap:6px}
+    .dm-row{display:flex;align-items:center;gap:8px;padding:8px 10px;background:var(--surface-200);border-radius:var(--radius-md)}
+    .dash-mock-dark .dm-row{background:rgba(255,255,255,0.04)}
+    .dm-row-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+    .dm-row-text{flex:1;height:8px;background:rgba(53,50,48,0.1);border-radius:4px}
+    .dash-mock-dark .dm-row-text{background:rgba(255,255,255,0.1)}
+    .dm-row-amount{font-family:var(--font-display);font-size:11px;font-weight:500;letter-spacing:-0.02em}
+
+    /* ─── Shared hero patterns ─── */
+    .hero-pill{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:5px 14px;border-radius:var(--radius-pill)}
+    .hero-h1{font-family:var(--font-display);letter-spacing:-0.04em;line-height:1.05}
+    .hero-body{font-size:16px;line-height:1.65;color:var(--ink-600);max-width:480px}
+    .hero-cta-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+    .hbtn{display:inline-flex;align-items:center;gap:8px;font-family:var(--font-sans);font-weight:700;border:none;cursor:pointer;border-radius:var(--radius-pill)}
+    .hbtn-primary{background:var(--brand-500);color:#fff;padding:14px 28px;font-size:15px}
+    .hbtn-ghost{background:transparent;color:var(--ink-700,var(--ink-600));padding:14px 22px;font-size:15px;border:1.5px solid rgba(53,50,48,0.18)}
+    .hbtn-ghost-white{background:transparent;color:rgba(255,255,255,0.8);padding:14px 22px;font-size:15px;border:1.5px solid rgba(255,255,255,0.22)}
+    .hbtn-white{background:#fff;color:var(--ink-900);padding:14px 28px;font-size:15px;font-weight:700}
+    .hero-proof{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+    .hero-proof-stars{color:#FFDC0F;font-size:14px}
+    .hero-proof-text{font-size:12px;color:var(--ink-400);font-weight:500}
+    .hero-proof-sep{width:1px;height:14px;background:rgba(53,50,48,0.15)}
+    .hero-proof-sep-white{width:1px;height:14px;background:rgba(255,255,255,0.18)}
+    .feature-check{display:flex;flex-direction:column;gap:10px}
+    .feature-check-item{display:flex;align-items:flex-start;gap:10px;font-size:14px;color:var(--ink-600);line-height:1.5}
+    .feature-check-icon{width:20px;height:20px;border-radius:50%;background:var(--success-50);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+    .feature-check-icon-white{width:20px;height:20px;border-radius:50%;background:rgba(255,255,255,0.12);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+    .stat-highlight{display:inline-block;font-family:var(--font-display);font-size:48px;font-weight:500;letter-spacing:-0.04em;color:var(--brand-500)}
+    .hero-stats-row{display:flex;gap:0;border:1px solid rgba(53,50,48,0.1);border-radius:var(--radius-lg);overflow:hidden;background:#fff}
+    .hero-stat{flex:1;padding:20px 24px;display:flex;flex-direction:column;gap:4px;border-right:1px solid rgba(53,50,48,0.08)}
+    .hero-stat:last-child{border-right:none}
+    .hero-stat-num{font-family:var(--font-display);font-size:28px;font-weight:500;letter-spacing:-0.04em;color:var(--ink-900)}
+    .hero-stat-label{font-size:12px;color:var(--ink-400)}
+    .hero-stats-row-dark{background:rgba(255,255,255,0.05);border-color:rgba(255,255,255,0.08)}
+    .hero-stats-row-dark .hero-stat{border-right-color:rgba(255,255,255,0.06)}
+    .hero-stats-row-dark .hero-stat-num{color:#fff}
+    .hero-stats-row-dark .hero-stat-label{color:rgba(255,255,255,0.4)}
+    .breadcrumb{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink-400)}
+    .breadcrumb-sep{color:var(--ink-300)}
+    .breadcrumb-current{color:var(--brand-500);font-weight:600}
+    .feature-pills{display:flex;gap:8px;flex-wrap:wrap}
+    .feature-pill{display:inline-flex;align-items:center;gap:8px;padding:10px 16px;background:#fff;border:1px solid rgba(53,50,48,0.1);border-radius:var(--radius-pill);font-size:13px;font-weight:600;color:var(--ink-800);box-shadow:var(--shadow-card)}
+    .feature-pill-icon{width:20px;height:20px;border-radius:50%;background:var(--brand-50);display:flex;align-items:center;justify-content:center}
+
+    /* ─── HP-1 Clean & Pro ─── */
+    .hp1{background:var(--surface-300);padding:80px 40px 0;display:flex;flex-direction:column;align-items:center;text-align:center;gap:28px}
+    .hp1-content{max-width:680px;display:flex;flex-direction:column;align-items:center;gap:24px}
+    .hp1 .hero-h1{font-size:64px;color:var(--ink-900)}
+    .hp1 .hero-body{text-align:center;margin:0 auto}
+    .hp1-dash-wrap{width:100%;max-width:820px;margin-top:8px;transform:perspective(900px) rotateX(4deg);transform-origin:top center}
+
+    /* ─── HP-2 Bold Dark ─── */
+    .hp2{background:var(--ink-900);padding:80px 80px 72px;display:flex;flex-direction:column;align-items:center;gap:36px;text-align:center;position:relative;overflow:hidden}
+    .hp2::before{content:'';position:absolute;top:-120px;left:50%;transform:translateX(-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(255,135,83,0.12) 0%,transparent 70%);pointer-events:none}
+    .hp2-content{max-width:740px;display:flex;flex-direction:column;align-items:center;gap:24px;position:relative;z-index:1}
+    .hp2 .hero-h1{font-size:80px;color:#fff}
+    .hp2 .hero-h1 em{color:var(--brand-500);font-style:normal}
+    .hp2 .hero-body{color:rgba(255,255,255,0.5);text-align:center;margin:0 auto}
+    .hp2-stats{display:flex;gap:0;border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);overflow:hidden;position:relative;z-index:1}
+
+    /* ─── HP-3 Split ─── */
+    .hp3{background:#fff;display:grid;grid-template-columns:55fr 45fr;min-height:580px}
+    .hp3-left{padding:72px 56px;display:flex;flex-direction:column;justify-content:center;gap:28px}
+    .hp3-right{background:var(--brand-50);display:flex;align-items:center;justify-content:center;padding:40px 32px;position:relative;overflow:hidden}
+    .hp3-right::before{content:'';position:absolute;top:-40px;right:-40px;width:240px;height:240px;background:radial-gradient(circle,rgba(255,135,83,0.15) 0%,transparent 70%)}
+    .hp3 .hero-h1{font-size:46px;color:var(--ink-900)}
+    .hp3-eyebrow{font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--brand-500)}
+    .hp3-dash{transform:rotate(2deg);box-shadow:var(--shadow-deep);border-radius:var(--radius-lg);overflow:hidden}
+
+    /* ─── HP-4 Stats Hero ─── */
+    .hp4{background:linear-gradient(145deg, #FFF4EE 0%, #F3F0ED 60%);padding:80px 80px 72px;display:flex;flex-direction:column;align-items:center;gap:40px;text-align:center}
+    .hp4-content{max-width:600px;display:flex;flex-direction:column;align-items:center;gap:20px}
+    .hp4 .hero-h1{font-size:72px;color:var(--ink-900)}
+    .hp4 .hero-h1 em{font-style:normal;color:var(--brand-500)}
+    .hp4 .hero-body{text-align:center}
+    .hp4-logos{display:flex;align-items:center;gap:16px;opacity:0.45;filter:grayscale(1)}
+    .hp4-logo-ph{height:20px;background:var(--ink-600);border-radius:4px}
+
+    /* ─── PP-1 Feature Loyers ─── */
+    .pp1{background:#fff;display:grid;grid-template-columns:52fr 48fr;min-height:560px}
+    .pp1-left{padding:64px 52px;display:flex;flex-direction:column;justify-content:center;gap:28px}
+    .pp1-right{background:var(--surface-300);display:flex;align-items:center;justify-content:center;padding:36px;position:relative}
+    .pp1-icon{width:44px;height:44px;background:var(--brand-50);border-radius:var(--radius-md);display:flex;align-items:center;justify-content:center;color:var(--brand-500)}
+    .pp1 .hero-h1{font-size:42px;color:var(--ink-900)}
+
+    /* ─── PP-2 Automation Dark ─── */
+    .pp2{background:var(--ink-900);padding:80px;display:flex;flex-direction:column;align-items:center;gap:36px;text-align:center;position:relative;overflow:hidden}
+    .pp2::after{content:'';position:absolute;bottom:-80px;left:50%;transform:translateX(-50%);width:800px;height:300px;background:radial-gradient(ellipse,rgba(255,135,83,0.08) 0%,transparent 70%)}
+    .pp2-content{max-width:680px;display:flex;flex-direction:column;align-items:center;gap:28px;position:relative;z-index:1}
+    .pp2 .hero-h1{font-size:54px;color:#fff}
+    .pp2-metric{display:flex;flex-direction:column;align-items:center;gap:6px;padding:28px 48px;border:1px solid rgba(255,135,83,0.25);border-radius:var(--radius-xl);background:rgba(255,135,83,0.06)}
+    .pp2-metric-num{font-family:var(--font-display);font-size:56px;font-weight:500;letter-spacing:-0.04em;color:var(--brand-500)}
+    .pp2-metric-label{font-size:14px;color:rgba(255,255,255,0.45);max-width:320px;text-align:center;line-height:1.5}
+    .pp2-orbit{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .pp2-orbit-pill{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-pill);padding:8px 16px;font-size:12px;font-weight:600;color:rgba(255,255,255,0.55)}
+
+    /* ─── PP-3 Reporting ─── */
+    .pp3{background:#EEF4FF;padding:72px 80px;display:flex;flex-direction:column;align-items:center;gap:36px;text-align:center}
+    .pp3-content{max-width:620px;display:flex;flex-direction:column;align-items:center;gap:20px}
+    .pp3 .hero-h1{font-size:50px;color:var(--ink-900)}
+    .pp3 .hero-body{text-align:center}
+    .pp3-pills{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+    .pp3-chart-wrap{width:100%;max-width:640px;background:#fff;border-radius:var(--radius-xl);padding:28px;box-shadow:var(--shadow-float);display:flex;flex-direction:column;gap:16px}
+    .pp3-chart-header{display:flex;align-items:center;justify-content:space-between}
+    .pp3-chart-title{font-size:13px;font-weight:700;color:var(--ink-800)}
+    .pp3-chart-period{font-size:11px;color:var(--ink-400);background:var(--surface-300);padding:4px 10px;border-radius:var(--radius-pill)}
+    .pp3-line-chart{position:relative;height:80px}
+    .pp3-line-chart svg{width:100%;height:100%}
+
+    /* ─── CAT-1 Propriétaires ─── */
+    .cat1{background:var(--surface-300);display:grid;grid-template-columns:55fr 45fr;min-height:520px}
+    .cat1-left{padding:64px 52px;display:flex;flex-direction:column;justify-content:center;gap:28px}
+    .cat1-right{background:linear-gradient(135deg,#FFF0E8,#FFE0CC);display:flex;align-items:center;justify-content:center;padding:40px;position:relative;overflow:hidden}
+    .cat1-right::before{content:'';position:absolute;bottom:-30px;right:-30px;width:180px;height:180px;background:radial-gradient(circle,rgba(255,135,83,0.25) 0%,transparent 70%)}
+    .cat1 .hero-h1{font-size:40px;color:var(--ink-900)}
+    .cat1-for-you{display:inline-flex;align-items:center;gap:6px;background:rgba(255,135,83,0.12);color:var(--brand-500);font-size:11px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:5px 12px;border-radius:var(--radius-pill);width:fit-content}
+    .cat1-benefits{display:flex;flex-direction:column;gap:12px}
+    .cat1-benefit{display:flex;align-items:flex-start;gap:12px}
+    .cat1-benefit-icon{width:36px;height:36px;border-radius:var(--radius-md);background:#fff;border:1px solid rgba(53,50,48,0.08);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:var(--shadow-card)}
+    .cat1-benefit-text{display:flex;flex-direction:column;gap:2px}
+    .cat1-benefit-title{font-size:14px;font-weight:700;color:var(--ink-900)}
+    .cat1-benefit-sub{font-size:13px;color:var(--ink-400);line-height:1.45}
+    .cat1-testimonial{background:#fff;border-radius:var(--radius-xl);padding:24px;box-shadow:var(--shadow-float);max-width:280px;display:flex;flex-direction:column;gap:12px;position:relative;z-index:1}
+    .cat1-stars{color:#FFDC0F;font-size:13px}
+    .cat1-quote{font-size:14px;color:var(--ink-800);line-height:1.6;font-style:italic}
+    .cat1-author{display:flex;align-items:center;gap:8px;padding-top:8px;border-top:1px solid rgba(53,50,48,0.07)}
+    .cat1-avatar{width:28px;height:28px;border-radius:50%;background:var(--brand-200);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--brand-500)}
+    .cat1-name{font-size:12px;font-weight:600;color:var(--ink-800)}
+
+    /* ─── CAT-2 Gestionnaires ─── */
+    .cat2{background:var(--ink-800);padding:72px 80px;display:flex;flex-direction:column;align-items:center;gap:36px;text-align:center}
+    .cat2-content{max-width:680px;display:flex;flex-direction:column;align-items:center;gap:24px}
+    .cat2 .hero-h1{font-size:50px;color:#fff}
+    .cat2 .hero-body{color:rgba(255,255,255,0.5);text-align:center}
+    .cat2-tabs{display:flex;gap:6px;padding:6px;background:rgba(255,255,255,0.06);border-radius:var(--radius-pill);flex-wrap:wrap;justify-content:center}
+    .cat2-tab{padding:9px 20px;border-radius:var(--radius-pill);font-size:13px;font-weight:600;cursor:pointer;transition:all 0.15s}
+    .cat2-tab-active{background:var(--brand-500);color:#fff}
+    .cat2-tab-inactive{color:rgba(255,255,255,0.45)}
+    .cat2-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;width:100%}
+    .cat2-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.07);border-radius:var(--radius-lg);padding:20px;display:flex;flex-direction:column;gap:10px;text-align:left}
+    .cat2-card-icon{width:36px;height:36px;border-radius:var(--radius-md);background:rgba(255,135,83,0.12);display:flex;align-items:center;justify-content:center}
+    .cat2-card-title{font-size:14px;font-weight:700;color:#fff}
+    .cat2-card-sub{font-size:12px;color:rgba(255,255,255,0.4);line-height:1.5}
+
+    /* ─── CAT-3 Investisseurs ─── */
+    .cat3{background:var(--ink-900);min-height:520px;display:grid;grid-template-columns:1fr 1fr;position:relative;overflow:hidden}
+    .cat3::before{content:'';position:absolute;top:-100px;right:-50px;width:500px;height:500px;background:radial-gradient(circle,rgba(255,135,83,0.18) 0%,transparent 65%);pointer-events:none}
+    .cat3-left{padding:72px 56px;display:flex;flex-direction:column;justify-content:center;gap:28px;position:relative;z-index:1}
+    .cat3-right{display:flex;align-items:center;justify-content:center;padding:48px;position:relative;z-index:1}
+    .cat3 .hero-h1{font-size:52px;color:#fff}
+    .cat3 .hero-h1 em{color:var(--brand-500);font-style:normal}
+    .cat3 .hero-body{color:rgba(255,255,255,0.5)}
+    .cat3-tags{display:flex;flex-wrap:wrap;gap:8px}
+    .cat3-tag{padding:7px 14px;border:1px solid rgba(255,255,255,0.12);border-radius:var(--radius-pill);font-size:12px;font-weight:600;color:rgba(255,255,255,0.5)}
+    .cat3-right-inner{display:flex;flex-direction:column;gap:12px;width:100%;max-width:280px}
+    .cat3-metric-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);padding:20px;display:flex;flex-direction:column;gap:6px}
+    .cat3-metric-card.brand{background:rgba(255,135,83,0.1);border-color:rgba(255,135,83,0.2)}
+    .cat3-metric-num{font-family:var(--font-display);font-size:32px;font-weight:500;letter-spacing:-0.04em;color:#fff}
+    .cat3-metric-card.brand .cat3-metric-num{color:var(--brand-500)}
+    .cat3-metric-label{font-size:12px;color:rgba(255,255,255,0.4)}
+    .cat3-metric-trend{font-size:11px;font-weight:700;color:var(--success-500)}
+
+  </style>
+</head>
+<body>
+
+<!-- ── Topbar ── -->
+<div class="topbar">
+  <div class="topbar-logo">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><rect width="22" height="22" rx="6" fill="#FF8753"/><path d="M7 11l3 3 5-5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    LOCKimmo
+  </div>
+  <div class="topbar-divider"></div>
+  <span class="topbar-title">Hero Inspirations</span>
+  <div class="topbar-badge">10 variantes</div>
+</div>
+
+<!-- ── Shell ── -->
+<div class="shell">
+
+  <!-- ── Sidebar ── -->
+  <nav class="sidebar">
+    <div class="nav-group">
+      <div class="nav-label">Homepage</div>
+      <a class="nav-item active" href="#hp-1">
+        <div class="nav-dot" style="background:#F3F0ED;border:1px solid #ccc"></div>
+        Clean &amp; Pro
+        <span class="nav-num">01</span>
+      </a>
+      <a class="nav-item" href="#hp-2">
+        <div class="nav-dot" style="background:#0E0C0B"></div>
+        Bold Dark
+        <span class="nav-num">02</span>
+      </a>
+      <a class="nav-item" href="#hp-3">
+        <div class="nav-dot" style="background:linear-gradient(90deg,#fff 50%,#FFF0E8 50%);border:1px solid #ccc"></div>
+        Split Screen
+        <span class="nav-num">03</span>
+      </a>
+      <a class="nav-item" href="#hp-4">
+        <div class="nav-dot" style="background:var(--brand-500)"></div>
+        Stats Impact
+        <span class="nav-num">04</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Page produit</div>
+      <a class="nav-item" href="#pp-1">
+        <div class="nav-dot" style="background:#fff;border:1px solid #ccc"></div>
+        Loyers Split
+        <span class="nav-num">05</span>
+      </a>
+      <a class="nav-item" href="#pp-2">
+        <div class="nav-dot" style="background:#0E0C0B"></div>
+        Automation Dark
+        <span class="nav-num">06</span>
+      </a>
+      <a class="nav-item" href="#pp-3">
+        <div class="nav-dot" style="background:#EEF4FF"></div>
+        Reporting
+        <span class="nav-num">07</span>
+      </a>
+    </div>
+    <div class="nav-group">
+      <div class="nav-label">Page catégorie</div>
+      <a class="nav-item" href="#cat-1">
+        <div class="nav-dot" style="background:var(--surface-300);border:1px solid #ccc"></div>
+        Propriétaires
+        <span class="nav-num">08</span>
+      </a>
+      <a class="nav-item" href="#cat-2">
+        <div class="nav-dot" style="background:#353230"></div>
+        Gestionnaires
+        <span class="nav-num">09</span>
+      </a>
+      <a class="nav-item" href="#cat-3">
+        <div class="nav-dot" style="background:#0E0C0B"></div>
+        Investisseurs
+        <span class="nav-num">10</span>
+      </a>
+    </div>
+  </nav>
+
+  <!-- ── Main ── -->
+  <main class="main">
+
+    <!-- ══════════ HOMEPAGE ══════════ -->
+    <div>
+      <div class="page-type-header">
+        <h2 class="page-type-title">Homepage</h2>
+        <span class="page-type-sub">Premier contact · conversion · valeur immédiate</span>
+        <span class="page-type-count">4 variantes</span>
+      </div>
+    </div>
+
+    <div class="page-group">
+
+      <!-- HP-1 Clean & Pro -->
+      <div class="variant-block" id="hp-1">
+        <div class="variant-meta">
+          <span class="variant-num">01</span>
+          <span class="variant-name">Clean &amp; Pro</span>
+          <span class="variant-desc">Fond neutre centré · Dashboard preview en perspective · Social proof</span>
+          <span class="variant-tag variant-tag-light">Clair</span>
+        </div>
+        <div class="hero-frame">
+          <!-- Nav -->
+          <div class="sim-nav">
+            <span class="sim-nav-logo">LOCKimmo</span>
+            <div class="sim-nav-links">
+              <span>Fonctionnalités</span><span>Tarifs</span><span>À propos</span><span>Blog</span>
+            </div>
+            <div class="sim-nav-actions">
+              <span class="sim-btn-ghost">Connexion</span>
+              <span class="sim-btn-primary">Essayer gratuitement</span>
+            </div>
+          </div>
+          <!-- Hero -->
+          <div class="hp1">
+            <div class="hp1-content">
+              <span class="hero-pill" style="background:var(--brand-50);color:var(--brand-500);border:1px solid rgba(255,135,83,0.2)">
+                🔑 Gestion locative · Logiciel SaaS
+              </span>
+              <h1 class="hero-h1 hp1" style="font-size:64px;color:var(--ink-900)">Gérez vos biens.<br>Sans friction.</h1>
+              <p class="hero-body" style="text-align:center">Quittances automatiques, loyers suivis, relances intelligentes. LOCKimmo centralise votre gestion locative pour que vous vous concentriez sur l'essentiel.</p>
+              <div class="hero-cta-row" style="justify-content:center">
+                <button class="hbtn hbtn-primary">Démarrer gratuitement →</button>
+                <button class="hbtn hbtn-ghost">Voir une démo</button>
+              </div>
+              <div class="hero-proof" style="justify-content:center">
+                <span class="hero-proof-stars">★★★★★</span>
+                <span class="hero-proof-text">4,8 · 127 avis vérifiés</span>
+                <div class="hero-proof-sep"></div>
+                <img src="https://cdn.simpleicons.org/trustedshops/00843D" width="14" height="14" alt="TS" style="opacity:0.7">
+                <span class="hero-proof-text">Trusted Shops</span>
+                <div class="hero-proof-sep"></div>
+                <span class="hero-proof-text">Sans engagement · 14j d'essai</span>
+              </div>
+            </div>
+            <!-- Dashboard preview -->
+            <div class="hp1-dash-wrap">
+              <div class="dash-mock">
+                <div class="dm-sidebar">
+                  <div class="dm-logo-mark"></div>
+                  <div class="dm-nav-item dm-active"></div>
+                  <div class="dm-nav-item"></div>
+                  <div class="dm-nav-item"></div>
+                  <div class="dm-nav-item"></div>
+                </div>
+                <div class="dm-main">
+                  <div class="dm-topbar"><div class="dm-title-bar"></div><div class="dm-btn-bar"></div></div>
+                  <div class="dm-body">
+                    <div class="dm-kpis">
+                      <div class="dm-kpi"><div class="dm-kpi-num">1 847</div><div class="dm-kpi-label">Biens gérés</div><div class="dm-kpi-trend">↑ +12%</div></div>
+                      <div class="dm-kpi"><div class="dm-kpi-num">99%</div><div class="dm-kpi-label">Loyers collectés</div><div class="dm-kpi-trend">↑ +2%</div></div>
+                      <div class="dm-kpi"><div class="dm-kpi-num">3×</div><div class="dm-kpi-label">Plus rapide</div><div class="dm-kpi-trend" style="color:var(--ink-400)">vs. manuel</div></div>
+                      <div class="dm-kpi"><div class="dm-kpi-num">0</div><div class="dm-kpi-label">Relances oubliées</div><div class="dm-kpi-trend">✓</div></div>
+                    </div>
+                    <div class="dm-chart-area">
+                      <div class="dm-chart-label">Loyers — 6 derniers mois</div>
+                      <div class="dm-bars">
+                        <div class="dm-bar" style="height:55%"></div>
+                        <div class="dm-bar" style="height:72%"></div>
+                        <div class="dm-bar" style="height:60%"></div>
+                        <div class="dm-bar" style="height:84%"></div>
+                        <div class="dm-bar" style="height:76%"></div>
+                        <div class="dm-bar active" style="height:98%"></div>
+                      </div>
+                    </div>
+                    <div class="dm-rows">
+                      <div class="dm-row"><div class="dm-row-dot" style="background:var(--success-500)"></div><div class="dm-row-text"></div><div class="dm-row-amount" style="color:var(--success-500)">+1 250 €</div></div>
+                      <div class="dm-row"><div class="dm-row-dot" style="background:var(--success-500)"></div><div class="dm-row-text"></div><div class="dm-row-amount" style="color:var(--success-500)">+890 €</div></div>
+                      <div class="dm-row"><div class="dm-row-dot" style="background:var(--brand-500)"></div><div class="dm-row-text"></div><div class="dm-row-amount" style="color:var(--brand-500)">En attente</div></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HP-2 Bold Dark -->
+      <div class="variant-block" id="hp-2">
+        <div class="variant-meta">
+          <span class="variant-num">02</span>
+          <span class="variant-name">Bold Dark</span>
+          <span class="variant-desc">Fond noir · Typographie XL · Radial glow brand · Stats row</span>
+          <span class="variant-tag variant-tag-dark">Sombre</span>
+        </div>
+        <div class="hero-frame">
+          <div class="sim-nav sim-nav-dark">
+            <span class="sim-nav-logo">LOCKimmo</span>
+            <div class="sim-nav-links"><span>Fonctionnalités</span><span>Tarifs</span><span>À propos</span><span>Blog</span></div>
+            <div class="sim-nav-actions">
+              <span class="sim-btn-ghost">Connexion</span>
+              <span class="sim-btn-primary">Essayer gratuitement</span>
+            </div>
+          </div>
+          <div class="hp2">
+            <div class="hp2-content">
+              <span class="hero-pill" style="background:rgba(255,135,83,0.1);color:var(--brand-500);border:1px solid rgba(255,135,83,0.18);letter-spacing:0.1em;font-size:10px">
+                Plateforme · Gestion locative
+              </span>
+              <h1 class="hero-h1" style="font-size:80px;color:#fff">La gestion<br>locative <em>clarifiée.</em></h1>
+              <p class="hero-body" style="color:rgba(255,255,255,0.45);text-align:center;max-width:520px">Automatisez le cycle complet de vos locations — de la quittance à la clôture comptable — sans jamais perdre le fil.</p>
+              <div class="hero-cta-row" style="justify-content:center">
+                <button class="hbtn hbtn-primary">Démarrer gratuitement →</button>
+                <button class="hbtn hbtn-ghost-white">Voir une démo</button>
+              </div>
+              <div class="hero-proof" style="justify-content:center">
+                <span class="hero-proof-stars">★★★★★</span>
+                <span style="font-size:12px;color:rgba(255,255,255,0.35)">4,8 · Trusted Shops</span>
+                <div class="hero-proof-sep-white"></div>
+                <span style="font-size:12px;color:rgba(255,255,255,0.35)">14j d'essai · Sans CB</span>
+              </div>
+            </div>
+            <div class="hp2-stats hero-stats-row-dark" style="display:flex;border:1px solid rgba(255,255,255,0.08);border-radius:var(--radius-lg);overflow:hidden;width:100%;max-width:680px">
+              <div class="hero-stat" style="border-right:1px solid rgba(255,255,255,0.06)"><div class="hero-stat-num" style="color:#fff">1 847</div><div class="hero-stat-label" style="color:rgba(255,255,255,0.35)">Biens gérés</div></div>
+              <div class="hero-stat" style="border-right:1px solid rgba(255,255,255,0.06)"><div class="hero-stat-num" style="color:#fff">99%</div><div class="hero-stat-label" style="color:rgba(255,255,255,0.35)">Loyers collectés</div></div>
+              <div class="hero-stat" style="border-right:1px solid rgba(255,255,255,0.06)"><div class="hero-stat-num" style="color:#fff">3×</div><div class="hero-stat-label" style="color:rgba(255,255,255,0.35)">Plus vite qu'en manuel</div></div>
+              <div class="hero-stat"><div class="hero-stat-num" style="color:var(--brand-500)">127</div><div class="hero-stat-label" style="color:rgba(255,255,255,0.35)">Agences partenaires</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HP-3 Split Screen -->
+      <div class="variant-block" id="hp-3">
+        <div class="variant-meta">
+          <span class="variant-num">03</span>
+          <span class="variant-name">Split Screen</span>
+          <span class="variant-desc">Fond blanc + fond brand · Texte gauche · Dashboard rotatif droite</span>
+          <span class="variant-tag variant-tag-light">Mixte</span>
+        </div>
+        <div class="hero-frame">
+          <div class="sim-nav">
+            <span class="sim-nav-logo">LOCKimmo</span>
+            <div class="sim-nav-links"><span>Fonctionnalités</span><span>Tarifs</span><span>À propos</span><span>Blog</span></div>
+            <div class="sim-nav-actions">
+              <span class="sim-btn-ghost">Connexion</span>
+              <span class="sim-btn-primary">Essayer gratuitement</span>
+            </div>
+          </div>
+          <div class="hp3">
+            <div class="hp3-left">
+              <div class="hp3-eyebrow">Logiciel SaaS · Gestion immobilière</div>
+              <h1 class="hero-h1" style="font-size:46px;color:var(--ink-900)">Vos loyers arrivent.<br>Vos relances partent.<br>Vous respirez.</h1>
+              <p class="hero-body" style="font-size:15px;max-width:420px">Conçu pour les propriétaires et gestionnaires qui veulent passer moins de temps sur les tâches administratives et plus sur le développement de leur patrimoine.</p>
+              <div class="feature-check">
+                <div class="feature-check-item">
+                  <div class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#28A566" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                  Quittances générées et envoyées automatiquement
+                </div>
+                <div class="feature-check-item">
+                  <div class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#28A566" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                  Relances de loyers impayés sans intervention manuelle
+                </div>
+                <div class="feature-check-item">
+                  <div class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#28A566" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                  Comptabilité et reporting en temps réel
+                </div>
+              </div>
+              <div class="hero-cta-row">
+                <button class="hbtn hbtn-primary">Démarrer gratuitement →</button>
+                <button class="hbtn hbtn-ghost">Voir la démo</button>
+              </div>
+              <div class="hero-proof">
+                <span class="hero-proof-stars">★★★★★</span>
+                <span class="hero-proof-text">4,8 · 127 avis · Trusted Shops</span>
+              </div>
+            </div>
+            <div class="hp3-right">
+              <div class="hp3-dash">
+                <div class="dash-mock" style="width:360px">
+                  <div class="dm-sidebar">
+                    <div class="dm-logo-mark"></div>
+                    <div class="dm-nav-item dm-active"></div>
+                    <div class="dm-nav-item"></div>
+                    <div class="dm-nav-item"></div>
+                  </div>
+                  <div class="dm-main">
+                    <div class="dm-topbar"><div class="dm-title-bar"></div><div class="dm-btn-bar"></div></div>
+                    <div class="dm-body">
+                      <div class="dm-kpis" style="flex-direction:column">
+                        <div class="dm-kpi"><div class="dm-kpi-num">1 847</div><div class="dm-kpi-label">Biens gérés</div></div>
+                        <div class="dm-kpi"><div class="dm-kpi-num">99%</div><div class="dm-kpi-label">Loyers collectés</div></div>
+                      </div>
+                      <div class="dm-rows">
+                        <div class="dm-row"><div class="dm-row-dot" style="background:var(--success-500)"></div><div class="dm-row-text"></div><div class="dm-row-amount" style="color:var(--success-500)">+1 250 €</div></div>
+                        <div class="dm-row"><div class="dm-row-dot" style="background:var(--success-500)"></div><div class="dm-row-text"></div><div class="dm-row-amount" style="color:var(--success-500)">+890 €</div></div>
+                        <div class="dm-row"><div class="dm-row-dot" style="background:var(--brand-500)"></div><div class="dm-row-text"></div><div class="dm-row-amount" style="color:var(--brand-500)">Relance</div></div>
+                        <div class="dm-row"><div class="dm-row-dot" style="background:var(--success-500)"></div><div class="dm-row-text"></div><div class="dm-row-amount" style="color:var(--success-500)">+640 €</div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- HP-4 Stats Impact -->
+      <div class="variant-block" id="hp-4">
+        <div class="variant-meta">
+          <span class="variant-num">04</span>
+          <span class="variant-name">Stats Impact</span>
+          <span class="variant-desc">Gradient brand · Très typographique · Chiffres clés mis en avant</span>
+          <span class="variant-tag variant-tag-brand">Brand</span>
+        </div>
+        <div class="hero-frame">
+          <div class="sim-nav">
+            <span class="sim-nav-logo">LOCKimmo</span>
+            <div class="sim-nav-links"><span>Fonctionnalités</span><span>Tarifs</span><span>À propos</span><span>Blog</span></div>
+            <div class="sim-nav-actions">
+              <span class="sim-btn-ghost">Connexion</span>
+              <span class="sim-btn-primary">Essayer gratuitement</span>
+            </div>
+          </div>
+          <div class="hp4">
+            <div class="hp4-content">
+              <span class="hero-pill" style="background:rgba(255,135,83,0.12);color:var(--brand-500);border:1px solid rgba(255,135,83,0.2)">
+                ✓ 14 jours d'essai · Sans engagement
+              </span>
+              <h1 class="hero-h1" style="font-size:72px;color:var(--ink-900)"><em style="color:var(--brand-500);font-style:normal">3×</em> plus vite.<br>Zéro oubli.</h1>
+              <p class="hero-body" style="text-align:center">Rejoignez 1 847 propriétaires qui ont automatisé leur gestion locative avec LOCKimmo. Quittances, relances, comptabilité — tout roule sans vous.</p>
+              <div class="hero-cta-row" style="justify-content:center">
+                <button class="hbtn hbtn-primary">Démarrer gratuitement →</button>
+                <button class="hbtn hbtn-ghost">Voir une démo</button>
+              </div>
+            </div>
+            <div class="hero-stats-row" style="width:100%;max-width:680px">
+              <div class="hero-stat"><div class="hero-stat-num">1 847</div><div class="hero-stat-label">Biens gérés</div></div>
+              <div class="hero-stat"><div class="hero-stat-num">99%</div><div class="hero-stat-label">Loyers collectés</div></div>
+              <div class="hero-stat"><div class="hero-stat-num">127</div><div class="hero-stat-label">Agences partenaires</div></div>
+              <div class="hero-stat"><div class="hero-stat-num" style="color:var(--success-500)">4,8</div><div class="hero-stat-label">Note Trusted Shops</div></div>
+            </div>
+            <div class="hp4-logos">
+              <div class="hp4-logo-ph" style="width:60px"></div>
+              <div class="hp4-logo-ph" style="width:80px"></div>
+              <div class="hp4-logo-ph" style="width:50px"></div>
+              <div class="hp4-logo-ph" style="width:90px"></div>
+              <div class="hp4-logo-ph" style="width:65px"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-group homepage -->
+
+    <!-- ══════════ PAGE PRODUIT ══════════ -->
+    <div>
+      <div class="page-type-header">
+        <h2 class="page-type-title">Page produit</h2>
+        <span class="page-type-sub">Feature deep-dive · conversion verticale · preuves chiffrées</span>
+        <span class="page-type-count">3 variantes</span>
+      </div>
+    </div>
+
+    <div class="page-group">
+
+      <!-- PP-1 Loyers Split -->
+      <div class="variant-block" id="pp-1">
+        <div class="variant-meta">
+          <span class="variant-num">05</span>
+          <span class="variant-name">Loyers Split</span>
+          <span class="variant-desc">Breadcrumb · Feature icon · Fond blanc + fond neutre · Dashboard droite</span>
+          <span class="variant-tag variant-tag-light">Clair · Split</span>
+        </div>
+        <div class="hero-frame">
+          <div class="sim-nav">
+            <span class="sim-nav-logo">LOCKimmo</span>
+            <div class="sim-nav-links"><span>Fonctionnalités</span><span>Tarifs</span><span>À propos</span><span>Blog</span></div>
+            <div class="sim-nav-actions">
+              <span class="sim-btn-ghost">Connexion</span>
+              <span class="sim-btn-primary">Essayer gratuitement</span>
+            </div>
+          </div>
+          <div class="pp1">
+            <div class="pp1-left">
+              <div class="breadcrumb">
+                <span>Fonctionnalités</span>
+                <span class="breadcrumb-sep">›</span>
+                <span class="breadcrumb-current">Gestion des loyers</span>
+              </div>
+              <div class="pp1-icon">
+                <svg width="22" height="22" viewBox="0 0 22 22" fill="none"><path d="M11 3v16M7 7h6a2 2 0 010 4H7M7 11h7a2 2 0 010 4H7" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+              </div>
+              <h1 class="hero-h1" style="font-size:42px;color:var(--ink-900)">Vos loyers arrivent,<br>en automatique.</h1>
+              <p class="hero-body" style="font-size:15px;max-width:400px">Configurez vos biens une fois, LOCKimmo génère les appels de loyer, envoie les quittances et déclenche les relances à votre place.</p>
+              <div class="feature-check">
+                <div class="feature-check-item">
+                  <div class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#28A566" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                  Appels de loyer automatiques chaque mois
+                </div>
+                <div class="feature-check-item">
+                  <div class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#28A566" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                  Relances intelligentes J+3, J+8, J+15
+                </div>
+                <div class="feature-check-item">
+                  <div class="feature-check-icon"><svg width="10" height="10" viewBox="0 0 10 10" fill="none"><path d="M2 5l2.5 2.5L8 3" stroke="#28A566" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                  Quittances PDF générées et envoyées par email
+                </div>
+              </div>
+              <div class="hero-cta-row">
+                <button class="hbtn hbtn-primary">Voir la fonctionnalité →</button>
+                <button class="hbtn hbtn-ghost">Démo vidéo</button>
+              </div>
+            </div>
+            <div class="pp1-right">
+              <div class="dash-mock" style="width:340px;flex-direction:column">
+                <div class="dm-topbar" style="display:flex;align-items:center;gap:8px;padding:14px 16px">
+                  <div style="font-size:12px;font-weight:700;color:var(--ink-800)">Loyers · Juin 2026</div>
+                  <div style="margin-left:auto;background:var(--brand-500);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:var(--radius-pill)">Tout envoyé ✓</div>
+                </div>
+                <div class="dm-body">
+                  <div class="dm-rows">
+                    <div class="dm-row"><div class="dm-row-dot" style="background:var(--success-500)"></div><div style="flex:1;font-size:11px;color:var(--ink-600)">Apt. 3 — Rue de la Paix</div><div class="dm-row-amount" style="color:var(--success-500)">+1 250 €</div></div>
+                    <div class="dm-row"><div class="dm-row-dot" style="background:var(--success-500)"></div><div style="flex:1;font-size:11px;color:var(--ink-600)">Studio — Bd Haussmann</div><div class="dm-row-amount" style="color:var(--success-500)">+890 €</div></div>
+                    <div class="dm-row"><div class="dm-row-dot" style="background:var(--brand-500)"></div><div style="flex:1;font-size:11px;color:var(--ink-600)">T2 — Avenue Foch</div><div class="dm-row-amount" style="color:var(--brand-500)">Relance J+3</div></div>
+                    <div class="dm-row"><div class="dm-row-dot" style="background:var(--success-500)"></div><div style="flex:1;font-size:11px;color:var(--ink-600)">Maison — Vincennes</div><div class="dm-row-amount" style="color:var(--success-500)">+1 780 €</div></div>
+                    <div class="dm-row"><div class="dm-row-dot" style="background:var(--success-500)"></div><div style="flex:1;font-size:11px;color:var(--ink-600)">Loft — Nation</div><div class="dm-row-amount" style="color:var(--success-500)">+1 100 €</div></div>
+                  </div>
+                  <div style="background:var(--success-50);border-radius:var(--radius-md);padding:12px;display:flex;align-items:center;gap:10px">
+                    <div style="width:32px;height:32px;border-radius:50%;background:var(--success-500);display:flex;align-items:center;justify-content:center;flex-shrink:0">
+                      <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7l3 3 5-5" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/></svg>
+                    </div>
+                    <div><div style="font-size:13px;font-weight:700;color:var(--success-500)">5 020 € collectés</div><div style="font-size:11px;color:var(--success-500);opacity:0.7">sur 6 270 € attendus · 1 relance en cours</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PP-2 Automation Dark -->
+      <div class="variant-block" id="pp-2">
+        <div class="variant-meta">
+          <span class="variant-num">06</span>
+          <span class="variant-name">Automation Dark</span>
+          <span class="variant-desc">Fond ink-900 · Grande metric centrale · Feature pills en orbite</span>
+          <span class="variant-tag variant-tag-dark">Sombre · Centré</span>
+        </div>
+        <div class="hero-frame">
+          <div class="sim-nav sim-nav-dark">
+            <span class="sim-nav-logo">LOCKimmo</span>
+            <div class="sim-nav-links"><span>Fonctionnalités</span><span>Tarifs</span><span>À propos</span><span>Blog</span></div>
+            <div class="sim-nav-actions">
+              <span class="sim-btn-ghost">Connexion</span>
+              <span class="sim-btn-primary">Essayer gratuitement</span>
+            </div>
+          </div>
+          <div class="pp2">
+            <div class="pp2-content">
+              <div class="breadcrumb" style="color:rgba(255,255,255,0.3);justify-content:center">
+                <span>Fonctionnalités</span>
+                <span class="breadcrumb-sep">›</span>
+                <span style="color:var(--brand-500);font-weight:600">Automatisation</span>
+              </div>
+              <span class="hero-pill" style="background:rgba(255,135,83,0.1);color:var(--brand-500);border:1px solid rgba(255,135,83,0.18)">⚡ Automatisation complète</span>
+              <h1 class="hero-h1" style="font-size:54px;color:#fff">Paramétrez une fois.<br>Ça tourne tout seul.</h1>
+              <p class="hero-body" style="color:rgba(255,255,255,0.45);text-align:center;max-width:520px">LOCKimmo prend en charge chaque étape récurrente de votre gestion : appels de loyer, quittances, relances, rapports mensuels.</p>
+              <div class="pp2-metric">
+                <div class="pp2-metric-num">98%</div>
+                <div class="pp2-metric-label">des tâches récurrentes gérées sans aucune intervention manuelle</div>
+              </div>
+              <div class="pp2-orbit">
+                <div class="pp2-orbit-pill">📄 Quittances auto</div>
+                <div class="pp2-orbit-pill">🔔 Relances loyers</div>
+                <div class="pp2-orbit-pill">📊 Rapport mensuel</div>
+                <div class="pp2-orbit-pill">📬 Emails locataires</div>
+                <div class="pp2-orbit-pill">🏦 Rapprochement bancaire</div>
+              </div>
+              <div class="hero-cta-row" style="justify-content:center">
+                <button class="hbtn hbtn-primary">Voir l'automatisation →</button>
+                <button class="hbtn hbtn-ghost-white">Parler à un expert</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PP-3 Reporting -->
+      <div class="variant-block" id="pp-3">
+        <div class="variant-meta">
+          <span class="variant-num">07</span>
+          <span class="variant-name">Reporting &amp; Comptabilité</span>
+          <span class="variant-desc">Fond bleu tile · Feature pills · Mini chart intégré · Centré</span>
+          <span class="variant-tag" style="background:var(--info-50);color:var(--info-500)">Bleu · Centré</span>
+        </div>
+        <div class="hero-frame">
+          <div class="sim-nav">
+            <span class="sim-nav-logo">LOCKimmo</span>
+            <div class="sim-nav-links"><span>Fonctionnalités</span><span>Tarifs</span><span>À propos</span><span>Blog</span></div>
+            <div class="sim-nav-actions">
+              <span class="sim-btn-ghost">Connexion</span>
+              <span class="sim-btn-primary">Essayer gratuitement</span>
+            </div>
+          </div>
+          <div class="pp3">
+            <div class="pp3-content">
+              <div class="breadcrumb" style="justify-content:center">
+                <span>Fonctionnalités</span>
+                <span class="breadcrumb-sep">›</span>
+                <span class="breadcrumb-current">Reporting</span>
+              </div>
+              <span class="hero-pill" style="background:rgba(59,125,248,0.1);color:var(--info-500);border:1px solid rgba(59,125,248,0.18)">📊 Reporting &amp; Comptabilité</span>
+              <h1 class="hero-h1" style="font-size:50px;color:var(--ink-900)">Vos chiffres,<br>en un coup d'œil.</h1>
+              <p class="hero-body" style="text-align:center;font-size:15px">Tableaux de bord temps réel, exports comptables, bilan patrimonial. Toutes vos données au même endroit, dans le format que vous voulez.</p>
+              <div class="hero-cta-row" style="justify-content:center">
+                <button class="hbtn hbtn-primary">Voir le reporting →</button>
+                <button class="hbtn hbtn-ghost">Exemple de rapport</button>
+              </div>
+            </div>
+            <div class="pp3-pills">
+              <div class="feature-pill">
+                <div class="feature-pill-icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><rect x="1" y="5" width="2" height="5" rx="1" fill="var(--brand-500)"/><rect x="4.5" y="3" width="2" height="7" rx="1" fill="var(--brand-500)"/><rect x="8" y="1" width="2" height="9" rx="1" fill="var(--brand-500)"/></svg></div>
+                Tableau de bord temps réel
+              </div>
+              <div class="feature-pill">
+                <div class="feature-pill-icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 9L4 5l2.5 2L9 2" stroke="var(--brand-500)" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+                Suivi de rentabilité
+              </div>
+              <div class="feature-pill">
+                <div class="feature-pill-icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><path d="M1 8.5h9M1 1.5v7h9" stroke="var(--brand-500)" stroke-width="1.2" stroke-linecap="round"/><rect x="3" y="5" width="1.5" height="3.5" rx="0.5" fill="var(--brand-500)"/><rect x="6" y="3" width="1.5" height="5.5" rx="0.5" fill="var(--brand-500)"/></svg></div>
+                Exports FEC &amp; comptable
+              </div>
+              <div class="feature-pill">
+                <div class="feature-pill-icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><circle cx="5.5" cy="5.5" r="4" stroke="var(--brand-500)" stroke-width="1.3"/><path d="M5.5 2.5v3l2 1" stroke="var(--brand-500)" stroke-width="1.3" stroke-linecap="round"/></svg></div>
+                Historique illimité
+              </div>
+            </div>
+            <!-- Mini chart -->
+            <div class="pp3-chart-wrap">
+              <div class="pp3-chart-header">
+                <span class="pp3-chart-title">Recettes nettes — 2026</span>
+                <span class="pp3-chart-period">12 derniers mois</span>
+              </div>
+              <div style="display:flex;align-items:flex-end;gap:8px;height:80px">
+                <div style="flex:1;background:#EEF4FF;border-radius:4px 4px 0 0;height:55%"></div>
+                <div style="flex:1;background:#EEF4FF;border-radius:4px 4px 0 0;height:70%"></div>
+                <div style="flex:1;background:#EEF4FF;border-radius:4px 4px 0 0;height:62%"></div>
+                <div style="flex:1;background:#EEF4FF;border-radius:4px 4px 0 0;height:80%"></div>
+                <div style="flex:1;background:#EEF4FF;border-radius:4px 4px 0 0;height:68%"></div>
+                <div style="flex:1;background:#EEF4FF;border-radius:4px 4px 0 0;height:85%"></div>
+                <div style="flex:1;background:#EEF4FF;border-radius:4px 4px 0 0;height:72%"></div>
+                <div style="flex:1;background:#EEF4FF;border-radius:4px 4px 0 0;height:90%"></div>
+                <div style="flex:1;background:#EEF4FF;border-radius:4px 4px 0 0;height:78%"></div>
+                <div style="flex:1;background:#EEF4FF;border-radius:4px 4px 0 0;height:92%"></div>
+                <div style="flex:1;background:#EEF4FF;border-radius:4px 4px 0 0;height:88%"></div>
+                <div style="flex:1;background:var(--info-500);border-radius:4px 4px 0 0;height:100%"></div>
+              </div>
+              <div style="display:flex;justify-content:space-between;font-size:10px;color:var(--ink-400)">
+                <span>Juil. 25</span><span>Oct.</span><span>Jan. 26</span><span>Avr.</span><span>Juil.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-group produit -->
+
+    <!-- ══════════ PAGE CATÉGORIE ══════════ -->
+    <div>
+      <div class="page-type-header">
+        <h2 class="page-type-title">Page catégorie</h2>
+        <span class="page-type-sub">Segment utilisateur · persona · point d'entrée vertical</span>
+        <span class="page-type-count">3 variantes</span>
+      </div>
+    </div>
+
+    <div class="page-group">
+
+      <!-- CAT-1 Propriétaires bailleurs -->
+      <div class="variant-block" id="cat-1">
+        <div class="variant-meta">
+          <span class="variant-num">08</span>
+          <span class="variant-name">Propriétaires bailleurs</span>
+          <span class="variant-desc">Persona ciblé · 3 bénéfices · Testimonial card droite · Fond chaud</span>
+          <span class="variant-tag variant-tag-light">Clair · Split</span>
+        </div>
+        <div class="hero-frame">
+          <div class="sim-nav">
+            <span class="sim-nav-logo">LOCKimmo</span>
+            <div class="sim-nav-links"><span>Fonctionnalités</span><span>Tarifs</span><span>À propos</span><span>Blog</span></div>
+            <div class="sim-nav-actions">
+              <span class="sim-btn-ghost">Connexion</span>
+              <span class="sim-btn-primary">Essayer gratuitement</span>
+            </div>
+          </div>
+          <div class="cat1">
+            <div class="cat1-left">
+              <div class="cat1-for-you">Pour vous si…</div>
+              <h1 class="hero-h1" style="font-size:40px;color:var(--ink-900)">Vous êtes<br>propriétaire bailleur ?</h1>
+              <p class="hero-body" style="font-size:14px;max-width:400px">LOCKimmo est fait pour les propriétaires qui gèrent eux-mêmes leurs biens et veulent passer moins de temps sur l'administratif.</p>
+              <div class="cat1-benefits">
+                <div class="cat1-benefit">
+                  <div class="cat1-benefit-icon">📄</div>
+                  <div class="cat1-benefit-text">
+                    <div class="cat1-benefit-title">Quittances en 1 clic</div>
+                    <div class="cat1-benefit-sub">Générées et envoyées automatiquement chaque mois</div>
+                  </div>
+                </div>
+                <div class="cat1-benefit">
+                  <div class="cat1-benefit-icon">🔔</div>
+                  <div class="cat1-benefit-text">
+                    <div class="cat1-benefit-title">Relances sans effort</div>
+                    <div class="cat1-benefit-sub">LOCKimmo relance les impayés à votre place</div>
+                  </div>
+                </div>
+                <div class="cat1-benefit">
+                  <div class="cat1-benefit-icon">📊</div>
+                  <div class="cat1-benefit-text">
+                    <div class="cat1-benefit-title">Bilan patrimonial clair</div>
+                    <div class="cat1-benefit-sub">Rentabilité, charges, revenus — tout en un tableau</div>
+                  </div>
+                </div>
+              </div>
+              <div class="hero-cta-row">
+                <button class="hbtn hbtn-primary">Découvrir mon offre →</button>
+                <button class="hbtn hbtn-ghost">Voir un exemple</button>
+              </div>
+              <div class="hero-proof">
+                <span class="hero-proof-stars">★★★★★</span>
+                <span class="hero-proof-text">4,8 · 127 avis · Trusted Shops</span>
+              </div>
+            </div>
+            <div class="cat1-right">
+              <div class="cat1-testimonial">
+                <div class="cat1-stars">★★★★★</div>
+                <div class="cat1-quote">"Je gérais mes 4 appartements à la main. Depuis LOCKimmo, ça me prend 20 minutes par mois au lieu de 2 heures. Incroyable."</div>
+                <div class="cat1-author">
+                  <div class="cat1-avatar">S</div>
+                  <div>
+                    <div class="cat1-name">Sophie M.</div>
+                    <div style="font-size:11px;color:var(--ink-400)">Propriétaire de 4 biens · Paris</div>
+                  </div>
+                </div>
+                <div style="display:flex;align-items:center;gap:6px;padding:8px 10px;background:var(--success-50);border-radius:var(--radius-md)">
+                  <img src="https://cdn.simpleicons.org/trustedshops/00843D" width="12" height="12" alt="TS">
+                  <span style="font-size:11px;color:#00843D;font-weight:600">Avis vérifié Trusted Shops</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAT-2 Gestionnaires pro -->
+      <div class="variant-block" id="cat-2">
+        <div class="variant-meta">
+          <span class="variant-num">09</span>
+          <span class="variant-name">Gestionnaires &amp; Agences</span>
+          <span class="variant-desc">Fond ink-800 · Onglets de sous-catégories · Feature cards en grille</span>
+          <span class="variant-tag variant-tag-dark">Sombre · Grille</span>
+        </div>
+        <div class="hero-frame">
+          <div class="sim-nav sim-nav-dark">
+            <span class="sim-nav-logo">LOCKimmo</span>
+            <div class="sim-nav-links"><span>Fonctionnalités</span><span>Tarifs</span><span>À propos</span><span>Blog</span></div>
+            <div class="sim-nav-actions">
+              <span class="sim-btn-ghost">Connexion</span>
+              <span class="sim-btn-primary">Essayer gratuitement</span>
+            </div>
+          </div>
+          <div class="cat2">
+            <div class="cat2-content">
+              <span class="hero-pill" style="background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.45);border:1px solid rgba(255,255,255,0.1);letter-spacing:0.1em;font-size:10px">Professionnels de l'immobilier</span>
+              <h1 class="hero-h1" style="font-size:50px;color:#fff">Pour les gestionnaires<br>qui pensent à grande échelle.</h1>
+              <p class="hero-body" style="color:rgba(255,255,255,0.45);text-align:center;max-width:560px">Gérez des portefeuilles de dizaines ou centaines de lots depuis une interface unique. Automatisation avancée, rapports multi-mandants, intégrations comptables.</p>
+            </div>
+            <div class="cat2-tabs">
+              <div class="cat2-tab cat2-tab-active">Gestion locative</div>
+              <div class="cat2-tab cat2-tab-inactive">Multi-lots</div>
+              <div class="cat2-tab cat2-tab-inactive">Mandataires</div>
+              <div class="cat2-tab cat2-tab-inactive">Syndic</div>
+            </div>
+            <div class="cat2-cards" style="width:100%">
+              <div class="cat2-card">
+                <div class="cat2-card-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><rect x="2" y="8" width="14" height="8" rx="2" stroke="var(--brand-500)" stroke-width="1.4"/><path d="M6 8V6a3 3 0 016 0v2" stroke="var(--brand-500)" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+                <div class="cat2-card-title">Portefeuille centralisé</div>
+                <div class="cat2-card-sub">Tous vos mandants et leurs biens dans une interface unifiée</div>
+              </div>
+              <div class="cat2-card">
+                <div class="cat2-card-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><path d="M3 15l4-4m0 0l3-5 3 3 4-6" stroke="var(--brand-500)" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+                <div class="cat2-card-title">Reporting multi-mandants</div>
+                <div class="cat2-card-sub">Rapports personnalisés par mandant, par bien ou global</div>
+              </div>
+              <div class="cat2-card">
+                <div class="cat2-card-icon"><svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="6.5" stroke="var(--brand-500)" stroke-width="1.4"/><path d="M9 5.5v4l2.5 1.5" stroke="var(--brand-500)" stroke-width="1.4" stroke-linecap="round"/></svg></div>
+                <div class="cat2-card-title">Automatisation avancée</div>
+                <div class="cat2-card-sub">Workflows personnalisés, règles de relance sur-mesure</div>
+              </div>
+            </div>
+            <div class="hero-cta-row" style="justify-content:center">
+              <button class="hbtn hbtn-primary">Découvrir l'offre pro →</button>
+              <button class="hbtn hbtn-ghost-white">Parler à un expert</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CAT-3 Investisseurs -->
+      <div class="variant-block" id="cat-3">
+        <div class="variant-meta">
+          <span class="variant-num">10</span>
+          <span class="variant-name">Investisseurs</span>
+          <span class="variant-desc">Fond noir · Split éditorial · Metrics cards droite · Radial glow brand</span>
+          <span class="variant-tag variant-tag-dark">Sombre · Éditorial</span>
+        </div>
+        <div class="hero-frame">
+          <div class="sim-nav sim-nav-dark">
+            <span class="sim-nav-logo">LOCKimmo</span>
+            <div class="sim-nav-links"><span>Fonctionnalités</span><span>Tarifs</span><span>À propos</span><span>Blog</span></div>
+            <div class="sim-nav-actions">
+              <span class="sim-btn-ghost">Connexion</span>
+              <span class="sim-btn-primary">Essayer gratuitement</span>
+            </div>
+          </div>
+          <div class="cat3">
+            <div class="cat3-left">
+              <div class="breadcrumb" style="color:rgba(255,255,255,0.3)">
+                <span>Pour qui ?</span>
+                <span class="breadcrumb-sep">›</span>
+                <span style="color:var(--brand-500);font-weight:600">Investisseurs</span>
+              </div>
+              <h1 class="hero-h1" style="font-size:52px;color:#fff">Pour les investisseurs<br>qui pensent <em>grand.</em></h1>
+              <p class="hero-body" style="color:rgba(255,255,255,0.45)">Multi-lots, SCI, investissement locatif à distance. LOCKimmo vous donne la visibilité et les outils pour piloter votre patrimoine comme un professionnel.</p>
+              <div class="cat3-tags">
+                <div class="cat3-tag">Revenus passifs</div>
+                <div class="cat3-tag">Multi-lots</div>
+                <div class="cat3-tag">SCI</div>
+                <div class="cat3-tag">Rentabilité</div>
+                <div class="cat3-tag">À distance</div>
+              </div>
+              <div class="hero-cta-row">
+                <button class="hbtn hbtn-primary">Voir l'offre investisseur →</button>
+                <button class="hbtn hbtn-ghost-white">Calculer ma rentabilité</button>
+              </div>
+            </div>
+            <div class="cat3-right">
+              <div class="cat3-right-inner">
+                <div class="cat3-metric-card brand">
+                  <div class="cat3-metric-num">8,4%</div>
+                  <div style="font-size:11px;color:rgba(255,135,83,0.7)">Rendement moyen suivi</div>
+                  <div class="cat3-metric-trend">↑ +1,2 pt vs. année précédente</div>
+                </div>
+                <div class="cat3-metric-card">
+                  <div class="cat3-metric-num">23 800 €</div>
+                  <div class="cat3-metric-label">Revenus nets / an · 6 biens</div>
+                  <div class="cat3-metric-trend">✓ 100% collectés</div>
+                </div>
+                <div class="cat3-metric-card">
+                  <div style="display:flex;gap:6px;align-items:center">
+                    <div style="width:8px;height:8px;border-radius:50%;background:var(--success-500)"></div>
+                    <div style="font-size:11px;color:rgba(255,255,255,0.4)">Gestion entièrement automatisée</div>
+                  </div>
+                  <div class="cat3-metric-num" style="font-size:20px">20 min / mois</div>
+                  <div class="cat3-metric-label">Temps moyen investi</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /page-group catégorie -->
+
+  </main>
+</div><!-- /shell -->
+
+<script>
+  // Active nav on scroll
+  const sections = [...document.querySelectorAll('.variant-block')];
+  const navItems = [...document.querySelectorAll('.nav-item')];
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const id = entry.target.id;
+        navItems.forEach(a => {
+          a.classList.toggle('active', a.getAttribute('href') === '#' + id);
+        });
+      }
+    });
+  }, { threshold: 0.35, rootMargin: '-10% 0px -60% 0px' });
+
+  sections.forEach(s => observer.observe(s));
+
+  // Smooth scroll
+  navItems.forEach(a => {
+    a.addEventListener('click', e => {
+      e.preventDefault();
+      const target = document.querySelector(a.getAttribute('href'));
+      if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+  });
+</script>
+</body>
+</html>
