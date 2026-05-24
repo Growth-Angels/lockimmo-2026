@@ -17,6 +17,7 @@ import { initFonts } from "./load-fonts";
 import { SquareIntro } from "./compositions/SquareIntro";
 import { VerticalStory } from "./compositions/VerticalStory";
 import { LandscapeHero } from "./compositions/LandscapeHero";
+import { GestionPage } from "./compositions/GestionPage";
 import { COMPOSITIONS } from "./tokens";
 
 // ── Chargement des polices (une seule fois, au niveau module) ──
@@ -53,6 +54,16 @@ export const RemotionRoot = () => {
         fps={COMPOSITIONS.landscape.fps}
         width={COMPOSITIONS.landscape.width}
         height={COMPOSITIONS.landscape.height}
+      />
+
+      {/* ── Gestion 1920×1080 — Redesign page Gestion · 8s ── */}
+      <Composition
+        id="GestionPage"
+        component={GestionPage}
+        durationInFrames={240}
+        fps={30}
+        width={1920}
+        height={1080}
       />
     </>
   );
