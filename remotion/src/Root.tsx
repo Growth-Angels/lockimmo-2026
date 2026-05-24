@@ -12,12 +12,13 @@
  */
 
 import React from "react";
-import { Composition } from "remotion";
+import { Composition, registerRoot } from "remotion";
 import { initFonts } from "./load-fonts";
 import { SquareIntro } from "./compositions/SquareIntro";
 import { VerticalStory } from "./compositions/VerticalStory";
 import { LandscapeHero } from "./compositions/LandscapeHero";
 import { GestionPage } from "./compositions/GestionPage";
+import { FeatureParade } from "./compositions/FeatureParade";
 import { COMPOSITIONS } from "./tokens";
 
 // ── Chargement des polices (une seule fois, au niveau module) ──
@@ -65,6 +66,18 @@ export const RemotionRoot = () => {
         width={1920}
         height={1080}
       />
+
+      {/* ── Feature Parade 750×320 — Ticker features · 8s ── */}
+      <Composition
+        id="FeatureParade"
+        component={FeatureParade}
+        durationInFrames={240}
+        fps={30}
+        width={750}
+        height={320}
+      />
     </>
   );
 };
+
+registerRoot(RemotionRoot);
