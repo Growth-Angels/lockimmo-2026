@@ -21,7 +21,7 @@ import {
   useCurrentFrame,
   useVideoConfig,
 } from "remotion";
-import { C, F, FS } from "../tokens";
+import { C, F } from "../tokens";
 
 /* ─── Data ──────────────────────────────────────────────────────── */
 
@@ -37,7 +37,7 @@ const FEATURES = [
 const FRAME_PER_FEATURE = 40; // 6 × 40f = 240f = 8s
 const ENTER             = 10; // frames to slide in
 const EXIT              = 10; // frames to slide out
-const BG                = "#1C1916";
+const BG                = "#EDE9E5";
 
 /* ─── Icons ─────────────────────────────────────────────────────── */
 
@@ -158,6 +158,9 @@ export const FeatureParade: React.FC = () => {
   const featureX = enterProgress * DX  - exitProgress * DX;
   const featureY = enterProgress * -DY + exitProgress * DY;
 
+  // 3D rotation: enters rotated from the right (-35°), holds front-on, exits rotated to the left (+35°)
+  const rotateY = enterProgress * -35 + exitProgress * 35;
+
   /* Opacity */
   const featureOpacity = interpolate(
     localFrame,
@@ -211,7 +214,7 @@ export const FeatureParade: React.FC = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          transform: `translate(${featureX}px, ${featureY}px)`,
+          transform: `perspective(900px) translate(${featureX}px, ${featureY}px) rotateY(${rotateY}deg)`,
           opacity: featureOpacity,
         }}
       >
@@ -239,7 +242,7 @@ export const FeatureParade: React.FC = () => {
             fontFamily: F.display,
             fontSize: 34,
             fontWeight: 700,
-            color: C.white,
+            color: C.accent,
             letterSpacing: "-1px",
             lineHeight: 1.1,
             textAlign: "center",
@@ -272,7 +275,7 @@ export const FeatureParade: React.FC = () => {
               borderRadius: 3,
               background:   i === activeIndex
                 ? C.accent
-                : "rgba(255,255,255,0.18)",
+                : "rgba(53,50,48,0.18)",
             }}
           />
         ))}
