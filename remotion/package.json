@@ -1,0 +1,25 @@
+{
+  "name": "lockimmo-remotion",
+  "version": "1.0.0",
+  "description": "Animations Remotion — LOCKimmo",
+  "scripts": {
+    "dev": "remotion studio src/Root.tsx",
+    "render:square": "remotion render src/Root.tsx SquareIntro out/SquareIntro.mp4",
+    "render:vertical": "remotion render src/Root.tsx VerticalStory out/VerticalStory.mp4",
+    "render:landscape": "remotion render src/Root.tsx LandscapeHero out/LandscapeHero.mp4",
+    "render:all": "npm run render:square && npm run render:vertical && npm run render:landscape",
+    "upgrade": "remotion upgrade"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.0",
+    "@remotion/google-fonts": "^4.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "remotion": "^4.0.0"
+  },
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0"
+  }
+}
