@@ -19,6 +19,7 @@ import { VerticalStory } from "./compositions/VerticalStory";
 import { LandscapeHero } from "./compositions/LandscapeHero";
 import { GestionPage } from "./compositions/GestionPage";
 import { FeatureParade } from "./compositions/FeatureParade";
+import { DashboardFull } from "./compositions/DashboardFull";
 import { COMPOSITIONS } from "./tokens";
 
 // ── Chargement des polices (une seule fois, au niveau module) ──
@@ -65,6 +66,16 @@ export const RemotionRoot = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+
+      {/* ── Dashboard 1440×900 — Vue complète statique ── */}
+      <Composition
+        id="DashboardFull"
+        component={DashboardFull}
+        durationInFrames={1}
+        fps={30}
+        width={1440}
+        height={900}
       />
 
       {/* ── Feature Parade 750×320 — Ticker features · 8s ── */}
