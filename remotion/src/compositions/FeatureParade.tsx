@@ -129,30 +129,34 @@ export const FeatureParade: React.FC = () => {
   const isLast     = activeIndex === FEATURES.length - 1;
   const feature    = FEATURES[activeIndex];
 
-  /* Enter slide : right → center */
-  const enterX = localFrame <= ENTER
-    ? interpolate(localFrame, [0, ENTER], [280, 0], {
-        extrapolateLeft:  "clamp",
-        extrapolateRight: "clamp",
+  // Diagonal 30° from vertical : enter top-right → center → exit bottom-left
+  // At 30° from vertical : X = sin(30°) × d = 0.5 × d, Y = cos(30°) × d ≈ 0.866 × d
+  const DIST = 260; // travel distance along the diagonal
+  const DX   = Math.round(DIST * Math.sin((30 * Math.PI) / 180)); // ≈ 130
+  const DY   = Math.round(DIST * Math.cos((30 * Math.PI) / 180)); // ≈ 225
+
+  /* Enter : top-right → center */
+  const enterProgress = localFrame <= ENTER
+    ? interpolate(localFrame, [0, ENTER], [1, 0], {
+        extrapolateLeft: "clamp", extrapolateRight: "clamp",
         easing: Easing.out(Easing.cubic),
       })
     : 0;
 
-  /* Exit slide : center → left (skipped for last feature) */
-  const exitX = !isLast && localFrame >= FRAME_PER_FEATURE - EXIT
+  /* Exit : center → bottom-left (skipped for last feature) */
+  const exitProgress = !isLast && localFrame >= FRAME_PER_FEATURE - EXIT
     ? interpolate(
         localFrame,
         [FRAME_PER_FEATURE - EXIT, FRAME_PER_FEATURE],
-        [0, -280],
-        {
-          extrapolateLeft:  "clamp",
-          extrapolateRight: "clamp",
-          easing: Easing.in(Easing.cubic),
-        }
+        [0, 1],
+        { extrapolateLeft: "clamp", extrapolateRight: "clamp",
+          easing: Easing.in(Easing.cubic) }
       )
     : 0;
 
-  const featureX = localFrame <= ENTER ? enterX : exitX;
+  // Enter comes from top-right (+DX, -DY), exit goes to bottom-left (-DX, +DY)
+  const featureX = enterProgress * DX  - exitProgress * DX;
+  const featureY = enterProgress * -DY + exitProgress * DY;
 
   /* Opacity */
   const featureOpacity = interpolate(
@@ -173,9 +177,6 @@ export const FeatureParade: React.FC = () => {
     to: 1,
   });
 
-  /* Progress */
-  const progress = frame / 240;
-  const counter  = `${String(activeIndex + 1).padStart(2, "0")} / ${String(FEATURES.length).padStart(2, "0")}`;
 
   return (
     <AbsoluteFill
@@ -201,71 +202,6 @@ export const FeatureParade: React.FC = () => {
         }}
       />
 
-      {/* ── Top bar ── */}
-      <div
-        style={{
-          position: "absolute",
-          top: 0,
-          left: 0,
-          right: 0,
-          padding: "20px 28px",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "space-between",
-          opacity: shellOpacity,
-        }}
-      >
-        {/* Logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
-          <div
-            style={{
-              width: 26,
-              height: 26,
-              borderRadius: 7,
-              background: C.accent,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              flexShrink: 0,
-            }}
-          >
-            <svg width="14" height="14" viewBox="0 0 18 18" fill="none">
-              <rect x="4" y="9" width="10" height="7" rx="2" fill="white" />
-              <path
-                d="M6 9V7a3 3 0 016 0v2"
-                stroke="white"
-                strokeWidth="1.6"
-                strokeLinecap="round"
-              />
-            </svg>
-          </div>
-          <span
-            style={{
-              fontFamily: F.display,
-              fontSize: FS.sm,
-              fontWeight: 600,
-              color: "rgba(255,255,255,0.85)",
-              letterSpacing: "-0.3px",
-            }}
-          >
-            LOCKimmo
-          </span>
-        </div>
-
-        {/* Feature counter */}
-        <span
-          style={{
-            fontFamily: F.display,
-            fontSize: FS.xs,
-            fontWeight: 600,
-            color: "rgba(255,255,255,0.30)",
-            letterSpacing: "0.08em",
-          }}
-        >
-          {counter}
-        </span>
-      </div>
-
       {/* ── Feature area (center) ── */}
       <div
         style={{
@@ -275,8 +211,7 @@ export const FeatureParade: React.FC = () => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          paddingBottom: 36, // compensate for bottom bar
-          transform: `translateX(${featureX}px)`,
+          transform: `translate(${featureX}px, ${featureY}px)`,
           opacity: featureOpacity,
         }}
       >
@@ -314,52 +249,33 @@ export const FeatureParade: React.FC = () => {
         </div>
       </div>
 
-      {/* ── Bottom : dots + progress bar ── */}
+      {/* ── Bottom : dots ── */}
       <div
         style={{
           position: "absolute",
-          bottom: 0,
+          bottom: 20,
           left: 0,
           right: 0,
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          gap: 6,
           opacity: shellOpacity,
         }}
       >
-        {/* Dots */}
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            gap: 6,
-            marginBottom: 10,
-          }}
-        >
-          {FEATURES.map((_, i) => (
-            <div
-              key={i}
-              style={{
-                width:        i === activeIndex ? 22 : 6,
-                height:       6,
-                borderRadius: 3,
-                background:   i === activeIndex
-                  ? C.accent
-                  : "rgba(255,255,255,0.18)",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Progress bar */}
-        <div style={{ height: 3, background: "rgba(255,255,255,0.06)" }}>
+        {FEATURES.map((_, i) => (
           <div
+            key={i}
             style={{
-              height:       "100%",
-              width:        `${progress * 100}%`,
-              background:   C.accent,
-              borderRadius: "0 2px 2px 0",
+              width:        i === activeIndex ? 22 : 6,
+              height:       6,
+              borderRadius: 3,
+              background:   i === activeIndex
+                ? C.accent
+                : "rgba(255,255,255,0.18)",
             }}
           />
-        </div>
+        ))}
       </div>
     </AbsoluteFill>
   );
