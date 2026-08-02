@@ -1,5 +1,6 @@
 import React from 'react';
 import { C, F } from '../../../tokens';
+import { LockimmoLogo } from '../../../brand';
 
 /**
  * Motion — Transfert de données : Logiciel X → LOCKimmo
@@ -84,13 +85,14 @@ export const DataTransfer: React.FC = () => (
   }}>
     <style>{CSS}</style>
 
-    {/* Trait de liaison animé */}
+    {/* Trait de liaison animé — 1s divise exactement le cycle de 5s, indispensable
+        pour que la boucle exportée en vidéo ne saute pas au raccord. */}
     <svg width={TRAVEL} height="2" style={{ position: 'absolute', left: LEFT_X + CARD_W, top: CARD_Y + CARD_H / 2 }}>
       <line
         x1="0" y1="1" x2={TRAVEL} y2="1"
         stroke={C.accentSoft} strokeWidth="2" strokeLinecap="round"
         strokeDasharray="5 9"
-        style={{ animation: 'mt-flow 0.9s linear infinite' }}
+        style={{ animation: 'mt-flow 1s linear infinite' }}
       />
     </svg>
 
@@ -143,17 +145,8 @@ export const DataTransfer: React.FC = () => (
       padding: '16px 16px 0', boxSizing: 'border-box',
       boxShadow: '0 10px 30px rgba(255,135,83,0.13)',
     }}>
-      <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 16 }}>
-        <div style={{
-          width: 26, height: 26, borderRadius: 8, background: C.accent,
-          display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
-        }}>
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none">
-            <rect x="5" y="11" width="14" height="9" rx="2" fill="white" />
-            <path d="M8 11V7.5a4 4 0 018 0V11" stroke="white" strokeWidth="2.2" strokeLinecap="round" />
-          </svg>
-        </div>
-        <div style={{ fontFamily: F.display, fontSize: 13, fontWeight: 700, color: C.textPrimary }}>LOCKimmo</div>
+      <div style={{ marginBottom: 16 }}>
+        <LockimmoLogo markSize={26} wordHeight={12} color={C.textPrimary} />
       </div>
 
       {ROWS.map((r, i) => (

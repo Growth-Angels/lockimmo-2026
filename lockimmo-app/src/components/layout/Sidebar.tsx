@@ -2,6 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import { C } from '../../tokens';
 import { Icon } from '../../icons';
+import { LockimmoMark } from '../../brand';
 
 const NAV = [
   { path: '/',                          label: 'Tableau de bord',          icon: 'grid'          },
@@ -43,8 +44,12 @@ export const Sidebar: React.FC = () => {
       flexDirection: 'column', overflow: 'hidden',
     }}>
       {/* Logo */}
-      <div style={{ padding: '18px 16px 14px', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-        <svg width="168" height="44" viewBox="0 0 532 140" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <div style={{
+        padding: '16px 16px 14px', borderBottom: '1px solid rgba(255,255,255,0.06)',
+        display: 'flex', alignItems: 'center', gap: 10,
+      }}>
+        <LockimmoMark size={34} />
+        <svg width="122" height="32" viewBox="0 0 532 140" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M15.4493 8.34444V65.0446H48.676V79.2724H13.6505C3.80943 79.2724 0 74.2136 0 66.0985V8.34444H15.4493Z" fill="white"/>
           <path d="M86.1729 80.6637C64.8534 80.6637 48.6764 64.8235 48.6764 43.809C48.6764 22.9 64.8534 6.95425 86.1729 6.95425C107.599 6.95425 123.777 22.9 123.777 43.809C123.777 64.8235 107.492 80.6637 86.1729 80.6637ZM86.1729 66.0907C98.1718 66.0907 107.599 56.3755 107.599 43.809C107.599 31.2425 98.2789 21.5272 86.1729 21.5272C74.174 21.5272 64.7463 31.2425 64.7463 43.809C64.7463 56.3755 74.174 66.0907 86.1729 66.0907Z" fill="white"/>
           <path d="M163.656 80.6637C142.822 80.6637 126.558 64.3423 126.558 43.809C126.558 23.2756 142.822 6.95425 163.656 6.95425C176.093 6.95425 187.999 13.4828 193.314 24.5392L180.664 31.5943C177.156 25.4869 171.629 21.5908 163.018 21.5908C151.113 21.5908 142.503 30.9625 142.503 43.809C142.503 56.6554 151.007 66.0271 163.018 66.0271C171.629 66.0271 177.369 62.131 180.664 56.0237L193.314 63.0787C187.999 74.1351 176.093 80.6637 163.656 80.6637Z" fill="white"/>

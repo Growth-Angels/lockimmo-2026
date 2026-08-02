@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# exports video (volumineux, regenerables via scripts/export-motions.mjs)
+exports/
