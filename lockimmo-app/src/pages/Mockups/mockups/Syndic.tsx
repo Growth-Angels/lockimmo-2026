@@ -325,10 +325,10 @@ export const Syndic: React.FC = () => (
                   display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
                 }}>
                   <div style={{
-                    fontFamily: F.display, fontSize: 28, fontWeight: 700,
-                    color: C.textPrimary, lineHeight: '30px', ...NUM,
+                    fontFamily: F.display, fontSize: 24, fontWeight: 700,
+                    color: C.textPrimary, lineHeight: '26px', ...NUM,
                   }}>
-                    78 %
+                    78%
                   </div>
                   <div style={{ ...LABEL, fontSize: 7.5, letterSpacing: '0.9px', marginTop: 1 }}>Tantièmes</div>
                 </div>
