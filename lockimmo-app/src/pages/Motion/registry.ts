@@ -1,5 +1,6 @@
 import React from 'react';
 import { DataTransfer } from './motions/DataTransfer';
+import { Agenda } from './motions/Agenda';
 import { GestionLocative } from '../Mockups/mockups/GestionLocative';
 import { Syndic } from '../Mockups/mockups/Syndic';
 import { Saisonnier } from '../Mockups/mockups/Saisonnier';
@@ -81,6 +82,15 @@ export const MOTIONS: MotionDef[] = [
     width: 640,
     height: 480,
     Component: LiveDashboard,
+  },
+  {
+    id: 'agenda',
+    title: 'Gestion de l’agenda',
+    description: "Les rendez-vous de la journée s'affichent l'un après l'autre pendant que l'agenda défile de haut en bas : états des lieux, signatures, visites, interventions.",
+    ratio: '4:3',
+    width: 640,
+    height: 480,
+    Component: Agenda,
   },
 
   /* ── Versions animées des mockups produit ──
