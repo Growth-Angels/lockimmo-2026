@@ -3,8 +3,17 @@ import { C, F } from '../../../tokens';
 import { LockimmoLogo, LockimmoMark } from '../../../brand';
 
 /**
- * Mockup statique — Logiciel de gestion locative
- * Format 960×640. Aucune animation, aucune transition, aucune image externe.
+ * Mockup — Logiciel de gestion locative
+ * Format 960×640. Aucune image externe.
+ *
+ * Deux rendus à partir de la même source :
+ *  · <GestionLocative />          → rendu statique, strictement identique à l'origine
+ *                                   (aucune balise <style>, aucune propriété `animation`).
+ *  · <GestionLocative animated /> → le même écran, construit progressivement, en boucle 6 s.
+ *
+ * Convention de motion (identique à AiAutomation / LiveDashboard) : le décalage entre
+ * éléments est encodé DANS les pourcentages des keyframes, jamais via un décalage de
+ * démarrage, pour que tous partagent la même phase de boucle et se réinitialisent ensemble.
  *
  * Intention éditoriale : montrer un gestionnaire dont tout est sous contrôle —
  * occupation pleine, zéro impayé, quittances parties toutes seules, conformité 2026 acquise.
@@ -12,6 +21,12 @@ import { LockimmoLogo, LockimmoMark } from '../../../brand';
 
 const W = 960;
 const H = 640;
+
+/**
+ * Injecte (ou non) une propriété `animation` — et, le cas échéant, les propriétés
+ * strictement liées au motion (origine de transformation…). En statique : objet vide.
+ */
+type AnimFn = (value: string, extra?: React.CSSProperties) => React.CSSProperties;
 
 const SIDEBAR_W = 196;
 const TOPBAR_H = 60;
@@ -49,10 +64,11 @@ const Icon: React.FC<{ d: string; size?: number; color?: string; sw?: number }> 
   </svg>
 );
 
-const CheckDot: React.FC<{ size?: number }> = ({ size = 14 }) => (
+const CheckDot: React.FC<{ size?: number; style?: React.CSSProperties }> = ({ size = 14, style }) => (
   <div style={{
     width: size, height: size, borderRadius: '50%', background: C.success,
     display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0,
+    ...style,
   }}>
     <svg width={size * 0.62} height={size * 0.62} viewBox="0 0 24 24" fill="none"
       stroke={C.white} strokeWidth={4.2} strokeLinecap="round" strokeLinejoin="round">
@@ -61,13 +77,16 @@ const CheckDot: React.FC<{ size?: number }> = ({ size = 14 }) => (
   </div>
 );
 
-const Pill: React.FC<{ text: string; color: string; bg: string; size?: number }> = ({
-  text, color, bg, size = 8.5,
+const Pill: React.FC<{
+  text: string; color: string; bg: string; size?: number; style?: React.CSSProperties;
+}> = ({
+  text, color, bg, size = 8.5, style,
 }) => (
   <span style={{
     display: 'inline-block', background: bg, color, borderRadius: 100,
     padding: '3px 8px', fontSize: size, fontWeight: 700, letterSpacing: '0.2px',
     whiteSpace: 'nowrap', lineHeight: '11px',
+    ...style,
   }}>
     {text}
   </span>
@@ -272,11 +291,12 @@ const KPIS: Kpi[] = [
   { label: 'REVENUS 2026', value: '271 400 €', sub: '↗ +6,2 % vs 2025' },
 ];
 
-const KpiCard: React.FC<{ k: Kpi }> = ({ k }) => (
+const KpiCard: React.FC<{ k: Kpi; i: number; anim: AnimFn }> = ({ k, i, anim }) => (
   <div style={{
     flex: 1, height: 92, boxSizing: 'border-box',
     background: C.white, border: `1px solid ${C.border}`, borderRadius: 12,
     boxShadow: SHADOW, padding: '12px 14px',
+    ...anim(`gl-kpi-${i} 6s cubic-bezier(.2,.8,.3,1) 0s infinite both`),
   }}>
     <div style={{
       fontSize: 8.5, fontWeight: 700, letterSpacing: '1.1px', color: C.textMuted,
@@ -319,12 +339,13 @@ const BARS: [string, number, boolean][] = [
   ['AVR', 54, false], ['MAI', 64, false], ['JUIN', 72, true],
 ];
 
-const EncaissementsCard: React.FC = () => (
+const EncaissementsCard: React.FC<{ anim: AnimFn }> = ({ anim }) => (
   <div style={{ ...cardStyle(210, COL_L) }}>
     <CardTitle left="Encaissements" right="6 derniers mois" />
 
     <div style={{
       marginTop: 10, height: 34, display: 'flex', alignItems: 'flex-end', gap: 10,
+      ...anim('gl-enc-head 6s cubic-bezier(.2,.8,.3,1) 0s infinite both'),
     }}>
       <span style={{
         fontFamily: F.display, fontSize: 30, fontWeight: 700, color: C.textPrimary,
@@ -364,6 +385,10 @@ const EncaissementsCard: React.FC = () => (
             <rect
               x={x} y={BASE_Y - h} width={BAR_W} height={h} rx="5"
               fill={cur ? C.accent : C.accentSoft}
+              style={anim(
+                `gl-bar-${i} 6s cubic-bezier(.2,.85,.3,1) 0s infinite both`,
+                { transformBox: 'fill-box', transformOrigin: 'bottom' },
+              )}
             />
             <text
               x={x + BAR_W / 2} y={BASE_Y + 16} textAnchor="middle"
@@ -379,7 +404,10 @@ const EncaissementsCard: React.FC = () => (
       <text
         x={5 * SLOT + SLOT / 2} y={BASE_Y - 72 - 6} textAnchor="middle"
         fontSize="9" fontWeight="700" fill={C.accent}
-        style={{ fontVariantNumeric: 'tabular-nums' }}
+        style={{
+          fontVariantNumeric: 'tabular-nums',
+          ...anim('gl-bar-label 6s cubic-bezier(.2,.8,.3,1) 0s infinite both'),
+        }}
       >
         46 820 €
       </text>
@@ -395,7 +423,7 @@ const AUTOS: [string, string][] = [
   ['Révisions IRL appliquées', '8'],
 ];
 
-const AutomationsCard: React.FC = () => (
+const AutomationsCard: React.FC<{ anim: AnimFn }> = ({ anim }) => (
   <div style={{ ...cardStyle(210, COL_R) }}>
     <div style={{ height: 20, display: 'flex', alignItems: 'center', gap: 8 }}>
       <LockimmoMark size={20} radius={6} />
@@ -409,6 +437,7 @@ const AutomationsCard: React.FC = () => (
 
     <div style={{
       marginTop: 12, height: 42, display: 'flex', alignItems: 'center', gap: 11,
+      ...anim('gl-auto-num 6s cubic-bezier(.2,.8,.3,1) 0s infinite both'),
     }}>
       <span style={{
         fontFamily: F.display, fontSize: 34, fontWeight: 700, color: C.accent,
@@ -422,13 +451,17 @@ const AutomationsCard: React.FC = () => (
     </div>
 
     <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
-      {AUTOS.map(([label, n]) => (
+      {AUTOS.map(([label, n], i) => (
         <div key={label} style={{
           height: 26, boxSizing: 'border-box', background: C.bgLight,
           border: `1px solid ${C.border}`, borderRadius: 8,
           display: 'flex', alignItems: 'center', gap: 8, padding: '0 10px',
+          ...anim(`gl-auto-${i} 6s cubic-bezier(.2,.8,.3,1) 0s infinite both`),
         }}>
-          <CheckDot size={12} />
+          <CheckDot
+            size={12}
+            style={anim(`gl-auto-dot-${i} 6s cubic-bezier(.2,.8,.3,1) 0s infinite both`)}
+          />
           <span style={{ fontSize: 10.5, color: C.textSecondary, flex: 1, whiteSpace: 'nowrap' }}>
             {label}
           </span>
@@ -477,7 +510,7 @@ const BAUX: Bail[] = [
 
 const COLS = { lot: 130, tenant: 104, rent: 62, status: 92 };
 
-const BauxCard: React.FC = () => (
+const BauxCard: React.FC<{ anim: AnimFn }> = ({ anim }) => (
   <div style={{ ...cardStyle(202, COL_L) }}>
     <CardTitle left="Baux & quittances" right="24 baux actifs · 0 impayé" />
 
@@ -495,6 +528,7 @@ const BauxCard: React.FC = () => (
       <div key={b.lot} style={{
         height: 32, display: 'flex', alignItems: 'center',
         borderTop: i === 0 ? 'none' : `1px solid ${C.border}`,
+        ...anim(`gl-bail-${i} 6s cubic-bezier(.2,.8,.3,1) 0s infinite both`),
       }}>
         <div style={{ width: COLS.lot, display: 'flex', alignItems: 'center', gap: 8 }}>
           <div style={{
@@ -540,7 +574,10 @@ const BauxCard: React.FC = () => (
         </div>
 
         <div style={{ width: COLS.status, display: 'flex', justifyContent: 'flex-end' }}>
-          <Pill text={b.status} color={b.color} bg={b.bg} />
+          <Pill
+            text={b.status} color={b.color} bg={b.bg}
+            style={anim(`gl-bail-badge-${i} 6s cubic-bezier(.2,.8,.3,1) 0s infinite both`)}
+          />
         </div>
       </div>
     ))}
@@ -555,7 +592,7 @@ const CONFORMITE: string[] = [
   'Déclaration 2072 · prête à transmettre',
 ];
 
-const ConformiteCard: React.FC = () => (
+const ConformiteCard: React.FC<{ anim: AnimFn }> = ({ anim }) => (
   <div style={{ ...cardStyle(202, COL_R) }}>
     <CardTitle left="Conformité" right="Exercice 2026" />
 
@@ -563,6 +600,7 @@ const ConformiteCard: React.FC = () => (
       marginTop: 10, height: 52, boxSizing: 'border-box',
       background: C.successLight, borderRadius: 10, padding: '0 12px',
       display: 'flex', alignItems: 'center', gap: 10,
+      ...anim('gl-conf-band 6s cubic-bezier(.2,.8,.3,1) 0s infinite both'),
     }}>
       <CheckDot size={22} />
       <div style={{ minWidth: 0 }}>
@@ -579,9 +617,15 @@ const ConformiteCard: React.FC = () => (
     </div>
 
     <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
-      {CONFORMITE.map((t) => (
-        <div key={t} style={{ height: 22, display: 'flex', alignItems: 'center', gap: 8 }}>
-          <CheckDot size={13} />
+      {CONFORMITE.map((t, i) => (
+        <div key={t} style={{
+          height: 22, display: 'flex', alignItems: 'center', gap: 8,
+          ...anim(`gl-conf-${i} 6s cubic-bezier(.2,.8,.3,1) 0s infinite both`),
+        }}>
+          <CheckDot
+            size={13}
+            style={anim(`gl-conf-dot-${i} 6s cubic-bezier(.2,.8,.3,1) 0s infinite both`)}
+          />
           <span style={{
             fontSize: 10, color: C.textSecondary, lineHeight: '13px',
             fontVariantNumeric: 'tabular-nums', whiteSpace: 'nowrap',
@@ -594,39 +638,135 @@ const ConformiteCard: React.FC = () => (
   </div>
 );
 
+/* ───────────────────────── Motion (mode `animated`) ─────────────────────────
+ *
+ * Cycle de 6 s, en pourcentages. Le décalage entre éléments est encodé DANS les
+ * keyframes — aucun décalage de démarrage : toutes les animations partagent la même
+ * durée (6s), le même delay (0s), `infinite` et `both`. À `t = 0` comme à RESET,
+ * tous les éléments animés sont à leur état initial (invisibles), donc la boucle
+ * repart proprement sans reliquat du cycle précédent.
+ *
+ *   02 → 19   les 4 cartes KPI, l'une après l'autre
+ *   17 → 40   Encaissements : en-tête chiffré, puis les 6 barres en décalé
+ *   40 → 45   étiquette de valeur au-dessus de la barre de juin (accent)
+ *   42 → 59   Automatisations : le « 47 », puis les 3 lignes qui se cochent
+ *   57 → 73   Baux & quittances : 4 lignes en cascade + badge de statut
+ *   67 → 84   Conformité : bandeau vert, puis les 3 items qui se cochent
+ *   84 → 86   maintien de l'écran complet
+ *   86 → 93   réinitialisation simultanée
+ *   93 → 100  état initial, prêt à reboucler
+ */
+
+const HOLD = 86;   // % — fin du maintien
+const RESET = 93;  // % — tout est revenu à l'état initial
+
+const KPI_START = 2, KPI_STEP = 3.5, KPI_DUR = 6;
+const ENC_HEAD = 17, ENC_HEAD_DUR = 6;
+const BAR_START = 20, BAR_STEP = 2.5, BAR_DUR = 7;
+const BAR_LABEL = 40, BAR_LABEL_DUR = 5;
+const AUTO_NUM = 42, AUTO_NUM_DUR = 6;
+const AUTO_START = 47, AUTO_STEP = 3, AUTO_DUR = 6;
+const BAIL_START = 57, BAIL_STEP = 2.5, BAIL_DUR = 6;
+const BADGE_OFFSET = 4, BADGE_DUR = 4.5;
+const CONF_BAND = 67, CONF_BAND_DUR = 6;
+const CONF_START = 72, CONF_STEP = 2.5, CONF_DUR = 5;
+const DOT_OFFSET = 1.5; // décalage de la pastille de coche après sa ligne
+
+/** Fondu + montée de quelques px. */
+const riseKf = (name: string, s: number, dur: number, dy = 8) => `
+@keyframes ${name} {
+  0%, ${s}%       { opacity: 0; transform: translateY(${dy}px); }
+  ${s + dur}%     { opacity: 1; transform: translateY(0); }
+  ${HOLD}%        { opacity: 1; transform: translateY(0); }
+  ${RESET}%, 100% { opacity: 0; transform: translateY(${dy}px); }
+}`;
+
+/** Fondu + léger agrandissement (badges de statut). */
+const popKf = (name: string, s: number, dur: number) => `
+@keyframes ${name} {
+  0%, ${s}%       { opacity: 0; transform: scale(.82); }
+  ${s + dur}%     { opacity: 1; transform: scale(1); }
+  ${HOLD}%        { opacity: 1; transform: scale(1); }
+  ${RESET}%, 100% { opacity: 0; transform: scale(.82); }
+}`;
+
+/** Coche verte : apparition avec un léger rebond. */
+const bounceKf = (name: string, s: number) => `
+@keyframes ${name} {
+  0%, ${s}%       { opacity: 0; transform: scale(.2); }
+  ${s + 3}%       { opacity: 1; transform: scale(1.28); }
+  ${s + 5.5}%     { opacity: 1; transform: scale(1); }
+  ${HOLD}%        { opacity: 1; transform: scale(1); }
+  ${RESET}%, 100% { opacity: 0; transform: scale(.2); }
+}`;
+
+/** Barre d'histogramme : pousse depuis la ligne de base. */
+const growKf = (name: string, s: number, dur: number) => `
+@keyframes ${name} {
+  0%, ${s}%       { transform: scaleY(0); }
+  ${s + dur}%     { transform: scaleY(1); }
+  ${HOLD}%        { transform: scaleY(1); }
+  ${RESET}%, 100% { transform: scaleY(0); }
+}`;
+
+const CSS = [
+  ...KPIS.map((_, i) => riseKf(`gl-kpi-${i}`, KPI_START + i * KPI_STEP, KPI_DUR, 10)),
+
+  riseKf('gl-enc-head', ENC_HEAD, ENC_HEAD_DUR, 6),
+  ...BARS.map((_, i) => growKf(`gl-bar-${i}`, BAR_START + i * BAR_STEP, BAR_DUR)),
+  riseKf('gl-bar-label', BAR_LABEL, BAR_LABEL_DUR, 5),
+
+  riseKf('gl-auto-num', AUTO_NUM, AUTO_NUM_DUR, 8),
+  ...AUTOS.map((_, i) => riseKf(`gl-auto-${i}`, AUTO_START + i * AUTO_STEP, AUTO_DUR)),
+  ...AUTOS.map((_, i) => bounceKf(`gl-auto-dot-${i}`, AUTO_START + i * AUTO_STEP + DOT_OFFSET)),
+
+  ...BAUX.map((_, i) => riseKf(`gl-bail-${i}`, BAIL_START + i * BAIL_STEP, BAIL_DUR)),
+  ...BAUX.map((_, i) => popKf(`gl-bail-badge-${i}`, BAIL_START + i * BAIL_STEP + BADGE_OFFSET, BADGE_DUR)),
+
+  riseKf('gl-conf-band', CONF_BAND, CONF_BAND_DUR),
+  ...CONFORMITE.map((_, i) => riseKf(`gl-conf-${i}`, CONF_START + i * CONF_STEP, CONF_DUR, 6)),
+  ...CONFORMITE.map((_, i) => bounceKf(`gl-conf-dot-${i}`, CONF_START + i * CONF_STEP + DOT_OFFSET)),
+].join('');
+
 /* ───────────────────────── Écran ───────────────────────── */
 
-export const GestionLocative: React.FC = () => (
-  <div style={{
-    width: W, height: H, position: 'relative', overflow: 'hidden',
-    borderRadius: 18, fontFamily: F.body, background: C.white, display: 'flex',
-  }}>
-    <Sidebar />
+export const GestionLocative: React.FC<{ animated?: boolean }> = ({ animated = false }) => {
+  const anim: AnimFn = (value, extra) => (animated ? { animation: value, ...extra } : {});
 
-    <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
-      <TopBar />
+  return (
+    <div style={{
+      width: W, height: H, position: 'relative', overflow: 'hidden',
+      borderRadius: 18, fontFamily: F.body, background: C.white, display: 'flex',
+    }}>
+      {animated && <style>{CSS}</style>}
 
-      <div style={{
-        flex: 1, boxSizing: 'border-box', background: C.bgApp, padding: PAD,
-        display: 'flex', flexDirection: 'column', gap: GUTTER,
-      }}>
-        {/* Bandeau de KPI */}
-        <div style={{ display: 'flex', gap: 14, width: CONTENT_W }}>
-          {KPIS.map((k) => <KpiCard key={k.label} k={k} />)}
-        </div>
+      <Sidebar />
 
-        {/* Encaissements + automatisations */}
-        <div style={{ display: 'flex', gap: GUTTER, width: CONTENT_W }}>
-          <EncaissementsCard />
-          <AutomationsCard />
-        </div>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', minWidth: 0 }}>
+        <TopBar />
 
-        {/* Baux + conformité */}
-        <div style={{ display: 'flex', gap: GUTTER, width: CONTENT_W }}>
-          <BauxCard />
-          <ConformiteCard />
+        <div style={{
+          flex: 1, boxSizing: 'border-box', background: C.bgApp, padding: PAD,
+          display: 'flex', flexDirection: 'column', gap: GUTTER,
+        }}>
+          {/* Bandeau de KPI */}
+          <div style={{ display: 'flex', gap: 14, width: CONTENT_W }}>
+            {KPIS.map((k, i) => <KpiCard key={k.label} k={k} i={i} anim={anim} />)}
+          </div>
+
+          {/* Encaissements + automatisations */}
+          <div style={{ display: 'flex', gap: GUTTER, width: CONTENT_W }}>
+            <EncaissementsCard anim={anim} />
+            <AutomationsCard anim={anim} />
+          </div>
+
+          {/* Baux + conformité */}
+          <div style={{ display: 'flex', gap: GUTTER, width: CONTENT_W }}>
+            <BauxCard anim={anim} />
+            <ConformiteCard anim={anim} />
+          </div>
         </div>
       </div>
     </div>
-  </div>
-);
+  );
+};

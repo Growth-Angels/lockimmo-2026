@@ -1,5 +1,9 @@
-import type React from 'react';
+import React from 'react';
 import { DataTransfer } from './motions/DataTransfer';
+import { GestionLocative } from '../Mockups/mockups/GestionLocative';
+import { Syndic } from '../Mockups/mockups/Syndic';
+import { Saisonnier } from '../Mockups/mockups/Saisonnier';
+import { Transactions } from '../Mockups/mockups/Transactions';
 import { AiAutomation } from './motions/AiAutomation';
 import { SupportChat } from './motions/SupportChat';
 import { Academie } from './motions/Academie';
@@ -77,5 +81,46 @@ export const MOTIONS: MotionDef[] = [
     width: 640,
     height: 480,
     Component: LiveDashboard,
+  },
+
+  /* ── Versions animées des mockups produit ──
+     Même source que les écrans figés de /mockups : c'est le même composant,
+     rendu avec `animated`. Aucune duplication, la version statique reste
+     strictement inchangée. */
+  {
+    id: 'gestion-locative-motion',
+    title: 'Gestion locative · animé',
+    description: "L'écran de gestion locative qui se construit : KPI, encaissements, automatisations qui se cochent, conformité validée.",
+    ratio: '3:2',
+    width: 960,
+    height: 640,
+    Component: () => React.createElement(GestionLocative, { animated: true }),
+  },
+  {
+    id: 'syndic-motion',
+    title: 'Syndic · animé',
+    description: "L'assemblée générale qui se déroule : le quorum se remplit, les résolutions se votent une à une, le PV part.",
+    ratio: '3:2',
+    width: 960,
+    height: 640,
+    Component: () => React.createElement(Syndic, { animated: true }),
+  },
+  {
+    id: 'saisonnier-motion',
+    title: 'Locations saisonnières · animé',
+    description: 'Le planning qui se remplit séjour après séjour, jusqu’à ne plus laisser un trou, puis les canaux qui se synchronisent.',
+    ratio: '3:2',
+    width: 960,
+    height: 640,
+    Component: () => React.createElement(Saisonnier, { animated: true }),
+  },
+  {
+    id: 'transactions-motion',
+    title: 'Transactions · animé',
+    description: 'Le pipeline qui se remplit de gauche à droite, des mandats jusqu’aux ventes actées et aux honoraires.',
+    ratio: '3:2',
+    width: 960,
+    height: 640,
+    Component: () => React.createElement(Transactions, { animated: true }),
   },
 ];

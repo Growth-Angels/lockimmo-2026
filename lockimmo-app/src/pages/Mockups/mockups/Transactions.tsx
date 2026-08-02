@@ -4,7 +4,15 @@ import { LockimmoLogo } from '../../../brand';
 
 /**
  * Mockup — Logiciel de transactions (vente immobilière)
- * Écran statique 960×640. Aucune animation, aucune image externe.
+ * Écran 960×640. Aucune image externe.
+ *
+ * Deux rendus depuis la même source :
+ *   <Transactions />           → écran statique, strictement inchangé (export PNG)
+ *   <Transactions animated />  → même écran, construit progressivement, boucle de 7 s
+ *
+ * Convention des motions en production (AiAutomation / LiveDashboard) : le décalage
+ * entre éléments est encodé DANS les pourcentages des keyframes (jamais via un
+ * décalage de départ), pour que tout partage la même phase et se réinitialise ensemble.
  *
  * Composition :
  *   0   → 56    barre d'application (logo, navigation, recherche, compte)
@@ -222,8 +230,116 @@ const KPIS: { label: string; value: string; sub: string; chip: string; chipColor
 
 const NAV = ['Transactions', 'Biens', 'Contacts', 'Agenda', 'Documents'];
 
+/* ══════════════════════════════════════════════════════════════════════════
+   Animation optionnelle — 100 % CSS, cycle unique de 7 s
+   Récit : les affaires avancent dans le pipeline jusqu'à la vente.
+     2 → 17   les 4 KPI en cascade
+    14 → 20   « Pipeline de vente » + gage eIDAS
+    20 → 68   les 5 colonnes se remplissent de gauche à droite
+              (en-tête de colonne, puis ses cartes de haut en bas)
+    28 → 65   le bandeau de réussite de chaque carte héros, en léger rebond
+    70 → 79   les honoraires en vert de la colonne « Acté » (la chute)
+    79 → 86   maintien de l'écran complet
+    86 → 93   réinitialisation simultanée (colonnes vides)
+   ══════════════════════════════════════════════════════════════════════════ */
+
+const KPI_START = 2;
+const KPI_STEP = 3;
+const KPI_DUR = 6;
+
+const HEAD_START = 14;
+const HEAD_DUR = 6;
+
+const COL_START = 20;     // en-tête de la 1re colonne
+const COL_STEP = 8;       // écart entre deux colonnes
+const COL_HEAD_DUR = 4;
+
+const CARD_OFFSET = 3;    // 1re carte, après l'en-tête de sa colonne
+const CARD_STEP = 3.5;    // écart entre cartes d'une même colonne
+const CARD_DUR = 6;
+
+const BANNER_OFFSET = 5;  // bandeau, après la carte héros
+const BANNER_DUR = 5;
+
+const FEE_START = 70;
+const FEE_STEP = 2;
+const FEE_DUR = 5;
+
+const HOLD = 86;          // % — fin du maintien
+const RESET = 93;         // % — tout est revenu à l'état initial
+
+/** Instant d'apparition de la carte j de la colonne c. */
+const cardAt = (c: number, j: number) => COL_START + CARD_OFFSET + c * COL_STEP + j * CARD_STEP;
+
+const CSS = `
+${KPIS.map((_, i) => {
+  const s = KPI_START + i * KPI_STEP;
+  return `
+@keyframes tx-kpi-${i} {
+  0%, ${s}%        { opacity: 0; transform: translateY(10px); animation-timing-function: cubic-bezier(.2,.8,.3,1); }
+  ${s + KPI_DUR}%  { opacity: 1; transform: translateY(0); }
+  ${HOLD}%         { opacity: 1; transform: translateY(0); }
+  ${RESET}%, 100%  { opacity: 0; transform: translateY(10px); }
+}`;
+}).join('')}
+@keyframes tx-head {
+  0%, ${HEAD_START}%        { opacity: 0; transform: translateY(6px); animation-timing-function: cubic-bezier(.2,.8,.3,1); }
+  ${HEAD_START + HEAD_DUR}% { opacity: 1; transform: translateY(0); }
+  ${HOLD}%                  { opacity: 1; transform: translateY(0); }
+  ${RESET}%, 100%           { opacity: 0; transform: translateY(6px); }
+}
+${COLUMNS.map((col, c) => {
+  const h = COL_START + c * COL_STEP;
+  const b = cardAt(c, 0) + BANNER_OFFSET;
+  return `
+@keyframes tx-colhead-${c} {
+  0%, ${h}%             { opacity: 0; transform: translateX(-8px); animation-timing-function: cubic-bezier(.2,.8,.3,1); }
+  ${h + COL_HEAD_DUR}%  { opacity: 1; transform: translateX(0); }
+  ${HOLD}%              { opacity: 1; transform: translateX(0); }
+  ${RESET}%, 100%       { opacity: 0; transform: translateX(-8px); }
+}
+${col.deals.map((_, j) => {
+  const s = cardAt(c, j);
+  return `
+@keyframes tx-card-${c}-${j} {
+  0%, ${s}%         { opacity: 0; transform: translateY(-8px) scale(.97); animation-timing-function: cubic-bezier(.2,.8,.3,1); }
+  ${s + CARD_DUR}%  { opacity: 1; transform: translateY(0) scale(1); }
+  ${HOLD}%          { opacity: 1; transform: translateY(0) scale(1); }
+  ${RESET}%, 100%   { opacity: 0; transform: translateY(-8px) scale(.97); }
+}`;
+}).join('')}
+@keyframes tx-banner-${c} {
+  0%, ${b}%              { opacity: 0; transform: scale(.88); animation-timing-function: cubic-bezier(.34,1.56,.64,1); }
+  ${b + BANNER_DUR}%     { opacity: 1; transform: scale(1); }
+  ${HOLD}%               { opacity: 1; transform: scale(1); }
+  ${RESET}%, 100%        { opacity: 0; transform: scale(.88); }
+}`;
+}).join('')}
+${[0, 1, 2].map((j) => {
+  const s = FEE_START + j * FEE_STEP;
+  return `
+@keyframes tx-fee-${j} {
+  0%, ${s}%        { opacity: 0; transform: translateY(4px); animation-timing-function: cubic-bezier(.2,.8,.3,1); }
+  ${s + FEE_DUR}%  { opacity: 1; transform: translateY(0); }
+  ${HOLD}%         { opacity: 1; transform: translateY(0); }
+  ${RESET}%, 100%  { opacity: 0; transform: translateY(4px); }
+}`;
+}).join('')}
+`;
+
+/** Toutes les animations partagent la même durée, le même départ (0s) et la même boucle. */
+const A = (name: string) => `${name} 7s linear 0s infinite both`;
+
+/** Rien n'est émis quand `animated` est faux : le rendu statique reste au pixel près. */
+const makeAnim = (animated: boolean) => (v: string): React.CSSProperties =>
+  (animated ? { animation: v } : {});
+
 /* ── Carte de bien ── */
-const DealCard: React.FC<{ deal: Deal }> = ({ deal }) => (
+const DealCard: React.FC<{ deal: Deal; animated: boolean; c: number; j: number }> = ({
+  deal, animated, c, j,
+}) => {
+  const anim = makeAnim(animated);
+  return (
   <div
     style={{
       height: deal.banner ? CARD_HERO_H : CARD_H,
@@ -235,6 +351,7 @@ const DealCard: React.FC<{ deal: Deal }> = ({ deal }) => (
       padding: 8,
       display: 'flex',
       flexDirection: 'column',
+      ...anim(A(`tx-card-${c}-${j}`)),
     }}
   >
     {/* Vignette + identité du bien */}
@@ -304,6 +421,7 @@ const DealCard: React.FC<{ deal: Deal }> = ({ deal }) => (
         style={{
           fontSize: 9.5, color: deal.metaColor ?? C.textSecondary,
           fontWeight: deal.metaColor ? 700 : 500, lineHeight: '14px', minWidth: 0, ...ELL, ...NUM,
+          ...(deal.metaColor ? anim(A(`tx-fee-${j}`)) : {}),
         }}
       >
         {deal.meta}
@@ -316,6 +434,7 @@ const DealCard: React.FC<{ deal: Deal }> = ({ deal }) => (
         style={{
           height: 22, marginTop: 7, borderRadius: 7, background: deal.banner.bg,
           display: 'flex', alignItems: 'center', gap: 5, padding: '0 7px', boxSizing: 'border-box',
+          ...anim(A(`tx-banner-${c}`)),
         }}
       >
         <Ico d={deal.banner.icon} size={11} color={deal.banner.color} sw={2.1} />
@@ -330,10 +449,13 @@ const DealCard: React.FC<{ deal: Deal }> = ({ deal }) => (
       </div>
     )}
   </div>
-);
+  );
+};
 
 /* ── Colonne du pipeline ── */
-const PipeColumn: React.FC<{ col: Column }> = ({ col }) => (
+const PipeColumn: React.FC<{ col: Column; animated: boolean; c: number }> = ({ col, animated, c }) => {
+  const anim = makeAnim(animated);
+  return (
   <div
     style={{
       flex: 1, minWidth: 0, height: COL_H, boxSizing: 'border-box',
@@ -342,7 +464,7 @@ const PipeColumn: React.FC<{ col: Column }> = ({ col }) => (
     }}
   >
     {/* En-tête de colonne */}
-    <div style={{ height: COL_HEAD_H, marginBottom: 8 }}>
+    <div style={{ height: COL_HEAD_H, marginBottom: 8, ...anim(A(`tx-colhead-${c}`)) }}>
       <div style={{ height: 14, display: 'flex', alignItems: 'center', gap: 6 }}>
         <span style={{ width: 6, height: 6, borderRadius: 3, background: col.dot, flexShrink: 0 }} />
         <span
@@ -376,20 +498,25 @@ const PipeColumn: React.FC<{ col: Column }> = ({ col }) => (
 
     {/* Cartes */}
     <div style={{ height: COL_BODY_H, display: 'flex', flexDirection: 'column', gap: 8, overflow: 'hidden' }}>
-      {col.deals.map((d) => (
-        <DealCard key={d.title + d.place} deal={d} />
+      {col.deals.map((d, j) => (
+        <DealCard key={d.title + d.place} deal={d} animated={animated} c={c} j={j} />
       ))}
     </div>
   </div>
-);
+  );
+};
 
-export const Transactions: React.FC = () => (
+export const Transactions: React.FC<{ animated?: boolean }> = ({ animated = false }) => {
+  const anim = makeAnim(animated);
+  return (
   <div
     style={{
       width: W, height: H, position: 'relative', overflow: 'hidden',
       borderRadius: 18, fontFamily: F.body, background: C.bgApp, boxSizing: 'border-box',
     }}
   >
+    {animated && <style>{CSS}</style>}
+
     {/* ══ Barre d'application ══ */}
     <div
       style={{
@@ -537,13 +664,14 @@ export const Transactions: React.FC = () => (
 
       {/* ── KPI ── */}
       <div style={{ width: INNER_W, height: KPI_H, marginBottom: 12, display: 'flex', gap: 14 }}>
-        {KPIS.map((k) => (
+        {KPIS.map((k, i) => (
           <div
             key={k.label}
             style={{
               flex: 1, minWidth: 0, height: KPI_H, boxSizing: 'border-box',
               background: C.white, border: `1px solid ${C.border}`, borderRadius: 12,
               boxShadow: SHADOW, padding: '12px 14px', position: 'relative',
+              ...anim(A(`tx-kpi-${i}`)),
             }}
           >
             <div
@@ -584,6 +712,7 @@ export const Transactions: React.FC = () => (
         style={{
           width: INNER_W, height: PIPE_LABEL_H, marginBottom: 8,
           display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+          ...anim(A('tx-head')),
         }}
       >
         <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
@@ -605,10 +734,11 @@ export const Transactions: React.FC = () => (
 
       {/* ── Pipeline (point focal) ── */}
       <div style={{ width: INNER_W, height: COL_H, display: 'flex', gap: 12 }}>
-        {COLUMNS.map((col) => (
-          <PipeColumn key={col.label} col={col} />
+        {COLUMNS.map((col, c) => (
+          <PipeColumn key={col.label} col={col} animated={animated} c={c} />
         ))}
       </div>
     </div>
   </div>
-);
+  );
+};

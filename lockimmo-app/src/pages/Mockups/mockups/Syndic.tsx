@@ -80,9 +80,9 @@ const Icon: React.FC<{ d: string; size?: number; color: string; sw?: number }> =
   </svg>
 );
 
-const Check: React.FC<{ size?: number; color: string; sw?: number }> = ({ size = 12, color, sw = 2.6 }) => (
+const Check: React.FC<{ size?: number; color: string; sw?: number; anim?: React.CSSProperties }> = ({ size = 12, color, sw = 2.6, anim }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke={color}
-    strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', flexShrink: 0 }}>
+    strokeWidth={sw} strokeLinecap="round" strokeLinejoin="round" style={{ display: 'block', flexShrink: 0, ...anim }}>
     <path d="M20 6L9 17l-5-5" />
   </svg>
 );
@@ -129,13 +129,149 @@ const RAPPELS: [string, string, string, string, boolean][] = [
   ['Appel fonds travaux ALUR',     'Échéance le 1er septembre 2026', C.infoLight,    C.info,    false],
 ];
 
-const Card: React.FC<{ w: number; h: number; pad: number; children: React.ReactNode; bg?: string; border?: string }> = ({
-  w, h, pad, children, bg, border,
+/* ═══════════════════════════════════════════════════════════════════════════
+   MOTION — utilisé UNIQUEMENT par <Syndic animated />.
+   Rien de ce bloc n'est émis dans le rendu statique.
+
+   Cycle unique de 7 s partagé par toutes les animations (delay 0s, infinite,
+   both). Aucun décalage via la propriété CSS de delay : l'étalement est encodé DANS
+   les pourcentages des keyframes, sinon les éléments se désynchronisent à la
+   reboucle. À RESET comme à t=0, tout élément animé est à son état initial.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+const DUR = '7s';
+const EASE = 'cubic-bezier(.2,.8,.3,1)';
+
+const HOLD = 86;   // % — fin du maintien de l'écran complet
+const RESET = 93;  // % — tout est redevenu invisible, ensemble
+
+/* Jauge de quorum : circonférence surestimée pour l'état vide (pas de mesure JS) */
+const ARC_ON = (GA_C * QUORUM).toFixed(1);
+const ARC_OFF = (GA_C * (1 - QUORUM)).toFixed(1);
+const ARC_OVER = 240;
+
+/* 1 — Quorum */
+const QG_S = 1, QG_E = 11;            // remplissage de l'arc
+const QDET_S = 4, QDET_E = 7.5;       // ligne « 7 812 / 10 000 … »
+const QPCT_S = 9, QPCT_E = 12.5;      // libellé « 78% »
+const QTIT_S = 9, QTIT_E = 12.5;      // « Quorum atteint »
+const QBADGE_S = 11.5, QBADGE_E = 15; // badge « Art. 25 validé »
+
+/* 2 — Participation */
+const TILE_S = 15, TILE_STEP = 2.5, TILE_D = 5;
+const AVA_S = 23, AVA_E = 28;
+
+/* 3 — Votes : pour chaque résolution, la ligne arrive, la barre se remplit
+   de gauche à droite, puis le badge de résultat se pose avec un rebond. */
+const RES_S = 26, RES_STEP = 5.2;
+const RES_ROW_D = 2.2;                    // apparition de la ligne
+const RES_BAR_S = 1.5, RES_BAR_E = 5;     // remplissage de la barre
+const RES_OUT_S = 5;                      // dépouillement : % + badge
+const RES_PCT_E = 6.8, RES_BADGE_E = 8;
+const NOTE_S = 55, NOTE_E = 57.5;
+
+/* 4/5 — Colonne de droite, en parallèle des votes */
+const DOC_S = 22, DOC_STEP = 3.6;
+const DOC_ROW_D = 2.4, DOC_CHECK_E = 4.6;
+const RAP_S = 38, RAP_STEP = 3, RAP_D = 3;
+const PV_S = 48, PV_E = 52;
+const PVSTAT_S = 51, PVSTAT_STEP = 2, PVSTAT_D = 4;
+
+/* Bilan : construction terminée à 57,5 % (≈ 4,0 s), maintien de l'écran complet
+   jusqu'à HOLD (≈ 2,0 s — la phase la plus longue), puis reset commun. */
+
+const p = (n: number): string => String(Number(n.toFixed(3)));
+
+const fade = (name: string, s: number, e: number): string => `
+@keyframes ${name} {
+  0%, ${p(s)}%       { opacity: 0; }
+  ${p(e)}%           { opacity: 1; }
+  ${p(HOLD)}%        { opacity: 1; }
+  ${p(RESET)}%, 100% { opacity: 0; }
+}`;
+
+const fadeUp = (name: string, s: number, e: number, dy: number): string => `
+@keyframes ${name} {
+  0%, ${p(s)}%       { opacity: 0; transform: translateY(${dy}px); }
+  ${p(e)}%           { opacity: 1; transform: translateY(0); }
+  ${p(HOLD)}%        { opacity: 1; transform: translateY(0); }
+  ${p(RESET)}%, 100% { opacity: 0; transform: translateY(${dy}px); }
+}`;
+
+/** Pose avec un léger rebond (badges de résultat, coches). */
+const pop = (name: string, s: number, e: number): string => `
+@keyframes ${name} {
+  0%, ${p(s)}%       { opacity: 0; transform: scale(.72); }
+  ${p(s + (e - s) * 0.62)}% { opacity: 1; transform: scale(1.08); }
+  ${p(e)}%           { opacity: 1; transform: scale(1); }
+  ${p(HOLD)}%        { opacity: 1; transform: scale(1); }
+  ${p(RESET)}%, 100% { opacity: 0; transform: scale(.72); }
+}`;
+
+/** Rideau qui se rétracte vers la droite : la barre se remplit de gauche à droite. */
+const wipe = (name: string, s: number, e: number): string => `
+@keyframes ${name} {
+  0%, ${p(s)}%       { transform: scaleX(1); }
+  ${p(e)}%           { transform: scaleX(0); }
+  ${p(HOLD)}%        { transform: scaleX(0); }
+  ${p(RESET)}%, 100% { transform: scaleX(1); }
+}`;
+
+const CSS = `
+@keyframes syn-arc {
+  0%, ${p(QG_S)}%    { stroke-dasharray: 0 ${ARC_OVER}; opacity: 0; }
+  ${p(QG_S + 2)}%    { opacity: 1; }
+  ${p(QG_E)}%        { stroke-dasharray: ${ARC_ON} ${ARC_OFF}; opacity: 1; }
+  ${p(HOLD)}%        { stroke-dasharray: ${ARC_ON} ${ARC_OFF}; opacity: 1; }
+  ${p(RESET)}%, 100% { stroke-dasharray: 0 ${ARC_OVER}; opacity: 0; }
+}
+${fade('syn-qpct', QPCT_S, QPCT_E)}
+${fadeUp('syn-qdet', QDET_S, QDET_E, 4)}
+${fadeUp('syn-qtit', QTIT_S, QTIT_E, 5)}
+${pop('syn-qbadge', QBADGE_S, QBADGE_E)}
+${PARTS.map((_, i) => {
+  const s = TILE_S + i * TILE_STEP;
+  return fadeUp(`syn-tile-${i}`, s, s + TILE_D, 9);
+}).join('')}
+${fadeUp('syn-ava', AVA_S, AVA_E, 6)}
+${RESOLUTIONS.map((_, i) => {
+  const s = RES_S + i * RES_STEP;
+  return fadeUp(`syn-row-${i}`, s, s + RES_ROW_D, 8)
+    + wipe(`syn-bar-${i}`, s + RES_BAR_S, s + RES_BAR_E)
+    + fade(`syn-respct-${i}`, s + RES_OUT_S, s + RES_PCT_E)
+    + pop(`syn-resbadge-${i}`, s + RES_OUT_S, s + RES_BADGE_E);
+}).join('')}
+${fade('syn-note', NOTE_S, NOTE_E)}
+${DOCS.map((_, i) => {
+  const s = DOC_S + i * DOC_STEP;
+  return fadeUp(`syn-doc-${i}`, s, s + DOC_ROW_D, 6)
+    + pop(`syn-doccheck-${i}`, s + DOC_ROW_D, s + DOC_CHECK_E);
+}).join('')}
+${RAPPELS.map((_, i) => {
+  const s = RAP_S + i * RAP_STEP;
+  return fadeUp(`syn-rap-${i}`, s, s + RAP_D, 6);
+}).join('')}
+${fadeUp('syn-pv', PV_S, PV_E, 10)}
+${[0, 1].map((i) => {
+  const s = PVSTAT_S + i * PVSTAT_STEP;
+  return fadeUp(`syn-pvstat-${i}`, s, s + PVSTAT_D, 6);
+}).join('')}
+`;
+
+/** Raccourci : toutes les animations partagent durée, delay, itérations, fill-mode. */
+const A = (name: string, easing = 'linear'): string => `${name} ${DUR} ${easing} 0s infinite both`;
+
+const Card: React.FC<{
+  w: number; h: number; pad: number; children: React.ReactNode;
+  bg?: string; border?: string; anim?: React.CSSProperties;
+}> = ({
+  w, h, pad, children, bg, border, anim,
 }) => (
   <div style={{
     width: w, height: h, boxSizing: 'border-box', padding: pad,
     background: bg ?? C.white, borderRadius: 14,
     border: `1px solid ${border ?? C.border}`, boxShadow: SHADOW,
+    ...anim,
   }}>
     {children}
   </div>
@@ -152,11 +288,17 @@ const CardHead: React.FC<{ title: string; sub: string }> = ({ title, sub }) => (
   </>
 );
 
-export const Syndic: React.FC = () => (
+export const Syndic: React.FC<{ animated?: boolean }> = ({ animated = false }) => {
+  /* Rendu statique : `anim` renvoie un objet vide → aucune propriété `animation`
+     n'est émise, et la balise <style> n'est pas montée. Pixel pour pixel identique. */
+  const anim = (v: string): React.CSSProperties => (animated ? { animation: v } : {});
+
+  return (
   <div style={{
     width: W, height: H, position: 'relative', overflow: 'hidden',
     borderRadius: 18, fontFamily: F.body, background: C.bgApp,
   }}>
+    {animated && <style>{CSS}</style>}
 
     {/* ═══════════ BARRE LATÉRALE ═══════════ */}
     <div style={{
@@ -318,11 +460,13 @@ export const Syndic: React.FC = () => (
                     stroke={C.accent} strokeWidth="9" strokeLinecap="round"
                     strokeDasharray={`${(GA_C * QUORUM).toFixed(1)} ${(GA_C * (1 - QUORUM)).toFixed(1)}`}
                     transform={`rotate(-90 ${GA_SIZE / 2} ${GA_SIZE / 2})`}
+                    style={anim(A('syn-arc', 'cubic-bezier(.35,.85,.35,1)'))}
                   />
                 </svg>
                 <div style={{
                   position: 'absolute', inset: 0,
                   display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                  ...anim(A('syn-qpct')),
                 }}>
                   <div style={{
                     fontFamily: F.display, fontSize: 24, fontWeight: 700,
@@ -337,12 +481,16 @@ export const Syndic: React.FC = () => (
               {/* Détail */}
               <div style={{ width: 306 }}>
                 <div style={{ height: 22, display: 'flex', alignItems: 'center', gap: 8 }}>
-                  <span style={{ fontFamily: F.display, fontSize: 17, fontWeight: 700, color: C.textPrimary }}>
+                  <span style={{
+                    fontFamily: F.display, fontSize: 17, fontWeight: 700, color: C.textPrimary,
+                    ...anim(A('syn-qtit', EASE)),
+                  }}>
                     Quorum atteint
                   </span>
                   <span style={{
                     display: 'inline-flex', alignItems: 'center', gap: 4,
                     background: C.successLight, borderRadius: 100, padding: '3px 8px',
+                    ...anim(A('syn-qbadge', EASE)),
                   }}>
                     <Check size={9} color={C.success} sw={3} />
                     <span style={{ fontSize: 8.5, fontWeight: 700, color: C.success, letterSpacing: '0.3px' }}>
@@ -351,17 +499,21 @@ export const Syndic: React.FC = () => (
                   </span>
                 </div>
 
-                <div style={{ height: 15, fontSize: 11.5, color: C.textSecondary, lineHeight: '15px', ...NUM }}>
+                <div style={{
+                  height: 15, fontSize: 11.5, color: C.textSecondary, lineHeight: '15px', ...NUM,
+                  ...anim(A('syn-qdet', EASE)),
+                }}>
                   7 812 / 10 000 tantièmes représentés · 34 votants
                 </div>
 
                 {/* Mini-stats */}
                 <div style={{ marginTop: 10, display: 'flex', gap: 6 }}>
-                  {PARTS.map(([v, l]) => (
+                  {PARTS.map(([v, l], i) => (
                     <div key={l} style={{
                       width: 98, height: 42, boxSizing: 'border-box',
                       background: C.bgLight, border: `1px solid ${C.border}`, borderRadius: 9,
                       padding: '6px 9px',
+                      ...anim(A(`syn-tile-${i}`, EASE)),
                     }}>
                       <div style={{
                         fontFamily: F.display, fontSize: 16, fontWeight: 700,
@@ -375,7 +527,10 @@ export const Syndic: React.FC = () => (
                 </div>
 
                 {/* Copropriétaires */}
-                <div style={{ marginTop: 8, height: 22, display: 'flex', alignItems: 'center' }}>
+                <div style={{
+                  marginTop: 8, height: 22, display: 'flex', alignItems: 'center',
+                  ...anim(A('syn-ava', EASE)),
+                }}>
                   <div style={{ display: 'flex', alignItems: 'center' }}>
                     {AVATARS.map(([ini, bg, fg], i) => (
                       <div key={ini} style={{
@@ -435,13 +590,14 @@ export const Syndic: React.FC = () => (
 
             {/* Lignes */}
             <div style={{ marginTop: 8, display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {RESOLUTIONS.map((r) => {
+              {RESOLUTIONS.map((r, i) => {
                 const pct = Math.round((r.pour / TANTIEMES) * 100);
                 return (
                   <div key={r.n} style={{
                     height: 46, boxSizing: 'border-box', padding: '0 10px',
                     background: C.white, border: `1px solid ${r.adoptee ? C.border : C.borderStrong}`,
                     borderRadius: 10, display: 'flex', alignItems: 'center',
+                    ...anim(A(`syn-row-${i}`, EASE)),
                   }}>
                     {/* Intitulé */}
                     <div style={{ width: 202, display: 'flex', alignItems: 'center', gap: 8 }}>
@@ -474,14 +630,24 @@ export const Syndic: React.FC = () => (
                       <div style={{
                         width: 110, height: 7, borderRadius: 4, overflow: 'hidden',
                         display: 'flex', background: C.bgApp,
+                        ...(animated ? { position: 'relative' as const } : {}),
                       }}>
                         <div style={{ width: `${(r.pour / TANTIEMES) * 100}%`, background: C.success }} />
                         <div style={{ width: `${(r.contre / TANTIEMES) * 100}%`, background: C.error }} />
                         <div style={{ width: `${(r.abst / TANTIEMES) * 100}%`, background: C.borderStrong }} />
+                        {animated && (
+                          /* Rideau : la répartition des voix se remplit de gauche à droite. */
+                          <div style={{
+                            position: 'absolute', inset: 0, background: C.bgApp,
+                            transformOrigin: 'right',
+                            ...anim(A(`syn-bar-${i}`, 'cubic-bezier(.4,.85,.35,1)')),
+                          }} />
+                        )}
                       </div>
                       <div style={{
                         marginTop: 4, fontSize: 8.5, fontWeight: 700,
                         color: r.adoptee ? C.success : C.error, ...NUM,
+                        ...anim(A(`syn-respct-${i}`)),
                       }}>
                         {pct} % des tantièmes
                       </div>
@@ -494,6 +660,7 @@ export const Syndic: React.FC = () => (
                         background: r.adoptee ? C.successLight : C.errorLight,
                         borderRadius: 7, padding: '4px 7px',
                         fontSize: 9, fontWeight: 700, color: r.adoptee ? C.success : C.error,
+                        ...anim(A(`syn-resbadge-${i}`, EASE)),
                       }}>
                         {r.adoptee && <Check size={8} color={C.success} sw={3.4} />}
                         {r.adoptee ? 'Adoptée' : 'Rejetée'}
@@ -504,7 +671,10 @@ export const Syndic: React.FC = () => (
               })}
             </div>
 
-            <div style={{ marginTop: 6, height: 14, fontSize: 9.5, color: C.textMuted, lineHeight: '14px', ...NUM }}>
+            <div style={{
+              marginTop: 6, height: 14, fontSize: 9.5, color: C.textMuted, lineHeight: '14px', ...NUM,
+              ...anim(A('syn-note')),
+            }}>
               Feuille de présence et PV signés par le président de séance et 2 scrutateurs · 0 contestation
             </div>
           </Card>
@@ -517,8 +687,11 @@ export const Syndic: React.FC = () => (
           <Card w={COL_R} h={232} pad={14}>
             <CardHead title="Documents centralisés" sub="Coffre-fort numérique · 128 pièces" />
             <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 6 }}>
-              {DOCS.map(([ext, nom, meta, bg, fg]) => (
-                <div key={nom} style={{ height: 34, display: 'flex', alignItems: 'center', gap: 9 }}>
+              {DOCS.map(([ext, nom, meta, bg, fg], i) => (
+                <div key={nom} style={{
+                  height: 34, display: 'flex', alignItems: 'center', gap: 9,
+                  ...anim(A(`syn-doc-${i}`, EASE)),
+                }}>
                   <div style={{
                     width: 24, height: 28, borderRadius: 5, background: bg, flexShrink: 0,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -540,7 +713,7 @@ export const Syndic: React.FC = () => (
                       {meta}
                     </div>
                   </div>
-                  <Check size={13} color={C.success} />
+                  <Check size={13} color={C.success} anim={anim(A(`syn-doccheck-${i}`, EASE))} />
                 </div>
               ))}
             </div>
@@ -550,8 +723,11 @@ export const Syndic: React.FC = () => (
           <Card w={COL_R} h={178} pad={14}>
             <CardHead title="Rappels automatiques" sub="Délais légaux respectés" />
             <div style={{ marginTop: 12, display: 'flex', flexDirection: 'column', gap: 8 }}>
-              {RAPPELS.map(([label, meta, bg, fg, done]) => (
-                <div key={label} style={{ height: 30, display: 'flex', alignItems: 'center', gap: 9 }}>
+              {RAPPELS.map(([label, meta, bg, fg, done], i) => (
+                <div key={label} style={{
+                  height: 30, display: 'flex', alignItems: 'center', gap: 9,
+                  ...anim(A(`syn-rap-${i}`, EASE)),
+                }}>
                   <div style={{
                     width: 18, height: 18, borderRadius: 6, background: bg, flexShrink: 0,
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -580,7 +756,7 @@ export const Syndic: React.FC = () => (
           </Card>
 
           {/* ── PV généré automatiquement ── */}
-          <Card w={COL_R} h={104} pad={14} bg={C.accentLight} border={C.accentSoft}>
+          <Card w={COL_R} h={104} pad={14} bg={C.accentLight} border={C.accentSoft} anim={anim(A('syn-pv', EASE))}>
             <div style={{ height: 18, display: 'flex', alignItems: 'center', gap: 8 }}>
               <div style={{
                 width: 18, height: 18, borderRadius: '50%', background: C.accent, flexShrink: 0,
@@ -594,8 +770,8 @@ export const Syndic: React.FC = () => (
             </div>
 
             <div style={{ marginTop: 10, display: 'flex', gap: 12 }}>
-              {([['43', 'Copropriétaires notifiés', C.textPrimary], ['0', 'Contestation', C.success]] as [string, string, string][]).map(([v, l, col]) => (
-                <div key={l} style={{ width: 112 }}>
+              {([['43', 'Copropriétaires notifiés', C.textPrimary], ['0', 'Contestation', C.success]] as [string, string, string][]).map(([v, l, col], i) => (
+                <div key={l} style={{ width: 112, ...anim(A(`syn-pvstat-${i}`, EASE)) }}>
                   <div style={{
                     fontFamily: F.display, fontSize: 22, fontWeight: 700,
                     color: col, lineHeight: '26px', ...NUM,
@@ -611,4 +787,5 @@ export const Syndic: React.FC = () => (
       </div>
     </div>
   </div>
-);
+  );
+};
