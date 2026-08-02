@@ -24,7 +24,7 @@ const H = 480;
 
 const CARD_W = 452;
 const CARD_X = (W - CARD_W) / 2; // 94
-const CARD_Y = 116;
+const CARD_Y = 77;
 const HEADER_H = 52;
 const PAD = 18;
 const GAP = 12;
@@ -160,19 +160,6 @@ export const SupportChat: React.FC = () => (
     background: C.bgApp, borderRadius: 18, fontFamily: F.body,
   }}>
     <style>{CSS}</style>
-
-    {/* Titre */}
-    <div style={{ position: 'absolute', top: 42, left: 0, right: 0, textAlign: 'center' }}>
-      <div style={{
-        fontSize: 11, fontWeight: 700, letterSpacing: '1.4px',
-        color: C.textMuted, textTransform: 'uppercase', marginBottom: 7,
-      }}>
-        Support
-      </div>
-      <div style={{ fontFamily: F.display, fontSize: 25, fontWeight: 700, color: C.textPrimary, letterSpacing: '-0.4px' }}>
-        Une réponse humaine, tout de suite
-      </div>
-    </div>
 
     {/* Fenêtre de chat */}
     <div style={{

@@ -15,7 +15,7 @@ const H = 480;
 
 const CARD_X = 160;
 const CARD_W = 320;
-const CARD_Y = 182;
+const CARD_Y = 139;
 const CARD_PAD = 15;
 const ROW_H = 34;
 
@@ -106,22 +106,9 @@ export const AiAutomation: React.FC = () => (
   }}>
     <style>{CSS}</style>
 
-    {/* Titre */}
-    <div style={{ position: 'absolute', top: 42, left: 0, right: 0, textAlign: 'center' }}>
-      <div style={{
-        fontSize: 11, fontWeight: 700, letterSpacing: '1.4px',
-        color: C.textMuted, textTransform: 'uppercase', marginBottom: 7,
-      }}>
-        Automatisation
-      </div>
-      <div style={{ fontFamily: F.display, fontSize: 25, fontWeight: 700, color: C.textPrimary, letterSpacing: '-0.4px' }}>
-        Vos tâches, en pilote automatique
-      </div>
-    </div>
-
     {/* Noyau IA */}
     <div style={{
-      position: 'absolute', left: '50%', top: 116, transform: 'translateX(-50%)',
+      position: 'absolute', left: '50%', top: 73, transform: 'translateX(-50%)',
       width: 46, height: 46,
     }}>
       {/* Halo pulsé */}
@@ -224,7 +211,7 @@ export const AiAutomation: React.FC = () => (
 
     {/* Badge de synthèse */}
     <div style={{
-      position: 'absolute', left: 0, right: 0, bottom: 36,
+      position: 'absolute', left: 0, right: 0, bottom: 79,
       display: 'flex', justifyContent: 'center',
       animation: 'ai-badge 5s linear 0s infinite both',
     }}>

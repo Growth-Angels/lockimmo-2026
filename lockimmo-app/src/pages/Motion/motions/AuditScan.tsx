@@ -21,7 +21,7 @@ const H = 480;
 
 /* ── Fenêtre de défilement ── */
 const VIEW_X = 120;
-const VIEW_Y = 144;
+const VIEW_Y = 99;
 const VIEW_W = 400;
 const VIEW_H = 252;
 
@@ -265,19 +265,6 @@ export const AuditScan: React.FC = () => (
   }}>
     <style>{CSS}</style>
 
-    {/* Titre */}
-    <div style={{ position: 'absolute', top: 42, left: 0, right: 0, textAlign: 'center' }}>
-      <div style={{
-        fontSize: 11, fontWeight: 700, letterSpacing: '1.4px',
-        color: C.textMuted, textTransform: 'uppercase', marginBottom: 7,
-      }}>
-        Contrôle
-      </div>
-      <div style={{ fontFamily: F.display, fontSize: 25, fontWeight: 700, color: C.textPrimary, letterSpacing: '-0.4px' }}>
-        Chaque pièce est vérifiée
-      </div>
-    </div>
-
     {/* Fenêtre de défilement */}
     <div style={{
       position: 'absolute', left: VIEW_X, top: VIEW_Y,
@@ -332,7 +319,7 @@ export const AuditScan: React.FC = () => (
     </div>
 
     {/* Badge permanent */}
-    <div style={{ position: 'absolute', left: 0, right: 0, bottom: 36, display: 'flex', justifyContent: 'center' }}>
+    <div style={{ position: 'absolute', left: 0, right: 0, bottom: 81, display: 'flex', justifyContent: 'center' }}>
       <div style={{
         display: 'flex', alignItems: 'center', gap: 9,
         background: C.white, border: `1px solid ${C.border}`,

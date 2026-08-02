@@ -27,7 +27,7 @@ const CARD_H = 170;
 const GAP = 18;
 const PITCH = CARD_W + GAP;              // 190
 
-const BAND_TOP = 140;
+const BAND_TOP = 88;
 const BAND_H = 226;
 const CARD_TOP = (BAND_H - CARD_H) / 2;  // 28
 const FADE_W = 72;
@@ -197,19 +197,6 @@ export const Academie: React.FC = () => (
   }}>
     <style>{CSS}</style>
 
-    {/* Titre */}
-    <div style={{ position: 'absolute', top: 42, left: 0, right: 0, textAlign: 'center' }}>
-      <div style={{
-        fontSize: 11, fontWeight: 700, letterSpacing: '1.4px',
-        color: C.textMuted, textTransform: 'uppercase', marginBottom: 7,
-      }}>
-        LOCK'Académie
-      </div>
-      <div style={{ fontFamily: F.display, fontSize: 25, fontWeight: 700, color: C.textPrimary, letterSpacing: '-0.4px' }}>
-        Progressez à votre rythme
-      </div>
-    </div>
-
     {/* Bande de vignettes défilantes */}
     <div style={{
       position: 'absolute', left: 0, right: 0, top: BAND_TOP, height: BAND_H,
@@ -238,7 +225,7 @@ export const Academie: React.FC = () => (
 
     {/* Badge de synthèse */}
     <div style={{
-      position: 'absolute', left: 0, right: 0, bottom: 36,
+      position: 'absolute', left: 0, right: 0, bottom: 88,
       display: 'flex', justifyContent: 'center',
     }}>
       <div style={{

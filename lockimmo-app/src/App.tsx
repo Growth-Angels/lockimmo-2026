@@ -11,6 +11,7 @@ import { Finances } from './pages/Finances';
 import { Encaissements } from './pages/Encaissements';
 import { Icones } from './pages/Icones';
 import { Motion } from './pages/Motion';
+import { MotionSolo } from './pages/Motion/Solo';
 import { Comptabilite } from './pages/Comptabilite';
 import { Sinistres } from './pages/Sinistres';
 import { AutomatisationsLoyers } from './pages/AutomatisationsLoyers';
@@ -32,6 +33,8 @@ export default function App() {
         <Route path="/encaissements"     element={<Layout><Encaissements /></Layout>} />
         <Route path="/icones"            element={<Layout><Icones /></Layout>} />
         <Route path="/motion"            element={<Layout><Motion /></Layout>} />
+        {/* Page de capture : hors Layout, aucune chrome autour de la scène */}
+        <Route path="/capture/:id"       element={<MotionSolo />} />
         <Route path="/comptabilite"      element={<Layout><Comptabilite /></Layout>} />
         <Route path="/sinistres"         element={<Layout><Sinistres /></Layout>} />
         <Route path="/automatisations-loyers" element={<Layout><AutomatisationsLoyers /></Layout>} />

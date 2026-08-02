@@ -16,7 +16,7 @@ const H = 480;
 
 /* ── Carte « fenêtre d'app » ── */
 const CARD_X = 56;
-const CARD_Y = 126;
+const CARD_Y = 87;
 const CARD_W = 528;
 const CARD_H = 306;
 const PAD = 16;
@@ -184,19 +184,6 @@ export const LiveDashboard: React.FC = () => (
     background: C.bgApp, borderRadius: 18, fontFamily: F.body,
   }}>
     <style>{CSS}</style>
-
-    {/* Titre */}
-    <div style={{ position: 'absolute', top: 42, left: 0, right: 0, textAlign: 'center' }}>
-      <div style={{
-        fontSize: 11, fontWeight: 700, letterSpacing: '1.4px',
-        color: C.textMuted, textTransform: 'uppercase', marginBottom: 7,
-      }}>
-        Pilotage
-      </div>
-      <div style={{ fontFamily: F.display, fontSize: 25, fontWeight: 700, color: C.textPrimary, letterSpacing: '-0.4px' }}>
-        Vos chiffres, en temps réel
-      </div>
-    </div>
 
     {/* ── Fenêtre d'application ── */}
     <div style={{

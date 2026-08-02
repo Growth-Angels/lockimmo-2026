@@ -11,7 +11,7 @@ const H = 480;
 
 const CARD_W = 186;
 const CARD_H = 244;
-const CARD_Y = 138;
+const CARD_Y = 89;
 const LEFT_X = 52;
 const RIGHT_X = W - 52 - CARD_W;          // 402
 const TRAVEL = RIGHT_X - (LEFT_X + CARD_W); // 164 px parcourus par les paquets
@@ -83,19 +83,6 @@ export const DataTransfer: React.FC = () => (
     background: C.bgApp, borderRadius: 18, fontFamily: F.body,
   }}>
     <style>{CSS}</style>
-
-    {/* Titre */}
-    <div style={{ position: 'absolute', top: 44, left: 0, right: 0, textAlign: 'center' }}>
-      <div style={{
-        fontSize: 11, fontWeight: 700, letterSpacing: '1.4px',
-        color: C.textMuted, textTransform: 'uppercase', marginBottom: 7,
-      }}>
-        Migration
-      </div>
-      <div style={{ fontFamily: F.display, fontSize: 25, fontWeight: 700, color: C.textPrimary, letterSpacing: '-0.4px' }}>
-        Vos données, structurées
-      </div>
-    </div>
 
     {/* Trait de liaison animé */}
     <svg width={TRAVEL} height="2" style={{ position: 'absolute', left: LEFT_X + CARD_W, top: CARD_Y + CARD_H / 2 }}>
@@ -198,7 +185,7 @@ export const DataTransfer: React.FC = () => (
 
     {/* Badge « transfert terminé » */}
     <div style={{
-      position: 'absolute', left: 0, right: 0, bottom: 46,
+      position: 'absolute', left: 0, right: 0, bottom: 95,
       display: 'flex', justifyContent: 'center',
       animation: 'mt-badge 5s cubic-bezier(.2,.8,.3,1) 0s infinite',
     }}>
