@@ -24,6 +24,7 @@ const NAV = [
   { path: '/communication',    label: 'Communication',      icon: 'message-circle'},
   { path: '/diffusion',         label: 'Diffusion',           icon: 'broadcast'     },
   { path: '/icones',            label: 'Icônes',              icon: 'shapes'        },
+  { path: '/motion',            label: 'Motion',              icon: 'film'          },
 ];
 
 export const Sidebar: React.FC = () => {
