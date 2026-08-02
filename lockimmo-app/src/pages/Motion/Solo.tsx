@@ -2,6 +2,13 @@ import React from 'react';
 import { useParams, useSearchParams } from 'react-router-dom';
 import { C } from '../../tokens';
 import { MOTIONS } from './registry';
+import { MOCKUPS } from '../Mockups/registry';
+
+/** Scènes capturables : motions animés + mockups statiques. */
+const CAPTURABLE = [
+  ...MOTIONS.map((m) => ({ id: m.id, width: m.width, height: m.height, Component: m.Component })),
+  ...MOCKUPS.map((m) => ({ id: m.id, width: m.width, height: m.height, Component: m.Component })),
+];
 
 /**
  * Page de capture : affiche UNE seule scène, seule au centre d'une page nue
@@ -19,7 +26,7 @@ export const MotionSolo: React.FC = () => {
   const bare = params.get('bare') === '1';
   const grid = params.get('grid') === '1';
 
-  const motion = MOTIONS.find((m) => m.id === id);
+  const motion = CAPTURABLE.find((m) => m.id === id);
 
   if (!motion) {
     return (
@@ -30,7 +37,7 @@ export const MotionSolo: React.FC = () => {
         <div>
           <div style={{ fontWeight: 700, color: C.textPrimary, marginBottom: 10 }}>Motion introuvable</div>
           <div style={{ marginBottom: 14 }}>Identifiants disponibles :</div>
-          {MOTIONS.map((m) => (
+          {CAPTURABLE.map((m) => (
             <div key={m.id} style={{ fontFamily: 'ui-monospace, monospace', fontSize: 12.5 }}>
               /capture/{m.id}
             </div>
@@ -48,13 +55,16 @@ export const MotionSolo: React.FC = () => {
       display: 'flex', alignItems: 'center', justifyContent: 'center',
       background: bare ? C.bgApp : C.bgPage,
     }}>
-      <div style={{
-        position: 'relative',
-        width: motion.width, height: motion.height,
-        flexShrink: 0,
-        borderRadius: bare ? 0 : 18,
-        overflow: 'hidden',
-      }}>
+      <div
+        data-capture-stage=""
+        style={{
+          position: 'relative',
+          width: motion.width, height: motion.height,
+          flexShrink: 0,
+          borderRadius: bare ? 0 : 18,
+          overflow: 'hidden',
+        }}
+      >
         <Component />
 
         {/* Repères d'angle — aident à caler la sélection de capture au pixel près */}

@@ -43,6 +43,7 @@ const SCALE = Number(flag('scale', 2));       // 2 ⇒ 1280×960
 const LOOPS = Number(flag('loops', 1));
 const PORT = Number(flag('port', 9333));
 const WANT_GIF = has('gif');
+const WANT_PNG = has('png');
 const OUT_DIR = flag('out', join(ROOT, 'exports'));
 const ONLY = argv.filter((a) => !a.startsWith('--'));
 
@@ -125,15 +126,21 @@ async function evaluate(cdp, session, fn, arg) {
 /* ─────────── code exécuté DANS la page (sérialisé) ─────────── */
 
 // Mesure la scène et la durée de boucle, puis met toutes les animations en pause.
+// La scène est repérée par [data-capture-stage] (posé par la page /capture/:id),
+// ce qui rend la mesure indépendante de ses dimensions.
 function pageProbe() {
-  const stage = [...document.querySelectorAll('div')].find((d) => {
-    const r = d.getBoundingClientRect();
-    return Math.round(r.width) === 640 && Math.round(r.height) === 480;
-  });
-  if (!stage) return { error: 'scène 640×480 introuvable' };
+  const stage = document.querySelector('[data-capture-stage]');
+  if (!stage) return { error: 'scène introuvable ([data-capture-stage] absent)' };
+
+  const r = stage.getBoundingClientRect();
+  const rect = {
+    x: Math.round(r.x), y: Math.round(r.y),
+    width: Math.round(r.width), height: Math.round(r.height),
+  };
 
   const anims = document.getAnimations();
-  if (!anims.length) return { error: 'aucune animation trouvée' };
+  // Un mockup statique n'a aucune animation : ce n'est pas une erreur.
+  if (!anims.length) return { cycle: 0, oddDurations: [], animCount: 0, rect };
 
   const durations = anims.map((a) => {
     const d = a.effect.getComputedTiming().duration;
@@ -146,13 +153,7 @@ function pageProbe() {
 
   anims.forEach((a) => a.pause());
 
-  const r = stage.getBoundingClientRect();
-  return {
-    cycle,
-    oddDurations: odd,
-    animCount: anims.length,
-    rect: { x: Math.round(r.x), y: Math.round(r.y), width: 640, height: 480 },
-  };
+  return { cycle, oddDurations: odd, animCount: anims.length, rect };
 }
 
 // Positionne toutes les animations sur l'instant t (ms). Les animations infinies
@@ -177,6 +178,19 @@ async function exportMotion(cdp, session, id, tmpRoot) {
   if (probe.error) throw new Error(probe.error);
   if (probe.oddDurations.length) {
     console.log(`\n  ⚠︎ durées ne divisant pas le cycle: ${probe.oddDurations} — la boucle peut sauter`);
+  }
+
+  // ── Écran statique (mockup) ou mode --png : une seule image, pas de vidéo ──
+  if (probe.cycle === 0 || WANT_PNG) {
+    await mkdir(OUT_DIR, { recursive: true });
+    const png = join(OUT_DIR, `${id}.png`);
+    const { data } = await cdp.send('Page.captureScreenshot', {
+      format: 'png', captureBeyondViewport: false,
+      clip: { ...probe.rect, scale: SCALE },
+    }, session);
+    await writeFile(png, Buffer.from(data, 'base64'));
+    console.log(`ok — image ${probe.rect.width}×${probe.rect.height} ×${SCALE}`);
+    return { png, frames: 1, cycleMs: 0 };
   }
 
   const cycleMs = probe.cycle;
@@ -290,7 +304,8 @@ async function exportMotion(cdp, session, id, tmpRoot) {
   for (const r of results) {
     if (r.error) { console.log(`✗ ${r.id.padEnd(16)} ${r.error}`); continue; }
     const files = (await readdir(OUT_DIR)).filter((f) => f.startsWith(r.id + '.'));
-    console.log(`✓ ${r.id.padEnd(16)} ${r.cycleMs / 1000}s · ${r.frames} img · ${files.join(', ')}`);
+    const kind = r.cycleMs ? `${r.cycleMs / 1000}s · ${r.frames} img` : 'image fixe';
+    console.log(`✓ ${r.id.padEnd(18)} ${kind.padEnd(18)} ${files.join(', ')}`);
   }
   console.log(`\n${OUT_DIR}`);
 })();
